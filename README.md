@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ясная Память — Frontend
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Открой [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Структура проекта
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Весь код приложения находится в папке `source/` по методологии FSD:
 
-## Learn More
+- `app` — инициализация приложения, провайдеры
+- `pages` — композиция страниц
+- `widgets` — крупные самостоятельные блоки UI
+- `features` — пользовательские сценарии
+- `entites` — бизнес-сущности
+- `shared` — переиспользуемые утилиты, UI-кит, константы
 
-To learn more about Next.js, take a look at the following resources:
+## Работа в Git
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `main` — стабильная ветка, не трогаем до завершения работы над проектом.
+- `develop` — целевая ветка, в ней находится актуальный результат разработки.
+- Ветка задачи создаётся от `develop` для реализации конкретной фичи из таск-менеджера.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Именование веток
 
-## Deploy on Vercel
+`[префикс]/[номер задачи]-[краткое описание]`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Пример: `feat/5-add-radix-ui`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Префиксы
+
+| Префикс    | Значение                   |
+| ---------- | -------------------------- |
+| `feat`     | новая фича                 |
+| `refactor` | рефакторинг                |
+| `fix`      | фикс (`hotfix:` — хотфикс) |
+| `release`  | релиз                      |
+
+### Коммиты
+
+`[префикс]: [комментарий]`
+
+Пример: `fix: change route redirect`
+
+## Стек технологий
+
+- Next.js
+- CSS Modules
+- Radix UI
+- React Hook Form
+- Zod
+- Zustand
+- TanStack Query
+- clsx
+
+```
+
+```
