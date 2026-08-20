@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { createUrl, routerPath } from '@shared/lib/routes'
+import Link from 'next/link'
 
 const AuthPage: React.FC = () => {
 	return (

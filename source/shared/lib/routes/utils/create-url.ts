@@ -1,7 +1,9 @@
 import { routeQueryParams } from '../config'
 import type { TCreateUrlArgs, TRouterPathValue } from '../types'
 
-export const createUrl = <T extends TRouterPathValue>(...args: TCreateUrlArgs<T>): string => {
+export const createUrl = <T extends TRouterPathValue>(
+	...args: TCreateUrlArgs<T>
+): string => {
 	const [path, params, queryParams] = args
 
 	let url: string = `/${path}`

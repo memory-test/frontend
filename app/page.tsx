@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import { Suspense } from 'react'
 import { QueryParamsControl } from '@features/query-params-control'
 import { createUrl, routerPath } from '@shared/lib/routes'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 const HomePage: React.FC = () => {
 	return (

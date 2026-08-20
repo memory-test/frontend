@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouteQueryParams } from '@shared/lib/routes'
+import { useState } from 'react'
 
 export const QueryParamsControl: React.FC = () => {
 	const { queryParams, setQueryParams } = useRouteQueryParams()
@@ -16,7 +16,10 @@ export const QueryParamsControl: React.FC = () => {
 				onChange={(event) => setValue(event.target.value)}
 				placeholder="Значение query"
 			/>
-			<button type="button" onClick={() => setQueryParams({ query: value || null })}>
+			<button
+				type="button"
+				onClick={() => setQueryParams({ query: value || null })}
+			>
 				Установить query
 			</button>
 			<button

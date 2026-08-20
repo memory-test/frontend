@@ -1,8 +1,11 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { mergeRouteQueryParams, parseRouteQueryParams } from '../utils/route-query-params'
 import type { TRouteQueryParamsUpdate } from '../types'
+import {
+	mergeRouteQueryParams,
+	parseRouteQueryParams,
+} from '../utils/route-query-params'
 
 export const useRouteQueryParams = () => {
 	const router = useRouter()

@@ -18,8 +18,14 @@ export const routeQueryParams = {
 // Routes
 export const routerPath = {
 	auth: defineRoute([routeSegments.auth]),
-	forgotPassword: defineRoute([routeSegments.auth, routeSegments.forgotPassword]),
-	recoveryPassword: defineRoute([routeSegments.auth, routeSegments.recoveryPassword]),
+	forgotPassword: defineRoute([
+		routeSegments.auth,
+		routeSegments.forgotPassword,
+	]),
+	recoveryPassword: defineRoute([
+		routeSegments.auth,
+		routeSegments.recoveryPassword,
+	]),
 
 	profile: defineRoute([routeSegments.profile]),
 }

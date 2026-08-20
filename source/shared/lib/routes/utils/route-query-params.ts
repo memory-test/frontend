@@ -8,7 +8,8 @@ import type {
 export const parseRouteQueryParams = (
 	search: string | URLSearchParams,
 ): TRouteQueryParamsState => {
-	const searchParams = typeof search === 'string' ? new URLSearchParams(search) : search
+	const searchParams =
+		typeof search === 'string' ? new URLSearchParams(search) : search
 
 	return Object.fromEntries(
 		(Object.keys(routeQueryParams) as TRouteQueryParamName[]).map((name) => [
