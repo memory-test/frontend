@@ -1,0 +1,6 @@
+rc: ./.lefthookrc
+
+pre-commit:
+  commands:
+    lint:
+      run: npm run lint

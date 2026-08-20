@@ -18,7 +18,7 @@
 			"@pages/*": ["./source/pages/*"],
 			"@widgets/*": ["./source/widgets/*"],
 			"@features/*": ["./source/features/*"],
-			"@entites/*": ["./source/entites/*"],
+			"@entities/*": ["./source/entities/*"],
 			"@shared/*": ["./source/shared/*"]
 		},
 		"plugins": [{ "name": "next" }]

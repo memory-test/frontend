@@ -1,4 +1,4 @@
 export type TLogoProps = {
-	urlYandex?: string;
-	urlInclusion?: string;
-};
+	urlYandex?: string
+	urlInclusion?: string
+}

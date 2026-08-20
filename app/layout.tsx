@@ -1,9 +1,11 @@
-import "./globals.css";
+import '@app/styles/globals.css'
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 	return (
 		<html lang="ru">
 			<body>{children}</body>
 		</html>
-	);
+	)
 }
+
+export default RootLayout

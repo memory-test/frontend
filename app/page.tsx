@@ -1,5 +1,5 @@
-const Home = () => {
-	return <h1>Hello world</h1>;
-};
+const HomePage: React.FC = () => {
+	return <h1>Hello world</h1>
+}
 
-export default Home;
+export default HomePage
