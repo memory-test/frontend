@@ -1,11 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
-import styles from "./styles.module.css";
-import type { TLogoProps } from "./types";
+import Image from 'next/image'
+import Link from 'next/link'
+import styles from './styles.module.css'
+import type { TLogoProps } from './types'
 
 const logoYandex = (
 	<Image src="/logo-yandex.svg" alt="логотип яндекса" width={48} height={48} />
-);
+)
 const logoInclusion = (
 	<Image
 		src="/logo-inclusion.svg"
@@ -13,7 +13,7 @@ const logoInclusion = (
 		width={48}
 		height={48}
 	/>
-);
+)
 
 const Logo = ({ urlYandex, urlInclusion }: TLogoProps) => {
 	return (
@@ -32,7 +32,7 @@ const Logo = ({ urlYandex, urlInclusion }: TLogoProps) => {
 				logoInclusion
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default Logo;
+export default Logo

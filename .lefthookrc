@@ -1,0 +1,9 @@
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+export PATH="$ROOT/node_modules/.bin:$PATH"
+
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+if command -v fnm >/dev/null 2>&1; then
+	eval "$(fnm env)"
+fi
