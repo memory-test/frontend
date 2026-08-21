@@ -1,6 +1,6 @@
 import { Logo } from '@shared/ui/logo'
-import type { THeaderProps } from '.'
 import styles from './styles.module.css'
+import type { THeaderProps } from './types'
 
 export const Header: React.FC<THeaderProps> = ({ children }) => (
 	<header className={styles.header}>

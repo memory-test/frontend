@@ -1,1 +1,2 @@
-export type THeaderProps = React.PropsWithChildren
+export { Header } from './header'
+export type { THeaderProps } from './types'
