@@ -18,7 +18,7 @@
 }
 
 .brandTitle {
-	font-family: "Inter", system-ui, sans-serif;
+	font-family: var(--font-main);
 	font-size: var(--font-size-mobile-body-lg);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-mobile-body-lg);
