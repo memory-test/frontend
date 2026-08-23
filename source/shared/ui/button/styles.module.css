@@ -1,0 +1,132 @@
+.button {
+	--bw: 0px; /* бордер варианта */
+	--py: 12px; /* вертикальная база */
+	--px: 28px; /* горизонтальная база */
+	padding: calc(var(--py) - var(--bw)) calc(var(--px) - var(--bw));
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	font-family: inherit;
+	font-weight: var(--font-weight-medium);
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+
+/* ===== Размеры: только переменные и типографика ===== */
+.lg {
+	--py: 16px;
+	--px: 28px;
+	font-size: var(--font-size-mobile-button-lg);
+	line-height: var(--line-height-mobile-button-lg);
+}
+.md {
+	--py: 12px;
+	--px: 28px;
+	font-size: var(--font-size-mobile-button-md);
+	line-height: var(--line-height-mobile-button-md);
+}
+.sm {
+	--py: 8px;
+	--px: 16px;
+	font-size: var(--font-size-mobile-button-md);
+	line-height: var(--line-height-mobile-button-md);
+}
+
+/* ===== Варианты ===== */
+.default {
+	background-color: var(--primary-color);
+	color: var(--text-on-primary);
+	transition:
+		background-color var(--button-duration-fast) ease-out,
+		color var(--button-duration-fast) ease-out;
+
+	&:hover:not(:disabled) {
+		background-color: var(--primary-dark);
+	}
+
+	&:active {
+		color: var(--primary-light);
+	}
+
+	&:disabled {
+		background-color: var(--border-default);
+		color: var(--foreground-tertiary);
+	}
+}
+
+.outline {
+	--bw: 2px;
+	background-color: transparent;
+	border: 2px solid var(--primary-color);
+	color: var(--foreground-color);
+	transition:
+		background-color var(--button-duration-fast) ease-out,
+		color var(--button-duration-fast) ease-out,
+		border-color var(--button-duration-fast) ease-out;
+
+	&.lg {
+		--px: 24px;
+	}
+	&.md {
+		--px: 24px;
+	}
+	&.sm {
+		--px: 16px;
+	}
+
+	&:hover:not(:disabled) {
+		background-color: var(--primary-light);
+		border-color: var(--primary-dark);
+	}
+
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	&:disabled {
+		background-color: transparent;
+		border-color: var(--border-default);
+		color: var(--foreground-tertiary);
+	}
+}
+
+.ghost {
+	--py: 0px;
+	--px: 0px;
+	--uo: 0px; /* underline offset: подбирается по размеру */
+	color: var(--foreground-color);
+	background-color: transparent;
+	position: relative;
+	transition: color var(--button-duration-fast) ease-out;
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset-inline: var(--px);
+		bottom: var(--uo);
+		height: 1px;
+		background-color: currentColor;
+		transition: opacity var(--button-duration-fast) ease-out;
+	}
+
+	&.md {
+		--px: 4px;
+		--uo: -1px;
+	}
+
+	&:hover:not(:disabled)::after {
+		opacity: 0;
+	}
+	&:active {
+		color: var(--foreground-secondary);
+	}
+	&:disabled {
+		color: var(--foreground-tertiary);
+	}
+}

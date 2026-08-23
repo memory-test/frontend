@@ -34,6 +34,9 @@
 	/* ===== Брейкпойнт ===== */
 	--breakpoint-desktop: 1440px;
 
+	/* ===== Transition ===== */
+	--button-duration-fast: 0.2s;
+
 	/* ===== Размеры ===== */
 
 	/* Мобилка */
