@@ -16,17 +16,26 @@ export const Footer: React.FC<TFooterProps> = ({ children }) => {
 					</div>
 
 					<div className={styles.contact}>
-						<span className={styles.contactLabel}>Вопросы и предложения</span>
-						<a href={`mailto:${email}`} className={styles.contactEmail}>
-							{email}
-						</a>
+						<span className={styles.contactLabel}>
+							<span className={styles.contactText}>
+								Вопросы и предложения
+								<span className={styles.contactTextDesktop}> на </span>
+							</span>
+							<span className={styles.contactTextMobile}>
+								<br />
+								на{' '}
+							</span>
+							<a href={`mailto:${email}`} className={styles.contactEmail}>
+								{email}
+							</a>
+						</span>
 					</div>
 
 					{children && <div className={styles.children}>{children}</div>}
 				</div>
 
 				<div className={styles.copyright}>
-					<span>&copy; {currentYear} ООО «Яндекс»</span>
+					<span>&copy; 1997 — {currentYear} ООО «Яндекс»</span>
 				</div>
 			</div>
 		</footer>
