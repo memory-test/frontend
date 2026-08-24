@@ -16,11 +16,6 @@
 	&:disabled {
 		cursor: not-allowed;
 	}
-
-	&:focus-visible {
-		outline: 2px solid var(--border-active);
-		outline-offset: 2px;
-	}
 }
 
 /* ===== Размеры: только переменные и типографика ===== */
@@ -63,6 +58,11 @@
 		background-color: var(--border-default);
 		color: var(--foreground-tertiary);
 	}
+
+	&:focus-visible {
+		outline: 2px solid var(--text-on-primary);
+		outline-offset: -4px;
+	}
 }
 
 .outline {
@@ -99,6 +99,11 @@
 		border-color: var(--border-default);
 		color: var(--foreground-tertiary);
 	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: -5px;
+	}
 }
 
 .ghost {
@@ -128,10 +133,17 @@
 	&:hover:not(:disabled)::after {
 		opacity: 0;
 	}
+
 	&:active {
 		color: var(--foreground-secondary);
 	}
+
 	&:disabled {
 		color: var(--foreground-tertiary);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 2px;
 	}
 }
