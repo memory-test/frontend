@@ -1,11 +1,11 @@
 .surface {
-  background-color: var(--surface-primary);
-  border-radius: 12px;
-  padding: 16px;
+	background-color: var(--surface-primary);
+	border-radius: 12px;
+	padding: 16px;
 }
 
 @media (min-width: 1440px) {
-  .surface {
-    padding: 24px;
-  }
+	.surface {
+		padding: 24px;
+	}
 }
