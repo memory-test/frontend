@@ -1,5 +1,5 @@
-const ExercisePage: React.FC = () => {
-	return <h1>Exercise</h1>
+const InstructionPage: React.FC = () => {
+	return <h1>Exercise Insctruction</h1>
 }
 
-export default ExercisePage
+export default InstructionPage
