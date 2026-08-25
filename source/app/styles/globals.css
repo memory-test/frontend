@@ -12,9 +12,6 @@
 	--surface-primary: oklch(100% 0% 89.876); /* #fff */
 	--surface-secondary: oklch(98.5% 0.5% 247.839); /* #f9fafb */
 
-	/* ===== Название сайта ===== */
-	--brand-title: oklch(20.9% 0% 89.876); /* #181818 */
-
 	/* ===== Текст (уровни) ===== */
 	--foreground-color: oklch(28.8% 3.25% 72.318); /* #2f2a24 */
 	--foreground-secondary: oklch(46.5% 4% 71.125); /* #5f5850 */
@@ -33,6 +30,9 @@
 
 	/* ===== Брейкпойнт ===== */
 	--breakpoint-desktop: 1440px;
+
+	/* ===== Transition ===== */
+	--button-duration-fast: 0.2s;
 
 	/* ===== Размеры ===== */
 
