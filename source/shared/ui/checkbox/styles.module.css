@@ -1,0 +1,81 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	color: var(--foreground-color);
+	user-select: none;
+}
+
+.checkboxRoot {
+	all: unset;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	border: 2px solid var(--border-default);
+	background-color: var(--surface-primary);
+	transition: all 150ms ease;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.checkboxRoot:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
+.checkboxRoot[data-state="checked"] {
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.checkboxRoot[data-state="indeterminate"] {
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.checkboxRoot:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.checkboxIndicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-on-primary);
+}
+
+.checkIcon {
+	width: 14px;
+	height: 14px;
+}
+
+/* Добавляем статус для отображения состояния */
+.status {
+	font-size: var(--font-size-mobile-body-sm);
+	color: var(--foreground-secondary);
+	margin-left: 8px;
+	min-width: 100px;
+}
+
+/* Десктоп */
+@media (min-width: 1440px) {
+	.label {
+		font-size: var(--font-size-desktop-body-md);
+	}
+
+	.status {
+		font-size: var(--font-size-desktop-body-sm);
+	}
+}
