@@ -22,20 +22,20 @@
 	font-size: var(--font-size-mobile-body-lg);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-mobile-body-lg);
-	color: var(--brand-title);
+	color: var(--foreground-color);
 	text-align: center;
 	margin: 0;
 }
 
 .contactEmail {
-	color: var(--brand-title);
+	color: var(--foreground-color);
 	text-decoration: underline;
 	text-underline-offset: 2px;
-	transition: color 0.2s;
+	transition: color var(--button-duration-fast);
 }
 
 .contactEmail:hover {
-	color: var(--primary-color);
+	color: var(--foreground-secondary);
 }
 
 .copyright {
@@ -43,8 +43,7 @@
 	font-size: var(--font-size-mobile-body-md);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-mobile-body-md);
-	color: var(--brand-title);
-	opacity: 0.6;
+	color: var(--foreground-secondary);
 	text-align: center;
 }
 
