@@ -5,14 +5,14 @@
 	align-items: center;
 	block-size: 100%;
 	gap: 48px;
-	padding: 21px 16px;
+	padding: 21px 16px 80px;
 	background-color: var(--bg-primary);
 
 	@media (min-width: 1440px) {
 		flex-direction: row;
 		align-items: flex-start;
 		justify-content: center;
-		padding: 90px 40px;
+		padding: 90px 40px 72px;
 		gap: 22px;
 	}
 }
