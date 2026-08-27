@@ -8,6 +8,7 @@
 	border-bottom-left-radius: 16px;
 	border-bottom-right-radius: 16px;
 	background-color: var(--primary-light);
+	inline-size: 100%;
 }
 
 .brand {
