@@ -12,7 +12,6 @@
 	user-select: none;
 }
 
-/* ===== Сам чекбокс ===== */
 .checkboxRoot {
 	all: unset;
 	display: flex;
@@ -67,7 +66,6 @@
 	);
 }
 
-/* ===== Состояние disabled ===== */
 .checkboxRoot:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
