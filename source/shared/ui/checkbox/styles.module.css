@@ -1,5 +1,5 @@
 .wrapper {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	gap: 12px; /* ← перенесли gap сюда */
 }
@@ -12,6 +12,7 @@
 	user-select: none;
 }
 
+/* ===== Сам чекбокс ===== */
 .checkboxRoot {
 	all: unset;
 	display: flex;
@@ -66,6 +67,7 @@
 	);
 }
 
+/* ===== Состояние disabled ===== */
 .checkboxRoot:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
