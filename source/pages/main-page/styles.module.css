@@ -1,0 +1,74 @@
+.main {
+	inline-size: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	block-size: 100%;
+	gap: 48px;
+	padding: 21px 16px 80px;
+	background-color: var(--bg-primary);
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: center;
+		padding: 90px 40px 72px;
+		gap: 22px;
+	}
+}
+
+.hero {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 40px;
+	padding: 28px;
+	min-block-size: 422px;
+	inline-size: min(100%, 380px);
+	background-color: var(--surface-primary);
+	border-radius: 12px;
+
+	@media (min-width: 1440px) {
+		inline-size: 674px;
+		padding: 32px;
+		gap: 96px;
+	}
+}
+
+.intro {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+@media (min-width: 1440px) {
+	.title {
+		font-size: 4rem; /* 64px */
+		line-height: 3.75rem; /* 60px */
+	}
+}
+
+.text {
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+
+	@media (min-width: 1440px) {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+}
+
+.cta {
+	align-self: flex-end;
+}
+
+.promo {
+	display: block;
+	inline-size: min(100%, 380px);
+	block-size: auto;
+	border-radius: 12px;
+
+	@media (min-width: 1440px) {
+		inline-size: 674px;
+	}
+}

@@ -95,13 +95,41 @@
 	--font-weight-semibold: 600;
 }
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
 body {
 	min-height: 100dvh;
-	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
 	font-family: var(--font-main);
 	font-size: var(--font-size-mobile-body-md);
 	line-height: var(--line-height-mobile-body-md);
 	font-weight: var(--font-weight-regular);
+}
+
+main {
+	flex-grow: 1;
+}
+
+header,
+footer {
+	flex-shrink: 0;
 }
 
 h1,
