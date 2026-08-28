@@ -5,12 +5,12 @@ export const AchievementCard: React.FC<TAchievementCardProps> = ({
 	icon,
 	title,
 	description,
+	as: Tag = 'div', // дефолтное значение
 }) => (
 	<div className={styles.achievementCard}>
-		<div className={styles.icon}>
-			{typeof icon === 'string' ? <span>{icon}</span> : icon}
-		</div>
-		<h2 className={styles.title}>{title}</h2>
+		<div className={styles.icon}>{icon}</div>
+		{/* Динамический тег */}
+		<Tag className={styles.title}>{title}</Tag>
 		{description && <p className={styles.description}>{description}</p>}
 	</div>
 )
