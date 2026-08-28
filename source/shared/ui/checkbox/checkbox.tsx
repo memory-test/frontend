@@ -1,8 +1,8 @@
 'use client'
 
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox' // ← все в одном
-import { CheckIcon } from '@radix-ui/react-icons'
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import clsx from 'clsx'
+import { Check } from 'lucide-react'
 import * as React from 'react'
 import styles from './styles.module.css'
 import type { TCheckboxProps } from './types'
@@ -11,7 +11,8 @@ export const Checkbox = React.forwardRef<
 	React.ComponentRef<typeof CheckboxPrimitive.Root>,
 	TCheckboxProps
 >(({ className, label, id, ...props }, ref) => {
-	const checkboxId = id || `checkbox-${Math.random().toString(36).substr(2, 9)}`
+	const checkboxId =
+		id || `checkbox-${Math.random().toString(36).substring(2, 11)}`
 
 	return (
 		<div className={styles.wrapper}>
@@ -23,10 +24,10 @@ export const Checkbox = React.forwardRef<
 					{...props}
 				>
 					<CheckboxPrimitive.Indicator className={styles.checkboxIndicator}>
-						<CheckIcon className={styles.checkIcon} />
+						<Check className={styles.checkIcon} />
 					</CheckboxPrimitive.Indicator>
 				</CheckboxPrimitive.Root>
-				{label && <span>{label}</span>}
+				{label && <span className={styles.labelText}>{label}</span>}
 			</label>
 		</div>
 	)
