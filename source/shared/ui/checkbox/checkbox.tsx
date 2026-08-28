@@ -27,7 +27,7 @@ export const Checkbox = React.forwardRef<
 						<Check className={styles.checkIcon} />
 					</CheckboxPrimitive.Indicator>
 				</CheckboxPrimitive.Root>
-				{label && <span className={styles.labelText}>{label}</span>}
+				{label && <span>{label}</span>}
 			</label>
 		</div>
 	)
