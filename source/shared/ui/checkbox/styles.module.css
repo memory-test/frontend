@@ -1,5 +1,5 @@
 .wrapper {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	gap: 12px; /* ← перенесли gap сюда */
 }
