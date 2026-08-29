@@ -1,16 +1,14 @@
 .wrapper {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
+	gap: 12px; /* ← перенесли gap сюда */
 }
 
 .label {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	cursor: pointer;
 	font-family: var(--font-main);
 	font-size: var(--font-size-mobile-body-md);
 	color: var(--foreground-color);
+	cursor: pointer;
 	user-select: none;
 }
 

@@ -16,19 +16,21 @@ export const Checkbox = React.forwardRef<
 
 	return (
 		<div className={styles.wrapper}>
-			<label htmlFor={checkboxId} className={styles.label}>
-				<CheckboxPrimitive.Root
-					ref={ref}
-					id={checkboxId}
-					className={clsx(styles.checkboxRoot, className)}
-					{...props}
-				>
-					<CheckboxPrimitive.Indicator className={styles.checkboxIndicator}>
-						<Check className={styles.checkIcon} />
-					</CheckboxPrimitive.Indicator>
-				</CheckboxPrimitive.Root>
-				{label && <span>{label}</span>}
-			</label>
+			<CheckboxPrimitive.Root
+				ref={ref}
+				id={checkboxId}
+				className={clsx(styles.checkboxRoot, className)}
+				{...props}
+			>
+				<CheckboxPrimitive.Indicator className={styles.checkboxIndicator}>
+					<Check className={styles.checkIcon} />
+				</CheckboxPrimitive.Indicator>
+			</CheckboxPrimitive.Root>
+			{label && (
+				<label htmlFor={checkboxId} className={styles.label}>
+					{label}
+				</label>
+			)}
 		</div>
 	)
 })
