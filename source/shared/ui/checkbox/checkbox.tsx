@@ -11,8 +11,8 @@ export const Checkbox = React.forwardRef<
 	React.ComponentRef<typeof CheckboxPrimitive.Root>,
 	TCheckboxProps
 >(({ className, label, id, ...props }, ref) => {
-	const checkboxId =
-		id || `checkbox-${Math.random().toString(36).substring(2, 11)}`
+	const generatedId = React.useId()
+	const checkboxId = id || `checkbox-${generatedId}`
 
 	return (
 		<div className={styles.wrapper}>
