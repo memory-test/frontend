@@ -26,11 +26,10 @@ export const Checkbox = React.forwardRef<
 					<Check className={styles.checkIcon} />
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>
-			{label && (
-				<label htmlFor={checkboxId} className={styles.label}>
-					{label}
-				</label>
-			)}
+
+			<label htmlFor={checkboxId} className={styles.label}>
+				{label}
+			</label>
 		</div>
 	)
 })
