@@ -1,0 +1,15 @@
+.wrapper {
+	display: inline-flex;
+	gap: 16px;
+}
+
+.active,
+.inactive {
+	height: 24px;
+	width: auto;
+	color: black;
+}
+
+.active {
+	fill: yellow;
+}
