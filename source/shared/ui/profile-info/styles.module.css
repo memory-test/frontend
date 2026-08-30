@@ -1,0 +1,44 @@
+.profile {
+	display: flex;
+	gap: 4px;
+	inline-size: 163px;
+	min-block-size: 48px;
+	align-items: center;
+	background-color: transparent;
+}
+
+.avatarContainer {
+	inline-size: 48px;
+	block-size: 48px;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: var(--bg-secondary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.avatarLetter {
+	font-size: var(--font-size-desktop-body-lg);
+	font-weight: var(--font-weight-regular);
+	line-height: 1.2;
+	color: var(--foreground-color);
+}
+
+.avatar {
+	object-fit: cover;
+	object-position: top center;
+	inline-size: 100%;
+	block-size: 100%;
+}
+
+.name {
+	font-size: var(--font-size-desktop-body-md);
+	line-height: var(--line-height-desktop-body-md);
+	color: var(--foreground-color);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+	flex: 1;
+}
