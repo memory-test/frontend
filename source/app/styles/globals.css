@@ -6,6 +6,10 @@
 	--primary-light: oklch(92.8% 4% 172.625); /* #ddebe6 */
 	--text-on-primary: oklch(100% 0% 89.876); /* #fff */
 
+	/* ===== Состояния кнопок ===== */
+	--btn-outline-active: oklch(82% 6% 172.625); /* #b3d1c7 */
+	--btn-outline-hover: oklch(92.8% 4% 172.625); /* #ddebe6 */
+
 	/* ===== Фоны и поверхности ===== */
 	--bg-primary: oklch(97.6% 0.5% 247.839); /* #f6f7f8 */
 	--bg-secondary: oklch(95.6% 1% 236.498); /* #eef1f3 */
