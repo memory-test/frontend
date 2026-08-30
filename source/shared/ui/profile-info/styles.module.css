@@ -27,6 +27,7 @@
 
 .avatar {
 	object-fit: cover;
+	object-position: top center;
 	inline-size: 100%;
 	block-size: 100%;
 }
