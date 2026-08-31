@@ -1,5 +1,5 @@
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import { clsx } from 'clsx'
+import { ScrollArea } from 'radix-ui'
 import styles from './styles.module.css'
 import type { TScrollListProps } from './types'
 
@@ -9,19 +9,19 @@ export const ScrollList: React.FC<TScrollListProps> = ({
 }) => {
 	return (
 		<div className={clsx(styles.scrollList, className)}>
-			<ScrollAreaPrimitive.Root className={styles.scrollAreaRoot} type="auto">
-				<ScrollAreaPrimitive.Viewport className={styles.scrollAreaViewport}>
+			<ScrollArea.Root className={styles.scrollAreaRoot} type="auto">
+				<ScrollArea.Viewport className={styles.scrollAreaViewport}>
 					<div className={styles.list}>{children}</div>
-				</ScrollAreaPrimitive.Viewport>
+				</ScrollArea.Viewport>
 
 				{/* Скроллбар */}
-				<ScrollAreaPrimitive.Scrollbar
+				<ScrollArea.Scrollbar
 					className={styles.scrollAreaScrollbar}
 					orientation="horizontal"
 				>
-					<ScrollAreaPrimitive.Thumb className={styles.scrollAreaThumb} />
-				</ScrollAreaPrimitive.Scrollbar>
-			</ScrollAreaPrimitive.Root>
+					<ScrollArea.Thumb className={styles.scrollAreaThumb} />
+				</ScrollArea.Scrollbar>
+			</ScrollArea.Root>
 		</div>
 	)
 }
