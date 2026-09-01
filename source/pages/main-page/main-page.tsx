@@ -1,5 +1,4 @@
 import { Button } from '@shared/ui/button'
-import { Tag } from '@shared/ui/tag'
 import { Footer } from '@widgets/footer'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -26,10 +25,6 @@ export const MainPage = () => (
 					Начать тренировку
 				</Button>
 			</section>
-
-			<Tag color="primary">Легкий</Tag>
-			<Tag color="warning">Средний</Tag>
-			<Tag color="error">Сложный</Tag>
 
 			<Image
 				src="/images/promo.jpg"

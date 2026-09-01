@@ -1,12 +1,12 @@
 .tag {
 	display: inline-block;
-	padding: 4px 8px;
+	padding: 8px 12px;
 	border-radius: 100px;
 	color: var(--foreground-color);
 	font-family: var(--font-main);
-	font-size: var(--font-size-mobile-body-md);
+	font-size: var(--font-size-mobile-body-lg);
 	font-weight: var(--font-weight-regular);
-	line-height: var(--line-height-mobile-body-md);
+	line-height: var(--line-height-mobile-body-lg);
 	white-space: nowrap;
 }
 
@@ -25,7 +25,7 @@
 /* ===== Десктоп ===== */
 @media (min-width: 1440px) {
 	.tag {
-		font-size: var(--font-size-desktop-body-md);
-		line-height: var(--line-height-desktop-body-md);
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
 	}
 }
