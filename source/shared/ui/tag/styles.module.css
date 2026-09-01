@@ -1,0 +1,31 @@
+.tag {
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 100px;
+	color: var(--foreground-color);
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-mobile-body-md);
+	white-space: nowrap;
+}
+
+.color_primary {
+	background-color: var(--primary-light);
+}
+
+.color_warning {
+	background-color: var(--warning-color-light);
+}
+
+.color_error {
+	background-color: var(--error-color-light);
+}
+
+/* ===== Десктоп ===== */
+@media (min-width: 1440px) {
+	.tag {
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+}
