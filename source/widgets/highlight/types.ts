@@ -8,5 +8,6 @@ export type THighlightProps = {
 	tagText: string
 	tagColor?: TTagColor
 	actionSlot: ReactNode
+	as?: 'h1' | 'h2' | 'h3' | 'h4'
 	className?: string
 }

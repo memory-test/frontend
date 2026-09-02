@@ -1,5 +1,3 @@
-'use client'
-
 import { Tag } from '@shared/ui/tag'
 import clsx from 'clsx'
 import type * as React from 'react'
@@ -12,12 +10,15 @@ export const Highlight: React.FC<THighlightProps> = ({
 	tagText,
 	tagColor = 'primary',
 	actionSlot,
+	as,
 	className,
 }) => {
+	const HeadingTag = as || 'h2'
+
 	return (
 		<div className={clsx(styles.highlight, className)}>
 			<div className={styles.content}>
-				<h1 className={styles.title}>{title}</h1>
+				<HeadingTag className={styles.title}>{title}</HeadingTag>
 
 				<p className={styles.subtitle}>{subtitle}</p>
 
