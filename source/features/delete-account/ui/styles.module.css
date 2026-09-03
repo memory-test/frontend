@@ -1,0 +1,18 @@
+.sectionTitle {
+	margin-bottom: 20px;
+
+	@media (min-width: 1440px) {
+		margin-bottom: 24px;
+	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal__btnWrapper {
+	display: flex;
+	gap: 20px;
+}

@@ -1,3 +1,4 @@
+import { DeleteAccount } from '@features/delete-account'
 import { QueryParamsControl } from '@features/query-params-control'
 import { createUrl, routerPath } from '@shared/lib/routes'
 import Link from 'next/link'
@@ -19,6 +20,7 @@ const HomePage: React.FC = () => {
 			<Suspense fallback="loading...">
 				<QueryParamsControl />
 			</Suspense>
+			<DeleteAccount />
 		</div>
 	)
 }
