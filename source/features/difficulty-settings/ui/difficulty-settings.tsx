@@ -2,7 +2,7 @@
 
 import { Switch } from '@shared/ui/switch'
 import { ToggleGroup } from '@shared/ui/toggle-group'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './styles.module.css'
 import type { TDifficultySettingsState } from './types'
 
@@ -22,19 +22,31 @@ const toggleItems = [
 ]
 
 export const DifficultySettings = () => {
+	// TODO: взять начальное состояние из бека
+	// 32 строка ошибка с типами, поскольку ТС сужает типо до литерала
+	// в будущем когда инфа будет с бека эта ошибка должна уйти
+	const initialState: TDifficultySettingsState = 'easy'
+
 	const [difficultyState, setDifficultyState] =
-		useState<TDifficultySettingsState>('hard')
+		useState<TDifficultySettingsState>(initialState)
+
+	const lastSelectedRef = useRef<Exclude<TDifficultySettingsState, 'auto'>>(
+		initialState === 'auto' ? 'easy' : initialState,
+	)
 
 	return (
-		<article className={styles.settingsCard}>
+		<section className={styles.settingsCard}>
 			<h3>Настройка сложности</h3>
 			<ToggleGroup
 				label="Выбор уровня сложности"
 				items={toggleItems}
 				type="single"
 				value={difficultyState}
-				onValueChange={(value: TDifficultySettingsState) => {
-					if (value) setDifficultyState(value)
+				onValueChange={(value: Exclude<TDifficultySettingsState, 'auto'>) => {
+					if (!value) return
+
+					lastSelectedRef.current = value
+					setDifficultyState(value)
 				}}
 			/>
 			<div className={styles.switchWrapper}>
@@ -46,11 +58,11 @@ export const DifficultySettings = () => {
 						if (checked) {
 							setDifficultyState('auto')
 						} else {
-							setDifficultyState('hard')
+							setDifficultyState(lastSelectedRef.current)
 						}
 					}}
 				/>
 			</div>
-		</article>
+		</section>
 	)
 }
