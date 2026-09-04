@@ -2,9 +2,13 @@
 
 import { Switch } from '@shared/ui/switch'
 import { ToggleGroup } from '@shared/ui/toggle-group'
+import type React from 'react'
 import { useRef, useState } from 'react'
 import styles from './styles.module.css'
-import type { TDifficultySettingsState } from './types'
+import type {
+	TDifficultySettingsProps,
+	TDifficultySettingsState,
+} from './types'
 
 const toggleItems = [
 	{
@@ -21,7 +25,9 @@ const toggleItems = [
 	},
 ]
 
-export const DifficultySettings = () => {
+export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
+	titleAs: Title = 'h3',
+}) => {
 	// TODO: взять начальное состояние из бека
 	// 32 строка ошибка с типами, поскольку ТС сужает типо до литерала
 	// в будущем когда инфа будет с бека эта ошибка должна уйти
@@ -36,7 +42,7 @@ export const DifficultySettings = () => {
 
 	return (
 		<section className={styles.settingsCard}>
-			<h3>Настройка сложности</h3>
+			<Title>Настройка сложности</Title>
 			<ToggleGroup
 				label="Выбор уровня сложности"
 				items={toggleItems}
