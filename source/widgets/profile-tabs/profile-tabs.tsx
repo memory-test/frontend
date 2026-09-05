@@ -1,20 +1,13 @@
-'use client'
-
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import clsx from 'clsx'
 import type * as React from 'react'
 import styles from './styles.module.css'
 import type { TProfileTab, TProfileTabsProps } from './types'
 
-const TAB_ITEMS: { value: TProfileTab; label: string }[] = [
-	{ value: 'profile', label: 'Профиль' },
-	{ value: 'progress', label: 'Прогресс' },
-	{ value: 'settings', label: 'Настройки' },
-]
-
 export const ProfileTabs: React.FC<TProfileTabsProps> = ({
 	activeTab,
 	onTabChange,
+	tabs,
 	className,
 }) => {
 	const handleValueChange = (value: string) => {
@@ -29,8 +22,11 @@ export const ProfileTabs: React.FC<TProfileTabsProps> = ({
 			onValueChange={handleValueChange}
 			className={clsx(styles.root, className)}
 		>
-			<TabsPrimitive.List className={styles.list}>
-				{TAB_ITEMS.map(({ value, label }) => (
+			<TabsPrimitive.List
+				className={styles.list}
+				aria-label="Навигация по профилю"
+			>
+				{tabs.map(({ value, label }) => (
 					<TabsPrimitive.Trigger
 						key={value}
 						value={value}
@@ -42,6 +38,12 @@ export const ProfileTabs: React.FC<TProfileTabsProps> = ({
 					</TabsPrimitive.Trigger>
 				))}
 			</TabsPrimitive.List>
+
+			{tabs.map(({ value, content }) => (
+				<TabsPrimitive.Content key={value} value={value}>
+					{content}
+				</TabsPrimitive.Content>
+			))}
 		</TabsPrimitive.Root>
 	)
 }

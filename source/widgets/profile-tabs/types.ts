@@ -1,12 +1,16 @@
+import type { ReactNode } from 'react'
+
 export type TProfileTab = 'profile' | 'progress' | 'settings'
 
-export interface IProfileTabsProps {
-	/** Активная вкладка */
-	activeTab: TProfileTab
-	/** Обработчик изменения вкладки */
-	onTabChange?: (tab: TProfileTab) => void
-	/** Дополнительный CSS-класс */
-	className?: string
+export type TTabItem = {
+	value: TProfileTab
+	label: string
+	content: ReactNode
 }
 
-export type TProfileTabsProps = IProfileTabsProps
+export type TProfileTabsProps = {
+	activeTab: TProfileTab
+	onTabChange?: (tab: TProfileTab) => void
+	tabs: TTabItem[]
+	className?: string
+}
