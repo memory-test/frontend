@@ -32,11 +32,24 @@
 	--error-color: oklch(56.7% 31.75% 21.914); /* #b55454 */
 	--error-color-light: oklch(89.5% 9.5% 17.887); /* #f5d3d3 */
 
+	/* Цвет фона кнопки outline при ховере (по умолчанию — для белого фона) */
+	--button-outline-hover-bg: var(--primary-light);
+
+	/*  ===== цвет затемнения под модальными элементами  ===== */
+	--backdrop-color: oklch(0.9702 0 0 / 80%);
+
+	/* Тень */
+	--shadow-dropdown: 0px 2px 2px 0px oklch(0.9067 0 0);
+
+	/*  ===== высота хедера: от неё позиционируются шторки/дропдауны  ===== */
+	--header-block-size: 84px;
+
 	/* ===== Брейкпойнт ===== */
 	--breakpoint-desktop: 1440px;
 
 	/* ===== Transition ===== */
-	--button-duration-fast: 0.2s;
+	--duration-fast: 0.2s; /* источник */
+	--button-duration-fast: var(--duration-fast); /* алиас для совместимости */
 
 	/* ===== Размеры ===== */
 
@@ -175,4 +188,25 @@ select {
 	font-size: var(--font-size-mobile-button-md);
 	line-height: var(--line-height-mobile-button-md);
 	font-weight: var(--font-weight-medium);
+}
+
+/* сброс «коробки» кнопок */
+button {
+	color: inherit; /* наследует цвет родителя, как весь текст */
+	background: none; /* убирает серый дефолт */
+	border: none; /* убирает дефолтную рамку */
+	padding: 0; /* компоненты задают свои отступы */
+	cursor: pointer; /* без него курсор на кнопке — стрелка */
+}
+
+button:disabled {
+	cursor: not-allowed;
+}
+
+.menu-item-text {
+	color: var(--foreground-color);
+	font-size: var(--font-size-desktop-button-lg);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-desktop-button-lg);
+	text-decoration: none;
 }

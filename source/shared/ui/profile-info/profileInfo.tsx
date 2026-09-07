@@ -1,31 +1,16 @@
-import Image from 'next/image'
+import { Avatar } from '@shared/ui/avatar'
+import type { TAvatarSize } from '@shared/ui/avatar/types'
 import styles from './styles.module.css'
 import type { TProfileInfo } from './types'
 
-export const ProfileInfo: React.FC<TProfileInfo> = ({
+export const ProfileInfo: React.FC<TProfileInfo & { size?: TAvatarSize }> = ({
 	avatarUrl,
 	name = '',
+	size = 'md',
 }) => {
-	const initial = name.charAt(0).toUpperCase()
-
 	return (
 		<div className={styles.profile}>
-			<div className={styles.avatarContainer}>
-				{!avatarUrl ? (
-					<span className={styles.avatarLetter} role="img" aria-label={name}>
-						{initial}
-					</span>
-				) : (
-					<Image
-						src={avatarUrl}
-						alt={`Аватар ${name}`}
-						width={48}
-						height={48}
-						className={styles.avatar}
-						priority
-					/>
-				)}
-			</div>
+			<Avatar avatarUrl={avatarUrl} name={name} size={size} />
 			<p className={styles.name}>{name}</p>
 		</div>
 	)
