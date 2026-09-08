@@ -20,6 +20,9 @@ export type TMenuConfigItem = {
 	action?: 'logout'
 }
 
+// Тип для элементов с обязательной ссылкой
+export type TMenuLinkItem = TMenuConfigItem & { href: string }
+
 export type TMobileMenuProps = {
 	profileSlot: ReactNode // <-- Один слот: либо Юзер, либо "Гость"
 	notificationsSlot?: ReactNode

@@ -7,7 +7,7 @@ import {
 	UserIcon,
 	UserPlusIcon,
 } from 'lucide-react'
-import type { TMenuConfigItem } from './types'
+import type { TMenuConfigItem, TMenuLinkItem } from './types'
 import { MENU_ITEM_IDS } from './types'
 
 // ==========================================
@@ -68,8 +68,7 @@ export const getMobileMenuItems = (isLoggedIn: boolean): TMenuConfigItem[] => {
 // ДЕСКТОПНОЕ МЕНЮ (Разные визуальные блоки через слоты в Header)
 // ==========================================
 
-// Эти пункты видны всегда (и гостю, и юзеру)
-export const desktopNavItems: TMenuConfigItem[] = [
+export const desktopNavItems: TMenuLinkItem[] = [
 	{
 		id: MENU_ITEM_IDS.home,
 		label: 'Главная',

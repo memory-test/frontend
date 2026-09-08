@@ -1,1 +1,1 @@
-export type THeaderProps = React.PropsWithChildren
+export type THeaderProps = Record<string, never>

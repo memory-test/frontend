@@ -42,7 +42,7 @@ export const useAuth = (): TAuthState => {
 	}
 }
 
-export const Header: React.FC<THeaderProps> = ({ children }) => {
+export const Header: React.FC<THeaderProps> = () => {
 	const router = useRouter()
 	const { user, isLoggedIn, logout, toggleAuth } = useAuth()
 

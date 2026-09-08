@@ -80,7 +80,7 @@ export const DesktopMenu: React.FC<TDesktopMenuProps> = ({
 				{desktopNavItems.map((item) => (
 					<Link
 						key={item.id}
-						href={item.href!}
+						href={item.href}
 						className={clsx('menu-item-text', styles.navLink)}
 					>
 						{item.label}
