@@ -176,3 +176,38 @@ select {
 	line-height: var(--line-height-mobile-button-md);
 	font-weight: var(--font-weight-medium);
 }
+
+@media (min-width: 1440px) {
+	body {
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+
+	h1 {
+		font-size: var(--font-size-desktop-heading-h1);
+		line-height: var(--line-height-desktop-heading-h1);
+	}
+
+	h2 {
+		font-size: var(--font-size-desktop-heading-h2);
+		line-height: var(--line-height-desktop-heading-h2);
+	}
+
+	h3 {
+		font-size: var(--font-size-desktop-heading-h3);
+		line-height: var(--line-height-desktop-heading-h3);
+	}
+
+	h4 {
+		font-size: var(--font-size-desktop-heading-h4);
+		line-height: var(--line-height-desktop-heading-h4);
+	}
+
+	button,
+	input,
+	textarea,
+	select {
+		font-size: var(--font-size-desktop-button-md);
+		line-height: var(--line-height-desktop-button-md);
+	}
+}
