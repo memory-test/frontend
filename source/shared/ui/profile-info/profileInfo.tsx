@@ -1,9 +1,8 @@
 import { Avatar } from '@shared/ui/avatar'
-import type { TAvatarSize } from '@shared/ui/avatar/types'
 import styles from './styles.module.css'
 import type { TProfileInfo } from './types'
 
-export const ProfileInfo: React.FC<TProfileInfo & { size?: TAvatarSize }> = ({
+export const ProfileInfo: React.FC<TProfileInfo> = ({
 	avatarUrl,
 	name = '',
 	size = 'md',
