@@ -4,4 +4,5 @@ import type React from 'react'
 export type TModalProps = React.ComponentProps<typeof Dialog.Root> & {
 	className?: string
 	size?: 'sm' | 'md' | 'lg'
+	hideClose?: boolean
 }

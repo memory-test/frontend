@@ -11,6 +11,7 @@ const ModalRoot: React.FC<TModalProps> = ({
 	children,
 	size = 'md',
 	className,
+	hideClose = false,
 	...props
 }) => {
 	return (
@@ -21,9 +22,11 @@ const ModalRoot: React.FC<TModalProps> = ({
 					className={clsx(styles.content, styles[size], className)}
 				>
 					{children}
-					<Dialog.Close asChild className={styles.close}>
-						<X size={24} />
-					</Dialog.Close>
+					{!hideClose && (
+						<Dialog.Close asChild className={styles.close}>
+							<X size={24} />
+						</Dialog.Close>
+					)}
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
