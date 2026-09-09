@@ -4,10 +4,14 @@ import { useDeleteCurrentUser } from '@entities/user'
 import { Button } from '@shared/ui/button'
 import { Modal } from '@shared/ui/modal'
 import { useRouter } from 'next/navigation'
+import type React from 'react'
 import { useState } from 'react'
 import styles from './styles.module.css'
+import type { TDeleteAccountProps } from './types'
 
-export const DeleteAccount = () => {
+export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
+	titleAs: Title = 'h3',
+}) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const deleteMutation = useDeleteCurrentUser()
 	const router = useRouter()
@@ -33,12 +37,14 @@ export const DeleteAccount = () => {
 		}
 
 		if (deleteMutation.isSuccess) {
-			;<>
-				<Modal.Title>Аккаунт удалён</Modal.Title>
-				<Button size="sm" onClick={() => router.replace('/')}>
-					На главную
-				</Button>
-			</>
+			return (
+				<>
+					<Modal.Title>Аккаунт удалён</Modal.Title>
+					<Button size="sm" onClick={() => router.replace('/')}>
+						На главную
+					</Button>
+				</>
+			)
 		}
 
 		if (deleteMutation.isError) {
@@ -84,7 +90,7 @@ export const DeleteAccount = () => {
 
 	return (
 		<section>
-			<h3 className={styles.sectionTitle}>Управление аккаунтом</h3>
+			<Title className={styles.sectionTitle}>Управление аккаунтом</Title>
 			<div className={styles.wrapper}>
 				<span>Удалить аккаунт</span>
 				<Button onClick={() => setIsOpen(true)} size="sm">
