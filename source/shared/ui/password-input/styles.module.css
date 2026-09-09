@@ -22,6 +22,20 @@
 	outline-offset: -2px;
 }
 
+.inputRootError {
+	border-color: var(--error-color);
+}
+
+.inputRootError:hover {
+	border-color: var(--error-color);
+}
+
+.errorText {
+	color: var(--error-color);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+}
+
 .label {
 	color: var(--foreground-color);
 }

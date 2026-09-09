@@ -30,3 +30,17 @@
 .input:focus {
 	outline-color: var(--border-active);
 }
+
+.inputError {
+	border-color: var(--error-color);
+}
+
+.inputError:hover {
+	border-color: var(--error-color);
+}
+
+.errorText {
+	color: var(--error-color);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+}

@@ -1,0 +1,30 @@
+.main {
+	inline-size: 100%;
+	min-block-size: calc(100dvh - 104px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 24px 16px;
+	background-color: var(--bg-primary);
+}
+
+.card {
+	inline-size: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	@media (min-width: 1440px) {
+		inline-size: 664px;
+		min-block-size: 734px;
+		justify-content: center;
+	}
+}
+
+.title {
+	color: var(--foreground-color);
+}
+
+.subtitle {
+	color: var(--foreground-secondary);
+}
