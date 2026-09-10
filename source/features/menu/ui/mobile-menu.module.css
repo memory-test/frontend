@@ -1,0 +1,130 @@
+/* ===== Controls: кнопки в хедере ===== */
+.controls {
+	display: flex;
+	justify-content: flex-end;
+	gap: 16px;
+	align-items: center;
+	min-inline-size: 112px;
+	min-block-size: 48px;
+}
+
+.burger {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-inline-size: 48px;
+	min-block-size: 48px;
+	border-radius: 12px;
+	background: var(--bg-secondary);
+	color: var(--foreground-color);
+	transition:
+		background-color var(--duration-fast) ease-out,
+		color var(--duration-fast) ease-out;
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+	}
+}
+
+/* ===== Overlay: затемнение ===== */
+.overlayWrapper {
+	position: fixed;
+	inset: var(--header-block-size) 0 0 0;
+	animation: fade-in var(--duration-fast) ease-out;
+}
+
+.backdrop {
+	position: absolute;
+	inset: 0;
+	background: var(--backdrop-color);
+}
+
+/* ===== Drawer: шторка с пунктами ===== */
+.drawer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: var(--bg-secondary);
+	padding: 40px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	animation: slide-down var(--duration-fast) ease-out;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: var(--surface-secondary);
+	border-radius: 12px;
+	padding: 16px 28px;
+	transition:
+		background-color var(--duration-fast) ease-out,
+		color var(--duration-fast) ease-out;
+
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(-16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.overlayWrapper,
+	.drawer {
+		animation: none;
+	}
+}
+
+/* ===== Статус пользователя вверху шторки ===== */
+.profileStatus {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	margin-bottom: 16px;
+	background: transparent;
+	border-radius: 0;
+	border-bottom: 1px solid var(--border-default);
+}
+
+.profileLabel {
+	font-size: var(--font-size-mobile-body-md);
+	font-weight: var(--font-weight-regular);
+	color: var(--foreground-secondary);
+}
