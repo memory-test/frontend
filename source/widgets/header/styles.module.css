@@ -9,6 +9,7 @@
 	border-bottom-right-radius: 16px;
 	background-color: var(--primary-light);
 	inline-size: 100%;
+	--button-outline-hover-bg: var(--bg-secondary);
 }
 
 .brand {
@@ -16,6 +17,7 @@
 	align-items: center;
 	gap: 16px;
 	padding: 2px 0;
+	min-width: 0;
 }
 
 .brandTitle {
@@ -24,4 +26,47 @@
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-mobile-body-lg);
 	color: var(--foreground-color);
+}
+
+.menus {
+	display: contents;
+}
+
+.desktopOnly {
+	display: none;
+}
+
+@container (min-width: 1440px) {
+	.mobileOnly {
+		display: none;
+	}
+	.desktopOnly {
+		display: flex;
+	}
+	.brandTitle {
+		font-size: var(--font-size-desktop-heading-h4);
+		line-height: var(--line-height-desktop-heading-h4);
+	}
+}
+
+.authButtons {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+/* Временная DEV-кнопка — скрываем на мобильных */
+.devToggle {
+	display: none;
+}
+
+@container (min-width: 768px) {
+	.devToggle {
+		display: block;
+		font-size: 12px;
+		padding: 4px 8px;
+		border: 1px dashed red;
+		margin-right: 20px;
+		cursor: pointer;
+	}
 }

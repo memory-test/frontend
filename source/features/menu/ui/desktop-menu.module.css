@@ -1,0 +1,121 @@
+/* desktop */
+.menu {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+.nav {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+.navLink {
+	position: relative;
+	display: inline-block;
+	border-radius: 12px;
+	transition: color var(--duration-fast) ease-out;
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset-inline: 0;
+		bottom: -1px;
+		block-size: 2px;
+		background-color: currentColor;
+		transition: opacity var(--duration-fast) ease-out;
+	}
+
+	&:hover:not(:disabled)::after {
+		opacity: 0;
+	}
+
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 8px;
+	}
+}
+.account {
+	position: relative;
+}
+
+.accountButton {
+	border-radius: 12px;
+	color: var(--foreground-color);
+	transition: opacity var(--duration-fast) ease-out;
+
+	&:hover {
+		color: var(--primary-dark);
+	}
+
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+	}
+}
+
+.dropdown {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	top: calc(100% + 8px);
+	right: -16px;
+	padding: 16px;
+	background: var(--surface-primary);
+	border-radius: 12px;
+	box-shadow: var(--shadow-dropdown);
+	min-inline-size: 212px;
+	min-block-size: 124px;
+	animation: dropdown-fade-in var(--duration-fast, 0.2s) ease-out;
+}
+
+@keyframes dropdown-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.dropdownItem {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 12px;
+	padding: 16px 28px;
+	transition: color var(--duration-fast) ease-out;
+
+	&:hover {
+		color: var(--primary-dark);
+	}
+
+	&:active {
+		color: var(--foreground-secondary);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+	}
+}

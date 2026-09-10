@@ -1,0 +1,41 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.title {
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+	color: var(--foreground-color);
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
+	}
+}
+
+.imageWrapper {
+	position: relative;
+}
+
+.slotWrapper {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+}
+
+.image {
+	object-fit: cover;
+	object-position: center;
+	border-radius: 16px;
+}
+
+.buttonContainer {
+	display: flex;
+	gap: 8px;
+}
+
+.link {
+	text-decoration: none;
+}
