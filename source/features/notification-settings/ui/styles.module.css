@@ -1,0 +1,59 @@
+.card {
+	background-color: var(--surface-primary);
+	border-radius: 12px;
+	padding: 28px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	inline-size: 382px;
+	min-block-size: 192px;
+
+	@media (min-width: 1440px) {
+		inline-size: 664px;
+		min-block-size: 204px;
+		padding: 32px 48px;
+		gap: 24px;
+	}
+}
+
+.title {
+	color: var(--foreground-color);
+}
+
+.switches {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	@media (min-width: 1440px) {
+		gap: 16px;
+	}
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	transition:
+		background-color var(--duration-fast, 0.2s) ease-out,
+		border-radius var(--duration-fast, 0.2s) ease-out;
+	border-radius: 12px;
+	padding: 4px 8px; /* Небольшой внутренний отступ, чтобы подсветка не прилипала к тексту и свитчу */
+	margin: -4px -8px; /* Компенсация padding, чтобы не сдвигать layout */
+
+	&:hover {
+		background-color: var(--bg-secondary, #eef1f3);
+	}
+}
+
+.label {
+	color: var(--foreground-color);
+
+	@media (min-width: 1440px) {
+		--font-size-desktop-body-md: 1.125rem;
+		font-size: var(--font-size-desktop-body-md);
+		--line-height-desktop-body-md: 1.625rem;
+		line-height: var(--line-height-desktop-body-md);
+	}
+}

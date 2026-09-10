@@ -1,6 +1,6 @@
 import { defineRoute } from './utils/define-route'
 
-// Route segments
+// Route segments (ТОЛЬКО атомарные части URL)
 export const routeSegments = {
 	auth: 'auth',
 	forgotPassword: 'forgot-password',
@@ -22,8 +22,11 @@ export const routeQueryParams = {
 	perPage: 'per_page',
 } as const
 
-// Routes
+// Routes (Композиция сегментов)
 export const routerPath = {
+	home: defineRoute([]), // Корень
+
+	// Группа Auth: собирается из атомарных сегментов
 	auth: defineRoute([routeSegments.auth]),
 	forgotPassword: defineRoute([
 		routeSegments.auth,
@@ -33,6 +36,9 @@ export const routerPath = {
 		routeSegments.auth,
 		routeSegments.recoveryPassword,
 	]),
+
+	// Остальные маршруты
+
 	register: defineRoute([routeSegments.register]),
 	profile: defineRoute([routeSegments.profile]),
 	profileEdit: defineRoute([routeSegments.profile, routeSegments.profileEdit]),
