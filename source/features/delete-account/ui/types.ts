@@ -1,5 +1,5 @@
 import type { THeadingTag } from '@shared/types'
 
-export type TDifficultySettingsProps = {
+export type TDeleteAccountProps = {
 	titleAs?: THeadingTag
 }
