@@ -3,8 +3,8 @@ import type { IExerciseShort } from './types'
 export const mockExercises: IExerciseShort[] = [
 	{
 		id: 1,
-		title: 'Основы памяти',
-		description: 'Тренировка кратковременной памяти',
+		title: 'название 1',
+		description: 'Выбор ответа(ов)',
 		type: 'choice',
 		difficulty: 'easy',
 		is_active: true,
@@ -12,8 +12,8 @@ export const mockExercises: IExerciseShort[] = [
 	},
 	{
 		id: 2,
-		title: 'Сложные вычисления',
-		description: 'Упражнения на удержание чисел в уме',
+		title: 'название 2',
+		description: 'Ручной ввод ответа',
 		type: 'input',
 		difficulty: 'medium',
 		is_active: true,
@@ -21,8 +21,8 @@ export const mockExercises: IExerciseShort[] = [
 	},
 	{
 		id: 3,
-		title: 'Логические цепочки',
-		description: 'Построение последовательностей и связей',
+		title: 'название 3',
+		description: 'Сортировка',
 		type: 'ordering',
 		difficulty: 'hard',
 		is_active: true,
@@ -30,8 +30,8 @@ export const mockExercises: IExerciseShort[] = [
 	},
 	{
 		id: 4,
-		title: 'Сопоставление образов',
-		description: 'Найди пару среди изображений',
+		title: 'название 4',
+		description: 'Сопоставление',
 		type: 'matching',
 		difficulty: 'easy',
 		is_active: false,
@@ -39,8 +39,8 @@ export const mockExercises: IExerciseShort[] = [
 	},
 	{
 		id: 5,
-		title: 'Группировка понятий',
-		description: 'Объедини слова в логические группы',
+		title: 'название 5',
+		description: 'Группировка',
 		type: 'grouping',
 		difficulty: 'medium',
 		is_active: true,
@@ -48,9 +48,9 @@ export const mockExercises: IExerciseShort[] = [
 	},
 	{
 		id: 6,
-		title: 'Решение задач',
-		description: 'Многошаговые вычисления и логика',
-		type: 'choice',
+		title: 'название 6',
+		description: 'Графическое задание',
+		type: 'drawing',
 		difficulty: 'hard',
 		is_active: true,
 		created_at: '2024-01-20T08:00:00Z',

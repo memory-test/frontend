@@ -2,8 +2,7 @@
 
 import { mockExercises } from '@entities/exercise'
 import { Tag } from '@shared/ui/tag'
-// import { Footer } from '@widgets/footer'
-// import { Header } from '@widgets/header'
+import { Footer } from '@widgets/footer'
 import styles from './styles.module.css'
 
 const DIFFICULTY_MAP: Record<
@@ -18,7 +17,6 @@ const DIFFICULTY_MAP: Record<
 export const CatalogPage: React.FC = () => {
 	return (
 		<div className={styles.page}>
-			{/* <Header /> */}
 			<main className={styles.main}>
 				<div className={styles.container}>
 					<h1 className={styles.title}>Каталог заданий</h1>
@@ -36,7 +34,7 @@ export const CatalogPage: React.FC = () => {
 					</ul>
 				</div>
 			</main>
-			{/* <Footer /> */}
+			<Footer />
 		</div>
 	)
 }
