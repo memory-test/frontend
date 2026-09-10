@@ -18,7 +18,8 @@
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
-	border-radius: 12px;
+	border: none;
+	border-radius: 8px;
 	cursor: pointer;
 	font-family: inherit;
 	font-weight: var(--font-weight-medium);
@@ -33,6 +34,10 @@
 	.icon {
 		width: 20px;
 		height: 20px;
+	}
+
+	@media (min-width: 1440px) {
+		border-radius: 12px;
 	}
 }
 
