@@ -10,9 +10,9 @@
 }
 
 .button {
-	--bw: 0px; /* бордер варианта */
-	--py: 12px; /* вертикальная база */
-	--px: 28px; /* горизонтальная база */
+	--bw: 0px;
+	--py: 12px;
+	--px: 28px;
 	padding: calc(var(--py) - var(--bw)) calc(var(--px) - var(--bw));
 	display: inline-flex;
 	align-items: center;
@@ -25,6 +25,7 @@
 	font-weight: var(--font-weight-medium);
 	font-size: var(--font-size-mobile-button-md);
 	line-height: var(--line-height-mobile-button-md);
+	text-decoration: none; /* Если рендерим ссылку в виде кнопки - убираем подчеркивание */
 
 	&:disabled {
 		cursor: not-allowed;
@@ -41,7 +42,6 @@
 }
 
 .lg {
-	/* десктоп, 1440+ */
 	@media (min-width: 1440px) {
 		--py: 16px;
 		font-size: var(--font-size-desktop-button-lg);
@@ -67,7 +67,7 @@
 		background-color var(--button-duration-fast) ease-out,
 		color var(--button-duration-fast) ease-out;
 
-	&:hover:not(:disabled) {
+	&:hover {
 		background-color: var(--primary-dark);
 	}
 
@@ -88,7 +88,7 @@
 
 .outline {
 	--bw: 2px;
-	background-color: transparent;
+	background-color: var(--surface-primary);
 	border: 2px solid var(--primary-color);
 	color: var(--foreground-color);
 	transition:
@@ -96,18 +96,17 @@
 		color var(--button-duration-fast) ease-out,
 		border-color var(--button-duration-fast) ease-out;
 
-	&.lg {
-		--px: 24px;
-	}
+	&.lg,
 	&.md {
 		--px: 24px;
 	}
+
 	&.sm {
 		--px: 16px;
 	}
 
-	&:hover:not(:disabled) {
-		background-color: var(--primary-light);
+	&:hover {
+		background-color: var(--button-outline-hover-bg);
 		border-color: var(--primary-dark);
 	}
 
@@ -130,7 +129,7 @@
 .ghost {
 	--py: 0px;
 	--px: 0px;
-	--uo: 0px; /* underline offset: подбирается по размеру */
+	--uo: 0px;
 	color: var(--foreground-color);
 	background-color: transparent;
 	position: relative;
@@ -141,7 +140,7 @@
 		position: absolute;
 		inset-inline: var(--px);
 		bottom: var(--uo);
-		block-size: 1px;
+		block-size: 2px;
 		background-color: currentColor;
 		transition: opacity var(--button-duration-fast) ease-out;
 	}
@@ -151,7 +150,7 @@
 		--uo: -1px;
 	}
 
-	&:hover:not(:disabled)::after {
+	&:hover::after {
 		opacity: 0;
 	}
 
