@@ -1,14 +1,13 @@
 'use client'
 
+import type { TDifficulty } from '@entities/difficulty'
+import { difficultyStorage } from '@entities/difficulty'
 import { Switch } from '@shared/ui/switch'
 import { ToggleGroup } from '@shared/ui/toggle-group'
 import type React from 'react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
-import type {
-	TDifficultySettingsProps,
-	TDifficultySettingsState,
-} from './types'
+import type { TDifficultySettingsProps } from './types'
 
 const toggleItems = [
 	{
@@ -16,7 +15,7 @@ const toggleItems = [
 		content: 'Простой',
 	},
 	{
-		value: 'normal',
+		value: 'medium',
 		content: 'Средний',
 	},
 	{
@@ -28,17 +27,30 @@ const toggleItems = [
 export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 	titleAs: Title = 'h3',
 }) => {
-	// TODO: взять начальное состояние из бека
-	// 32 строка ошибка с типами, поскольку ТС сужает типо до литерала
-	// в будущем когда инфа будет с бека эта ошибка должна уйти
-	const initialState: TDifficultySettingsState = 'easy'
+	const [difficulty, setDifficulty] = useState<TDifficulty>('easy')
 
-	const [difficultyState, setDifficultyState] =
-		useState<TDifficultySettingsState>(initialState)
+	const lastSelectedRef = useRef<Exclude<TDifficulty, 'auto'>>('easy')
 
-	const lastSelectedRef = useRef<Exclude<TDifficultySettingsState, 'auto'>>(
-		initialState === 'auto' ? 'easy' : initialState,
-	)
+	useEffect(() => {
+		const stored = difficultyStorage.get()
+
+		if (stored) setDifficulty(stored)
+	}, [])
+
+	useEffect(() => {
+		if (difficulty !== 'auto') {
+			lastSelectedRef.current = difficulty
+		}
+	}, [difficulty])
+
+	const changeDifficulty = (value: TDifficulty) => {
+		setDifficulty(value)
+		difficultyStorage.set(value)
+	}
+
+	const handleCheckedChange = (checked: boolean) => {
+		changeDifficulty(checked ? 'auto' : lastSelectedRef.current)
+	}
 
 	return (
 		<section className={styles.settingsCard}>
@@ -47,26 +59,19 @@ export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 				label="Выбор уровня сложности"
 				items={toggleItems}
 				type="single"
-				value={difficultyState}
-				onValueChange={(value: Exclude<TDifficultySettingsState, 'auto'>) => {
+				value={difficulty}
+				onValueChange={(value: Exclude<TDifficulty, 'auto'>) => {
 					if (!value) return
 
-					lastSelectedRef.current = value
-					setDifficultyState(value)
+					changeDifficulty(value)
 				}}
 			/>
 			<div className={styles.switchWrapper}>
 				<label htmlFor="auto-mode">Включить автоадаптацию сложности</label>
 				<Switch
 					id="auto-mode"
-					checked={difficultyState === 'auto'}
-					onCheckedChange={(checked) => {
-						if (checked) {
-							setDifficultyState('auto')
-						} else {
-							setDifficultyState(lastSelectedRef.current)
-						}
-					}}
+					checked={difficulty === 'auto'}
+					onCheckedChange={handleCheckedChange}
 				/>
 			</div>
 		</section>

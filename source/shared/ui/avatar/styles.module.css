@@ -1,0 +1,76 @@
+.avatarContainer {
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: var(--bg-secondary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0; /* Защита аватара от сплющивания во флекс-контейнерах */
+	border: 1px solid var(--primary-color);
+}
+
+/* ==========================================
+   1. SM: Мобильный хедер / бургер (24px)
+   ========================================== */
+.avatarLetter {
+	color: var(--primary-color);
+	font-weight: var(--font-weight-semibold);
+}
+
+.sm {
+	inline-size: 24px;
+	block-size: 24px;
+}
+
+.sm .avatarLetter {
+	font-size: 12px;
+}
+
+/* ==========================================
+   2. MD: Десктопный хедер (48px)
+   ========================================== */
+.md {
+	inline-size: 48px;
+	block-size: 48px;
+}
+
+.md .avatarLetter {
+	font-size: var(
+		--font-size-desktop-body-lg,
+		18px
+	); /* Фоллбэк на 18px, если переменная не задана */
+}
+
+/* ==========================================
+   3. LG: Страница профиля и т.д. (140px -> 180px)
+   ========================================== */
+.lg {
+	inline-size: 140px;
+	block-size: 140px;
+}
+
+.lg .avatarLetter {
+	font-size: 48px;
+}
+
+/* Адаптив для большого аватара на десктопе (>= 1440px) */
+@media (min-width: 1440px) {
+	.lg {
+		inline-size: 180px;
+		block-size: 180px;
+	}
+
+	.lg .avatarLetter {
+		font-size: 64px;
+	}
+}
+
+/* ==========================================
+   Общие стили для картинки
+   ========================================== */
+.avatar {
+	object-fit: cover;
+	object-position: top center;
+	inline-size: 100%;
+	block-size: 100%;
+}

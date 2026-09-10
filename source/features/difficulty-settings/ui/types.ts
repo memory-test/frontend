@@ -1,6 +1,4 @@
-import type { THeadingTag } from '@shared/ui/achievement-card'
-
-export type TDifficultySettingsState = 'easy' | 'normal' | 'hard' | 'auto'
+import type { THeadingTag } from '@shared/types'
 
 export type TDifficultySettingsProps = {
 	titleAs?: THeadingTag

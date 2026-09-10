@@ -1,0 +1,23 @@
+.sectionTitle {
+	margin-bottom: 20px;
+	font-size: var(--font-size-mobile-heading-h3);
+	line-height: var(--line-height-mobile-heading-h3);
+	font-weight: var(--font-weight-medium);
+
+	@media (min-width: 1440px) {
+		margin-bottom: 24px;
+		font-size: var(--font-size-desktop-heading-h3);
+		line-height: var(--line-height-desktop-heading-h3);
+	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal__btnWrapper {
+	display: flex;
+	gap: 20px;
+}
