@@ -1,3 +1,4 @@
+import { NotificationSettings } from '@features/notification-settings'
 import { QueryParamsControl } from '@features/query-params-control'
 import { createUrl, routerPath } from '@shared/lib/routes'
 import Link from 'next/link'
@@ -6,6 +7,7 @@ import { Suspense } from 'react'
 const HomePage: React.FC = () => {
 	return (
 		<div>
+			<NotificationSettings />
 			<nav>
 				<ul>
 					<li>
