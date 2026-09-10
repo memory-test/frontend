@@ -1,0 +1,58 @@
+import type { IExerciseShort } from './types'
+
+export const mockExercises: IExerciseShort[] = [
+	{
+		id: 1,
+		title: 'Основы памяти',
+		description: 'Тренировка кратковременной памяти',
+		type: 'choice',
+		difficulty: 'easy',
+		is_active: true,
+		created_at: '2024-01-15T10:00:00Z',
+	},
+	{
+		id: 2,
+		title: 'Сложные вычисления',
+		description: 'Упражнения на удержание чисел в уме',
+		type: 'input',
+		difficulty: 'medium',
+		is_active: true,
+		created_at: '2024-01-16T14:30:00Z',
+	},
+	{
+		id: 3,
+		title: 'Логические цепочки',
+		description: 'Построение последовательностей и связей',
+		type: 'ordering',
+		difficulty: 'hard',
+		is_active: true,
+		created_at: '2024-01-17T09:15:00Z',
+	},
+	{
+		id: 4,
+		title: 'Сопоставление образов',
+		description: 'Найди пару среди изображений',
+		type: 'matching',
+		difficulty: 'easy',
+		is_active: false,
+		created_at: '2024-01-18T16:45:00Z',
+	},
+	{
+		id: 5,
+		title: 'Группировка понятий',
+		description: 'Объедини слова в логические группы',
+		type: 'grouping',
+		difficulty: 'medium',
+		is_active: true,
+		created_at: '2024-01-19T11:20:00Z',
+	},
+	{
+		id: 6,
+		title: 'Решение задач',
+		description: 'Многошаговые вычисления и логика',
+		type: 'choice',
+		difficulty: 'hard',
+		is_active: true,
+		created_at: '2024-01-20T08:00:00Z',
+	},
+]
