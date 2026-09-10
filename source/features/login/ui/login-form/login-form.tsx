@@ -4,6 +4,7 @@ import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { PasswordInput } from '@shared/ui/password-input'
 import { TextInput } from '@shared/ui/text-input'
+import Image from 'next/image'
 import Link from 'next/link'
 import styles from './styles.module.css'
 import type { TLoginFormProps } from './types'
@@ -66,10 +67,20 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 
 			<span className={styles.divider}>или</span>
 
-			<Button type="button" variant="outline" size="lg">
+			<Button
+				type="button"
+				variant="outline"
+				size="lg"
+				icon={<Image src="/logo-yandex.svg" alt="" width={24} height={24} />}
+			>
 				Войти через Яндекс
 			</Button>
-			<Button type="button" variant="outline" size="lg">
+			<Button
+				type="button"
+				variant="outline"
+				size="lg"
+				icon={<Image src="/logo-ok.svg" alt="" width={24} height={24} />}
+			>
 				Войти через Одноклассники
 			</Button>
 
