@@ -1,0 +1,138 @@
+/* ===== Триггер ===== */
+.trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 8px 12px;
+	min-height: 32px;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+	font-weight: var(--font-weight-regular);
+	color: var(--text-on-primary);
+	background-color: var(--primary-color);
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color var(--button-duration-fast) ease;
+}
+
+.trigger:hover {
+	background-color: var(--primary-dark);
+}
+
+.trigger:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
+.trigger[data-disabled] {
+	background-color: var(--border-default);
+	color: var(--foreground-secondary);
+	cursor: not-allowed;
+}
+
+.trigger[data-placeholder] {
+	color: var(--text-on-primary);
+}
+
+/* ===== Иконка ===== */
+.icon {
+	display: flex;
+	align-items: center;
+	transition: transform var(--button-duration-fast) ease;
+}
+
+.trigger[data-state="open"] .icon {
+	transform: rotate(180deg);
+}
+
+/* ===== Выпадающий список ===== */
+.content {
+	overflow: hidden;
+	background-color: var(--surface-primary);
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	z-index: 50;
+	min-width: var(--radix-select-trigger-width);
+}
+
+.viewport {
+	padding: 4px;
+}
+
+/* ===== Опция ===== */
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+	color: var(--foreground-color);
+	border-radius: 6px;
+	cursor: pointer;
+	outline: none;
+	user-select: none;
+}
+
+.item[data-highlighted] {
+	background-color: var(--bg-secondary);
+}
+
+.item[data-state="checked"] {
+	background-color: var(--bg-secondary);
+}
+
+.item[data-disabled] {
+	color: var(--foreground-tertiary);
+	cursor: not-allowed;
+}
+
+.itemIndicator {
+	display: flex;
+	align-items: center;
+	color: var(--primary-color);
+}
+
+/* ===== Кнопки скролла ===== */
+.scrollButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 24px;
+	background-color: var(--surface-primary);
+	color: var(--foreground-secondary);
+	cursor: pointer;
+}
+
+/* ===== Disabled ===== */
+.trigger:disabled,
+.trigger[data-disabled] {
+	background-color: var(--border-default);
+	color: var(--foreground-tertiary);
+	cursor: not-allowed;
+}
+
+.trigger:disabled:hover,
+.trigger[data-disabled]:hover {
+	background-color: var(--border-default);
+}
+
+/* ===== Десктоп ===== */
+@media (min-width: 1440px) {
+	.trigger {
+		padding: 10px 16px;
+		min-height: 40px;
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+
+	.item {
+		padding: 10px 16px;
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+}
