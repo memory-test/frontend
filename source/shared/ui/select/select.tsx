@@ -16,10 +16,7 @@ export const Select: React.FC<TSelectProps> = ({
 }) => {
 	return (
 		<SelectPrimitive.Root disabled={disabled} {...props}>
-			<SelectPrimitive.Trigger
-				className={clsx(styles.trigger, className)}
-				aria-label={props['aria-label']}
-			>
+			<SelectPrimitive.Trigger className={clsx(styles.trigger, className)}>
 				<SelectPrimitive.Value placeholder={placeholder} />
 				<SelectPrimitive.Icon className={styles.icon}>
 					<ChevronDown size={24} />
