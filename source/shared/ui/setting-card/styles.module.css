@@ -1,0 +1,59 @@
+.wrapper {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas:
+		"icon title"
+		"icon description"
+		"slot slot";
+	column-gap: 16px;
+	align-items: center;
+}
+
+.iconWrapper {
+	grid-area: icon;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	background-color: var(--primary-light);
+
+	@media (min-width: 1440px) {
+		width: 84px;
+		height: 84px;
+	}
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	stroke-width: 1px;
+
+	@media (min-width: 1440px) {
+		width: 54px;
+		height: 54px;
+	}
+}
+
+.title {
+	grid-area: title;
+	font-size: var(--font-size-mobile-heading-h4);
+	line-height: var(--line-height-mobile-heading-h4);
+	font-weight: var(--font-weight-medium);
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-heading-h4);
+		line-height: var(--line-height-desktop-heading-h4);
+	}
+}
+
+.description {
+	grid-area: description;
+	color: var(--foreground-secondary);
+}
+
+.wrapper > :last-child {
+	grid-area: slot;
+	margin-top: 16px;
+}
