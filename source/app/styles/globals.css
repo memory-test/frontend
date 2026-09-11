@@ -108,6 +108,23 @@
 	--font-weight-semibold: 600;
 }
 
+html {
+	--font-scale: 1;
+	font-size: calc(100% * var(--font-scale));
+}
+
+html[data-font-size="md"] {
+	--font-scale: 1.125;
+}
+
+html[data-font-size="lg"] {
+	--font-scale: 1.25;
+}
+
+html[data-font-size="xlg"] {
+	--font-scale: 1.5;
+}
+
 *,
 *::before,
 *::after {
