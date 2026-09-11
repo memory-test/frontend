@@ -10,12 +10,8 @@ export type TSelectOption = {
 export type TSelectProps = React.ComponentPropsWithoutRef<
 	typeof SelectPrimitive.Root
 > & {
-	/** Опции для выбора */
 	options: TSelectOption[]
-	/** Placeholder, если ничего не выбрано */
 	placeholder?: string
-	/** Дополнительный CSS-класс для триггера */
 	className?: string
-	/** aria-label для доступности */
 	'aria-label'?: string
 }

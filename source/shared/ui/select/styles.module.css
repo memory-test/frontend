@@ -4,7 +4,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 8px;
-	padding: 8px 12px;
+	padding: 6px 12px;
 	min-height: 32px;
 	font-family: var(--font-main);
 	font-size: var(--font-size-mobile-body-md);
@@ -29,15 +29,11 @@
 
 .trigger[data-disabled] {
 	background-color: var(--border-default);
-	color: var(--foreground-secondary);
+	color: var(--foreground-tertiary);
 	cursor: not-allowed;
 }
 
-.trigger[data-placeholder] {
-	color: var(--text-on-primary);
-}
-
-/* ===== Иконка ===== */
+/* ===== Иконка ChevronDown ===== */
 .icon {
 	display: flex;
 	align-items: center;
@@ -53,7 +49,6 @@
 	overflow: hidden;
 	background-color: var(--surface-primary);
 	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	z-index: 50;
 	min-width: var(--radix-select-trigger-width);
 }
@@ -66,8 +61,7 @@
 .item {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 8px 12px;
+	padding: 8px 8px;
 	font-family: var(--font-main);
 	font-size: var(--font-size-mobile-body-md);
 	line-height: var(--line-height-mobile-body-md);
@@ -83,6 +77,11 @@
 }
 
 .item[data-state="checked"] {
+	color: var(--primary-dark);
+	background-color: transparent;
+}
+
+.item[data-state="checked"][data-highlighted] {
 	background-color: var(--bg-secondary);
 }
 
@@ -91,48 +90,23 @@
 	cursor: not-allowed;
 }
 
-.itemIndicator {
-	display: flex;
-	align-items: center;
-	color: var(--primary-color);
-}
-
-/* ===== Кнопки скролла ===== */
-.scrollButton {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 24px;
-	background-color: var(--surface-primary);
-	color: var(--foreground-secondary);
-	cursor: pointer;
-}
-
-/* ===== Disabled ===== */
-.trigger:disabled,
-.trigger[data-disabled] {
-	background-color: var(--border-default);
-	color: var(--foreground-tertiary);
-	cursor: not-allowed;
-}
-
-.trigger:disabled:hover,
-.trigger[data-disabled]:hover {
-	background-color: var(--border-default);
-}
-
 /* ===== Десктоп ===== */
 @media (min-width: 1440px) {
 	.trigger {
-		padding: 10px 16px;
+		padding: 16px 28px;
 		min-height: 40px;
-		font-size: var(--font-size-desktop-body-md);
-		line-height: var(--line-height-desktop-body-md);
+		border-radius: 12px;
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
 	}
 
 	.item {
 		padding: 10px 16px;
-		font-size: var(--font-size-desktop-body-md);
-		line-height: var(--line-height-desktop-body-md);
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
+	}
+
+	.viewport {
+		padding: 10px;
 	}
 }
