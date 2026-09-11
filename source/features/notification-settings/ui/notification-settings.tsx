@@ -17,27 +17,23 @@ export const NotificationSettings: React.FC = () => {
 			</h3>
 
 			<div className={styles.switches}>
-				<div className={styles.row}>
-					<label htmlFor="browser-notifications" className={styles.label}>
-						Уведомления в браузере
-					</label>
+				<label className={styles.row} htmlFor="browser-notifications">
+					<span className={styles.label}>Уведомления в браузере</span>
 					<Switch
 						id="browser-notifications"
 						checked={settings.browser}
 						onCheckedChange={() => toggleSetting('browser')}
 					/>
-				</div>
+				</label>
 
-				<div className={styles.row}>
-					<label htmlFor="email-notifications" className={styles.label}>
-						Уведомления на электронную почту
-					</label>
+				<label className={styles.row} htmlFor="email-notifications">
+					<span className={styles.label}>Уведомления на электронную почту</span>
 					<Switch
 						id="email-notifications"
 						checked={settings.email}
 						onCheckedChange={() => toggleSetting('email')}
 					/>
-				</div>
+				</label>
 			</div>
 		</section>
 	)
