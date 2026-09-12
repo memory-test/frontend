@@ -1,0 +1,23 @@
+.switchWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid black;
+	border-radius: 24px;
+	padding: 20px;
+
+	@media (min-width: 1440px) {
+		padding: 32px;
+	}
+}
+
+.switchLabel {
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+	color: var(--foreground-color);
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
+	}
+}
