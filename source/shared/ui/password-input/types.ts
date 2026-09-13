@@ -6,4 +6,6 @@ export type TPasswordInputProps = Omit<
 > & {
 	label?: string
 	autoComplete?: 'current-password' | 'new-password'
+	error?: boolean
+	errorMessage?: string
 }

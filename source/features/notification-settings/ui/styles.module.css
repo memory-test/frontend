@@ -34,11 +34,21 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	cursor: pointer;
+	transition:
+		background-color var(--duration-fast, 0.2s) ease-out,
+		border-radius var(--duration-fast, 0.2s) ease-out;
+	border-radius: 12px;
+	padding: 4px 8px; /* Небольшой внутренний отступ, чтобы подсветка не прилипала к тексту и свитчу */
+	margin: -4px -8px; /* Компенсация padding, чтобы не сдвигать layout */
+
+	&:hover {
+		background-color: var(--bg-secondary, #eef1f3);
+	}
 }
 
 .label {
 	color: var(--foreground-color);
-	cursor: pointer;
 
 	@media (min-width: 1440px) {
 		--font-size-desktop-body-md: 1.125rem;

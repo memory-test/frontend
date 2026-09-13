@@ -1,0 +1,34 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.passwordGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.forgotLink {
+	align-self: flex-end;
+	color: var(--foreground-color);
+	text-decoration: underline;
+}
+
+.formError {
+	color: var(--error-color);
+}
+
+.submit {
+	width: 100%;
+}
+
+.divider {
+	text-align: center;
+	color: var(--foreground-secondary);
+}
+
+.registerHint {
+	text-align: center;
+}
