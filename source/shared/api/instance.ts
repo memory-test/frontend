@@ -1,5 +1,6 @@
 import ky from 'ky'
 import { apiConfig } from './config'
+import { tokenStorage } from './token-storage'
 
 export const apiClient = ky.create({
 	prefix: apiConfig.baseUrl,
@@ -10,11 +11,9 @@ export const apiClient = ky.create({
 	hooks: {
 		beforeRequest: [
 			({ request }) => {
-				if (typeof window !== 'undefined') {
-					const token = localStorage.getItem('accessToken')
-					if (token) {
-						request.headers.set('Authorization', `Bearer ${token}`)
-					}
+				const tokens = tokenStorage.getTokens()
+				if (tokens) {
+					request.headers.set('Authorization', `Bearer ${tokens.access}`)
 				}
 			},
 		],
