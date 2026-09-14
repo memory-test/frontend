@@ -1,10 +1,17 @@
+import { DEFAULT_HIGH_CONTRAST } from '../model/high-contrast'
+
 const STORAGE_KEY = 'high-contrast'
 
 export const highContrastStorage = {
 	get: (): boolean => {
-		if (typeof window === 'undefined') return false
+		if (typeof window === 'undefined') return DEFAULT_HIGH_CONTRAST
 
-		return localStorage.getItem(STORAGE_KEY) === 'true'
+		const raw = localStorage.getItem(STORAGE_KEY)
+
+		if (raw === 'true') return true
+		if (raw === 'false') return false
+
+		return DEFAULT_HIGH_CONTRAST
 	},
 
 	set: (value: boolean) => {

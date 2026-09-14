@@ -5,8 +5,11 @@ import { Switch } from '@shared/ui/switch'
 import { Target } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { applyHighContrast } from '../lib/apply-high-contrast'
-import { highContrastStorage } from '../lib/high-contrast-storage'
+import {
+	getSavedHighContrast,
+	saveHighContrast,
+} from '../lib/high-contrast-settings'
+import { DEFAULT_HIGH_CONTRAST } from '../model/high-contrast'
 import styles from './styles.module.css'
 import type { TChangeContrastProps } from './types'
 
@@ -15,11 +18,13 @@ export const ChangeContrast: React.FC<TChangeContrastProps> = ({
 	onChange,
 }) => {
 	const isControlled = value !== undefined
-	const [internalValue, setInternalValue] = useState<boolean>(false)
+	const [internalValue, setInternalValue] = useState<boolean>(
+		DEFAULT_HIGH_CONTRAST,
+	)
 
 	useEffect(() => {
 		if (!isControlled) {
-			setInternalValue(highContrastStorage.get())
+			setInternalValue(getSavedHighContrast())
 		}
 	}, [isControlled])
 
@@ -28,8 +33,7 @@ export const ChangeContrast: React.FC<TChangeContrastProps> = ({
 	const handleChange = (next: boolean) => {
 		if (!isControlled) {
 			setInternalValue(next)
-			highContrastStorage.set(next)
-			applyHighContrast(next)
+			saveHighContrast(next)
 		}
 
 		onChange?.(next)

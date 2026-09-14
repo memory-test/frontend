@@ -164,6 +164,8 @@ body {
 
 main {
 	flex-grow: 1;
+	background-color: var(--bg-secondary);
+	padding: 32px 16px;
 }
 
 header,
@@ -241,6 +243,10 @@ button:disabled {
 	body {
 		font-size: var(--font-size-desktop-body-md);
 		line-height: var(--line-height-desktop-body-md);
+	}
+
+	main {
+		padding: 60px 40px;
 	}
 
 	h1 {

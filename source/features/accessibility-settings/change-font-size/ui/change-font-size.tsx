@@ -5,8 +5,7 @@ import { ToggleGroup } from '@shared/ui/toggle-group'
 import { ALargeSmall } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { applyFontSize } from '../lib/apply-font-size'
-import { fontSizeStorage } from '../lib/font-size-storage'
+import { getSavedFontSize, saveFontSize } from '../lib/font-size-settings'
 import type { TFontSize } from '../model/font-size'
 import { DEFAULT_FONT_SIZE, FONT_SIZES } from '../model/font-size'
 import type { TChangeFontSizeProps } from './types'
@@ -33,7 +32,7 @@ export const ChangeFontSize: React.FC<TChangeFontSizeProps> = ({
 
 	useEffect(() => {
 		if (!isControlled) {
-			setInternalValue(fontSizeStorage.get())
+			setInternalValue(getSavedFontSize())
 		}
 	}, [isControlled])
 
@@ -44,8 +43,7 @@ export const ChangeFontSize: React.FC<TChangeFontSizeProps> = ({
 
 		if (!isControlled) {
 			setInternalValue(next)
-			fontSizeStorage.set(next)
-			applyFontSize(next)
+			saveFontSize(next)
 		}
 
 		onChange?.(next)
