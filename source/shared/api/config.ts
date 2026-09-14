@@ -11,6 +11,8 @@ function getBaseUrl(): string {
 }
 
 export const apiConfig = {
-	baseUrl: getBaseUrl(),
+	get baseUrl(): string {
+		return getBaseUrl()
+	},
 	timeout: 15000,
 } as const
