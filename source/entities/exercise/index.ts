@@ -1,8 +1,9 @@
-export { mockExercises } from './mock'
+export { exerciseApi } from './api/api'
 export type {
 	IExerciseFull,
 	IExerciseShort,
 	IPaginatedResponse,
 	TDifficulty,
+	TExerciseListParams,
 	TExerciseType,
-} from './types'
+} from './model/types'

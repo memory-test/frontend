@@ -1,16 +1,14 @@
 import { http } from '@shared/api'
-import type { IExerciseFull, IExerciseShort, IPaginatedResponse } from './types'
+import type {
+	IExerciseFull,
+	IExerciseShort,
+	IPaginatedResponse,
+	TExerciseListParams,
+} from '..//model/types'
 
 export const exerciseApi = {
 	// Получить список заданий
-	getList: (params?: {
-		difficulty?: 'easy' | 'medium' | 'hard'
-		type?: string
-		search?: string
-		ordering?: string
-		page?: number
-		limit?: number
-	}) => {
+	getList: (params?: TExerciseListParams) => {
 		return http.get<IPaginatedResponse<IExerciseShort>>('/api/v1/exercises/', {
 			searchParams: params,
 		})

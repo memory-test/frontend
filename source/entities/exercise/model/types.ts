@@ -1,24 +1,18 @@
-/**
- * Типы заданий из OpenAPI спецификации
- * Основаны на схеме ExerciseShort из Memory Trainer API.yaml
- */
-
 // Уровень сложности
 export type TDifficulty = 'easy' | 'medium' | 'hard'
 
 // Тип задания
 export type TExerciseType =
-	| 'choice' // Выбор ответа
-	| 'input' // Ручной ввод
-	| 'ordering' // Сортировка
-	| 'grouping' // Группировка
-	| 'matching' // Сопоставление
-	| 'drawing' // Графическое
-	| 'offline' // Офлайн
+	| 'choice'
+	| 'input'
+	| 'ordering'
+	| 'grouping'
+	| 'matching'
+	| 'drawing'
+	| 'offline'
 
 /**
  * Краткая информация о задании
- * Соответствует схеме ExerciseShort в OpenAPI
  */
 export interface IExerciseShort {
 	id: number
@@ -32,7 +26,6 @@ export interface IExerciseShort {
 
 /**
  * Полная информация о задании
- * Соответствует схеме ExerciseFull в OpenAPI
  */
 export interface IExerciseFull extends IExerciseShort {
 	question: string
@@ -43,11 +36,22 @@ export interface IExerciseFull extends IExerciseShort {
 
 /**
  * Пагинированный ответ от сервера
- * Соответствует схеме PaginatedExerciseShortList в OpenAPI
  */
 export interface IPaginatedResponse<T> {
 	count: number
 	next: string | null
 	previous: string | null
 	results: T[]
+}
+
+/**
+ * Параметры запроса списка заданий
+ */
+export type TExerciseListParams = {
+	difficulty?: TDifficulty
+	type?: TExerciseType
+	search?: string
+	ordering?: string
+	page?: number
+	limit?: number
 }
