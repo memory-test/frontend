@@ -1,0 +1,81 @@
+.profilecWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	background-color: var(--surface-primary);
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 32px;
+		max-inline-size: 590px;
+	}
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	inline-size: 100%;
+	align-items: center;
+
+	@media (min-width: 1440px) {
+		gap: 24px;
+		align-items: flex-start;
+	}
+}
+
+.data {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 8px 4px;
+	margin: 0;
+	align-self: self-start;
+
+	@media (min-width: 1440px) {
+		gap: 16px 8px;
+	}
+}
+
+.data dt,
+.data dd {
+	margin: 0;
+
+	@media (min-width: 1440px) {
+		--font-size-desktop-body-md: 1.125rem;
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-lg);
+	}
+}
+
+.data dt {
+	font-weight: var(--font-weight-medium);
+	color: var(--foreground-color);
+}
+
+.data dd {
+	color: var(--foreground-color);
+	overflow-wrap: break-word; /* ← Перенос длинных слов (email, URL) */
+	word-break: break-word; /* ← Фоллбэк для старых браузеров */
+	min-width: 0; /* ← Критически важно для grid: разрешает колонке сжиматься */
+}
+
+.editButton {
+	align-self: stretch;
+
+	@media (min-width: 1440px) {
+		align-self: flex-start;
+
+		/* 1. Возвращаем вертикальные и горизонтальные отступы размера md */
+		--py: 12px;
+		--px: 28px;
+
+		/* 2. Переопределяем жестко заданный мобильный шрифт на десктопный md */
+		font-size: var(--font-size-desktop-button-md);
+		line-height: var(--line-height-desktop-button-md);
+	}
+}

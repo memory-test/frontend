@@ -1,0 +1,299 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	padding: 0;
+	margin: 0;
+	inline-size: 100%;
+	max-inline-size: 1063px;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		gap: 60px;
+		align-items: flex-start;
+	}
+}
+
+.avatarSection {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.avatarButton {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	border-radius: 50%;
+	transition: opacity 0.2s;
+	width: fit-content;
+
+	&:hover {
+		opacity: 0.9;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 4px;
+	}
+}
+
+.avatarWrapper {
+	display: grid;
+	grid-template-areas: "avatar";
+	place-items: center;
+}
+
+.avatarWrapper > :first-child {
+	grid-area: avatar;
+}
+
+.cameraOverlay {
+	grid-area: avatar;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: oklch(46.5% 4% 71.125 / 0.4);
+	border-radius: 50%;
+	color: var(--text-on-primary, #fff);
+	transition: background-color 0.2s ease;
+	width: 100%;
+	height: 100%;
+
+	/* запрещает вложенным элементам перехватывать клик */
+	pointer-events: none;
+}
+
+/* То же самое для SVG иконки */
+.cameraOverlay svg {
+	pointer-events: none;
+}
+
+.avatarButton:hover .cameraOverlay {
+	background-color: oklch(46.5% 4% 71.125 / 0.6);
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+		max-height: 0;
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+		max-height: 200px;
+	}
+}
+
+.fieldsSection {
+	flex: 1;
+	inline-size: 100%;
+	min-inline-size: 0;
+}
+
+.userData {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	inline-size: 100%;
+	border: none;
+	padding: 0;
+	margin: 0;
+
+	@media (min-width: 1440px) {
+		inline-size: 623px;
+	}
+}
+
+.legend {
+	display: flex;
+	justify-content: center;
+	inline-size: 100%;
+	text-align: center;
+	margin-bottom: 28px;
+
+	@media (min-width: 1440px) {
+		justify-content: start;
+	}
+}
+
+.title {
+	font-size: var(--font-size-mobile-heading-h3);
+	font-weight: var(--font-weight-medium);
+	color: var(--foreground-color);
+	margin: 0;
+	text-align: center;
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-heading-h3);
+	}
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		gap: 28px;
+		inline-size: 100%;
+		max-inline-size: 623px;
+	}
+}
+
+.label {
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-desktop-body-lg);
+	white-space: nowrap;
+	flex-shrink: 0;
+
+	@media (min-width: 1440px) {
+		inline-size: 180px;
+	}
+}
+
+.customInput,
+.customInputWrapper,
+.actionButtons {
+	inline-size: 100%;
+	max-inline-size: 350px;
+}
+
+.dateField {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: 28px;
+		inline-size: 100%;
+		max-inline-size: 623px;
+	}
+}
+
+.passwordField {
+	animation: slideIn 0.3s ease-out;
+	overflow: hidden;
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: 28px;
+		inline-size: 100%;
+		max-inline-size: 623px;
+	}
+}
+
+.passwordField .customInputWrapper {
+	inline-size: 100%;
+	max-inline-size: 400px;
+
+	@media (min-width: 1440px) {
+		max-inline-size: 400px;
+	}
+}
+
+.customInputWrapper {
+	inline-size: 100%;
+	max-inline-size: 350px;
+}
+
+.customInput {
+	box-sizing: border-box;
+	min-block-size: 52px;
+	padding: 10px 24px;
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+
+	@media (min-width: 1440px) {
+		inline-size: 100%;
+		max-inline-size: 400px;
+		min-block-size: 58px;
+	}
+}
+
+.customInput::placeholder {
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+	color: var(--foreground-tertiary, #9b948b);
+	opacity: 1;
+}
+
+.hint {
+	font-size: var(--font-size-mobile-body-sm);
+	color: var(--info-color, #6c8ebf);
+	margin-top: -8px;
+	margin-bottom: 8px;
+
+	@media (min-width: 1440px) {
+		margin-left: calc(180px + 28px);
+		margin-right: 0;
+		margin-top: -8px;
+	}
+}
+
+.error {
+	color: var(--error-color, #b55454);
+	font-size: var(--font-size-mobile-body-sm);
+	margin-top: 8px;
+}
+
+.actionButtons {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 12px;
+	margin-bottom: 4px;
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		flex: 0;
+		margin-top: 0;
+	}
+}
+
+.actionButton {
+	@media (min-width: 1440px) {
+		--py: 12px;
+		--px: 28px;
+	}
+}
+
+.fileInputHidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
