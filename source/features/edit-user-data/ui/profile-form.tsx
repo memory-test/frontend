@@ -1,11 +1,9 @@
 'use client'
 
-import { Avatar } from '@shared/ui/avatar'
+import { AvatarUpload } from '@shared/ui/avatar-upload'
 import { Button } from '@shared/ui/button'
 import { PasswordInput } from '@shared/ui/password-input'
 import { TextInput } from '@shared/ui/text-input'
-import { Camera } from 'lucide-react'
-import { useRef } from 'react'
 import type { TEditForm } from '../model'
 import { BirthDateSelects } from './birth-date-selects'
 import styles from './profile-form.module.css'
@@ -14,7 +12,7 @@ type TProfileFormProps = {
 	form: TEditForm
 	initialForm: TEditForm | null
 	avatarUrl: string | undefined
-	onAvatarChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	onAvatarChange: (url: string) => void
 	onChange: (form: TEditForm) => void
 	onSave: () => void
 	onCancel: () => void
@@ -31,8 +29,6 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 	onCancel,
 	error,
 }) => {
-	const fileInputRef = useRef<HTMLInputElement>(null)
-
 	const handleRevertOnBlur = (field: keyof TEditForm) => {
 		if (!form[field]?.trim() && initialForm) {
 			onChange({ ...form, [field]: initialForm[field] })
@@ -41,8 +37,9 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 
 	const isEmailChanged = form.email !== initialForm?.email
 
-	const handleAvatarClick = () => {
-		fileInputRef.current?.click()
+	const handleAvatarUpload = (file: File) => {
+		const url = URL.createObjectURL(file)
+		onAvatarChange(url)
 	}
 
 	return (
@@ -54,19 +51,12 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 			}}
 		>
 			<div className={styles.avatarSection}>
-				<button
-					type="button"
-					className={styles.avatarButton}
-					aria-label="Изменить аватар"
-					onClick={handleAvatarClick}
-				>
-					<div className={styles.avatarWrapper}>
-						<Avatar size="lg" name={form.name} avatarUrl={avatarUrl} />
-						<div className={styles.cameraOverlay}>
-							<Camera size={24} />
-						</div>
-					</div>
-				</button>
+				<AvatarUpload
+					avatarUrl={avatarUrl}
+					name={form.name}
+					size="lg"
+					onChange={handleAvatarUpload}
+				/>
 			</div>
 			<div className={styles.fieldsSection}>
 				<fieldset className={styles.userData}>
@@ -158,18 +148,6 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 					Отмена
 				</Button>
 			</div>
-
-			{/* Скрытый input для выбора файла */}
-			<input
-				ref={fileInputRef}
-				id="avatar-upload"
-				type="file"
-				accept="image/*"
-				onChange={onAvatarChange}
-				className={styles.fileInputHidden}
-				aria-hidden="true"
-				tabIndex={-1}
-			/>
 		</form>
 	)
 }

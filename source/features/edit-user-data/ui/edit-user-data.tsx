@@ -63,16 +63,12 @@ export const EditUserData: React.FC = () => {
 		setIsEditing(false)
 	}
 
-	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0]
-		if (file) {
-			// Очищаем предыдущий URL, если он был создан локально (не с сервера)
-			if (avatarUrl?.startsWith('blob:')) {
-				URL.revokeObjectURL(avatarUrl)
-			}
-			const url = URL.createObjectURL(file)
-			setAvatarUrl(url)
+	const handleAvatarChange = (url: string) => {
+		// Очищаем предыдущий blob URL
+		if (avatarUrl?.startsWith('blob:')) {
+			URL.revokeObjectURL(avatarUrl)
 		}
+		setAvatarUrl(url)
 	}
 
 	if (isLoading) return <div>Загрузка...</div>

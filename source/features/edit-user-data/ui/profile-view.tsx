@@ -20,7 +20,7 @@ export const ProfileView: React.FC<TProfileViewProps> = ({
 	}
 
 	return (
-		<div className={styles.profilecWrapper}>
+		<div className={styles.profileWrapper}>
 			<Avatar name={profile.name} size="lg" avatarUrl={profile.avatar_url} />
 
 			<div className={styles.info}>

@@ -1,4 +1,4 @@
-.profilecWrapper {
+.profileWrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -69,12 +69,8 @@
 
 	@media (min-width: 1440px) {
 		align-self: flex-start;
-
-		/* 1. Возвращаем вертикальные и горизонтальные отступы размера md */
 		--py: 12px;
 		--px: 28px;
-
-		/* 2. Переопределяем жестко заданный мобильный шрифт на десктопный md */
 		font-size: var(--font-size-desktop-button-md);
 		line-height: var(--line-height-desktop-button-md);
 	}
