@@ -1,0 +1,10 @@
+# this file will extend docker-compose.yaml config if no "-f" option used
+# use with local development only (!)
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
