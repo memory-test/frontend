@@ -6,16 +6,15 @@
 .container {
 	max-width: 100%;
 	margin: 0 auto;
+	padding: 48px 16px 136px 16px;
 }
 
 .toolbar {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: flex-start;
 	gap: 32px;
-	flex-wrap: wrap;
-	padding: 48px 16px 136px 16px;
+	margin-bottom: 32px;
 }
 
 .title {
@@ -27,19 +26,76 @@
 	margin: 0;
 }
 
-.select {
-	width: 173px;
+.filters {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	flex-wrap: wrap;
+	width: 100%;
 }
 
-.cards {
-	padding: 16px;
-	background-color: var(--bg-primary);
+.select {
+	min-width: 173px;
+	width: fit-content;
+}
+
+.list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	justify-content: flex-start;
+}
+
+.cardSurface {
+	width: fit-content;
+	max-width: 316px;
+}
+
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	margin-top: 24px;
+}
+
+.paginationButton {
+	padding: 8px 16px;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+	font-weight: var(--font-weight-medium);
+	color: var(--text-on-primary);
+	background-color: var(--primary-color);
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color var(--button-duration-fast) ease;
+}
+
+.paginationButton:hover:not(:disabled) {
+	background-color: var(--primary-dark);
+}
+
+.paginationButton:disabled {
+	background-color: var(--border-default);
+	color: var(--foreground-tertiary);
+	cursor: not-allowed;
+}
+
+.paginationInfo {
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	color: var(--foreground-secondary);
 }
 
 /* Десктоп */
 @media (min-width: 1440px) {
 	.container {
-		padding: 48px 16px 136px 16px;
+		padding: 48px 40px 136px 40px;
 	}
 
 	.title {
@@ -47,7 +103,29 @@
 		line-height: var(--line-height-desktop-heading-h2);
 	}
 
+	.filters {
+		gap: 16px;
+	}
+
 	.select {
-		width: 201px;
+		min-width: 201px;
+	}
+	.cardSurface {
+		padding: 16px;
+		/* паддинг всегда 16px, иначе 24px на десктопе, определенный в   
+  source\shared\ui\surface\styles.module.css ломает карточку */
+	}
+	.list {
+		gap: 32px;
+	}
+
+	.paginationButton {
+		padding: 10px 20px;
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+
+	.paginationInfo {
+		font-size: var(--font-size-desktop-body-md);
 	}
 }
