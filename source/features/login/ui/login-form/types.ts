@@ -1,12 +1,10 @@
+import type { FieldErrors, UseFormRegister } from 'react-hook-form'
 import type { TLoginFormValues } from '../../model/login.schema'
 
 export type TLoginFormProps = {
-	values: TLoginFormValues
-	onChange: <K extends keyof TLoginFormValues>(
-		name: K,
-		value: TLoginFormValues[K],
-	) => void
-	onSubmit: () => void
+	register: UseFormRegister<TLoginFormValues>
+	errors: FieldErrors<TLoginFormValues>
+	onSubmit: (event: React.FormEvent) => void
 	formError?: string
 	isLoading?: boolean
 }
