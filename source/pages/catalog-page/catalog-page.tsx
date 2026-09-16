@@ -12,7 +12,9 @@ const DIFFICULTY_OPTIONS = [
 
 export const CatalogPage: React.FC = () => {
 	const [difficulty, setDifficulty] = useState<string | undefined>(undefined)
-
+	if (Math.random() > 0.5) {
+		throw new Error('Тестовая ошибка')
+	}
 	return (
 		<main className={styles.main}>
 			<div className={styles.container}>
