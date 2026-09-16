@@ -1,7 +1,4 @@
-export type TLoginFormValues = {
-	email: string
-	password: string
-}
+import type { TLoginFormValues } from '../../model/login.schema'
 
 export type TLoginFormProps = {
 	values: TLoginFormValues
