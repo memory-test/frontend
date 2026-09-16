@@ -2,6 +2,7 @@ import { HTTPError, TimeoutError } from 'ky'
 import { ApiError } from './error'
 
 interface IBackendErrorBody {
+	detail?: string
 	message?: string
 	code?: string
 	details?: unknown
@@ -13,7 +14,7 @@ export function normalizeError(error: unknown): ApiError {
 
 		return new ApiError({
 			status: error.response.status,
-			message: body.message ?? error.message,
+			message: body.detail ?? body.message ?? error.message,
 			code: body.code,
 			details: body.details,
 		})
