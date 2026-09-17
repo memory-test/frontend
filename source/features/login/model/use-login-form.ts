@@ -32,6 +32,7 @@ export const useLoginForm = ({ onSuccess }: IUseLoginFormParams = {}) => {
 
 		try {
 			const tokens = await loginUser(values)
+			// токен нужен в хранилище до запроса профиля - оттуда его берёт интерцептор
 			tokenStorage.setTokens(tokens)
 
 			const user = await getCurrentUser()
