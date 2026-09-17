@@ -1,7 +1,13 @@
 import '@app/styles/globals.css'
+import { ProfileNavigation } from '@features/profile-navigation'
 
 const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-	return <div>{children}</div>
+	return (
+		<main>
+			<ProfileNavigation />
+			{children}
+		</main>
+	)
 }
 
 export default ProfileLayout
