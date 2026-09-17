@@ -92,8 +92,12 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 		<section>
 			<Title className={styles.sectionTitle}>Управление аккаунтом</Title>
 			<div className={styles.wrapper}>
-				<span>Удалить аккаунт</span>
-				<Button onClick={() => setIsOpen(true)} size="sm">
+				<span className={styles.actionDescription}>Удалить аккаунт</span>
+				<Button
+					className={styles.actionButton}
+					onClick={() => setIsOpen(true)}
+					size="sm"
+				>
 					Удалить
 				</Button>
 			</div>

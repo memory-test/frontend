@@ -54,9 +54,10 @@ export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 
 	return (
 		<section className={styles.settingsCard}>
-			<Title>Настройка сложности</Title>
+			<Title className={styles.title}>Настройка сложности</Title>
 			<ToggleGroup
 				label="Выбор уровня сложности"
+				labelClassName={styles.label}
 				items={toggleItems}
 				type="single"
 				value={difficulty}

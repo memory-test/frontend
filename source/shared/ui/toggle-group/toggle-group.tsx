@@ -8,11 +8,12 @@ export const ToggleGroup: React.FC<TToggleGroupProps> = ({
 	size = 'md',
 	items,
 	className,
+	labelClassName,
 	...props
 }) => {
 	return (
 		<div className={styles.wrapper}>
-			{label && <span>{label}</span>}
+			{label && <span className={labelClassName}>{label}</span>}
 
 			<ToggleRadix.Root className={clsx(styles.root, className)} {...props}>
 				{items.map((item) => (

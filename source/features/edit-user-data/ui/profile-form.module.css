@@ -6,12 +6,13 @@
 	padding: 0;
 	margin: 0;
 	inline-size: 100%;
-	max-inline-size: 1063px;
+	max-inline-size: 664px;
 
 	@media (min-width: 1440px) {
 		flex-direction: row;
 		gap: 60px;
 		align-items: flex-start;
+		max-inline-size: 1063px;
 	}
 }
 
@@ -100,6 +101,7 @@
 .label {
 	font-size: var(--font-size-mobile-body-lg);
 	line-height: var(--line-height-desktop-body-lg);
+	color: var(--foreground-color);
 	white-space: nowrap;
 	flex-shrink: 0;
 

@@ -1,0 +1,140 @@
+.cardsSection {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+	max-inline-size: 1360px;
+	inline-size: 100%;
+	margin: auto;
+	margin-bottom: 100px;
+	transition:
+		grid-template-columns var(--duration-fast) ease,
+		gap var(--duration-fast) ease,
+		max-width var(--duration-fast) ease;
+}
+
+.otherCards {
+	display: contents;
+}
+
+.card {
+	padding: 28px 16px;
+	min-inline-size: 382px;
+	inline-size: 100%;
+	transition:
+		opacity var(--duration-fast) ease,
+		transform var(--duration-fast) ease,
+		min-block-size var(--duration-fast) ease,
+		padding var(--duration-fast) ease;
+
+	animation: fadeIn var(--duration-fast) ease;
+
+	@media (min-width: 1440px) {
+		padding: 32px 48px;
+		min-block-size: 208px;
+	}
+}
+
+.profile {
+	@media (min-width: 1440px) {
+		padding: 32px 26px 32px 48px;
+	}
+}
+
+.profileEditing {
+	inline-size: 100%;
+	transition:
+		max-inline-size var(--duration-fast) ease,
+		padding var(--duration-fast) ease,
+		min-block-size var(--duration-fast) ease;
+
+	@media (min-width: 1440px) {
+		padding: 48px 32px;
+		max-inline-size: 1127px;
+	}
+}
+
+.switchStateButton {
+	display: none;
+	opacity: 0;
+	transform: translateY(-10px);
+	transition:
+		opacity var(--duration-fast) ease,
+		transform var(--duration-fast) ease;
+}
+
+@media (min-width: 1440px) {
+	.cardsSection {
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 32px;
+		row-gap: 40px;
+		align-content: center;
+	}
+
+	.cardTop {
+		min-block-size: 302px; /* Верхний ряд */
+	}
+
+	.card {
+		padding: 32px 48px;
+		min-inline-size: 382px;
+		inline-size: 100%;
+		min-block-size: 208px; /* Нижний ряд (по умолчанию) */
+	}
+
+	.cardsSection.isEditing {
+		row-gap: 32px;
+		max-width: 1127px;
+	}
+
+	/* В режиме редактирования на десктопе: */
+	/* 1. Скрываем обёртку с тремя карточками */
+	.cardsSection.isEditing .otherCards {
+		display: none;
+	}
+
+	.cardsSection.isEditing .switchStateButton {
+		display: flex;
+		justify-self: start; /* Запрещает растягиваться по ширине ячейки */
+		align-self: start;
+		animation: slideDown var(--duration-fast) ease var(--duration-fast) forwards;
+	}
+
+	/* 2. Карточка редактирования профиля занимает всю ширину */
+	.cardsSection.isEditing .profileEditing {
+		grid-column: 1 / -1;
+		padding: 48px 32px;
+		min-block-size: 358px;
+		animation: expandWidth var(--duration-fast) ease;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes expandWidth {
+	from {
+		max-inline-size: 664px;
+	}
+	to {
+		max-inline-size: 1127px;
+	}
+}
