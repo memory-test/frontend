@@ -1,0 +1,192 @@
+.selectsWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 8px;
+	inline-size: 100%;
+	max-inline-size: 350px;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		inline-size: 400px;
+		max-inline-size: 400px;
+	}
+}
+
+/* === ТРИГГЕР (Кнопка селекта) === */
+.trigger {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 0 0 auto;
+	min-inline-size: 80px;
+	padding: 12px 20px;
+	border-radius: 8px;
+	border: 1px solid var(--border-default);
+	background-color: var(--surface-primary);
+	color: var(--foreground-color);
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	line-height: var(--line-height-mobile-body-md);
+	cursor: pointer;
+	transition:
+		border-color 0.2s,
+		box-shadow 0.2s;
+
+	@media (min-width: 1440px) {
+		flex: 1;
+		padding-inline-start: 24px;
+		padding-inline-end: 32px;
+		justify-content: flex-start;
+		gap: 8px;
+	}
+}
+
+.trigger:hover {
+	border-color: var(--primary-color);
+}
+
+.trigger:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
+/* Состояние, когда значение не выбрано (плейсхолдер) */
+.trigger[data-placeholder] {
+	color: var(--foreground-tertiary);
+	block-size: 48px;
+	line-height: 20px;
+
+	@media (min-width: 1440px) {
+		block-size: 50px;
+	}
+}
+
+.icon {
+	display: flex;
+	align-items: center;
+	color: var(--foreground-secondary);
+	transition: transform 0.2s;
+}
+
+/* Поворот стрелочки при открытии (Radix добавляет data-state="open") */
+.trigger[data-state="open"] .icon {
+	transform: rotate(180deg);
+}
+
+/* === ВЫПАДАЮЩИЙ СПИСОК (То, чего не было в макете) === */
+.content {
+	width: var(--radix-select-trigger-width);
+	background-color: var(--surface-primary);
+	border: 1px solid var(--border-default);
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+	z-index: 1000;
+	animation: slideDown 0.2s ease-out;
+}
+
+.viewport {
+	padding: 4px;
+	max-height: 220px;
+	overflow-y: auto;
+}
+
+/* Кастомный скроллбар */
+.viewport::-webkit-scrollbar {
+	width: 6px;
+}
+.viewport::-webkit-scrollbar-track {
+	background: transparent;
+}
+.viewport::-webkit-scrollbar-thumb {
+	background-color: var(--border-default);
+	border-radius: 3px;
+}
+
+/* === ЭЛЕМЕНТ СПИСКА === */
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 12px;
+	border-radius: 6px;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	color: var(--foreground-color);
+	cursor: pointer;
+	outline: none;
+	-webkit-user-select: none;
+	user-select: none;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+/* Состояние при наведении мыши ИЛИ навигации клавиатурой */
+.item[data-highlighted] {
+	background-color: var(--surface-secondary, #e5e7eb); /* Более заметный цвет */
+	outline: none; /* Убираем стандартный outline, так как фокус на триггере */
+}
+
+/* Дополнительно: можно добавить левую границу для лучшей видимости */
+.item[data-highlighted] {
+	background-color: var(--surface-secondary, #e5e7eb);
+	border-left: 3px solid var(--primary-color);
+	padding-left: 9px; /* Компенсируем border */
+}
+
+/* Выбранный элемент (data-state="checked") */
+.item[data-state="checked"] {
+	font-weight: var(--font-weight-medium);
+	color: var(--primary-color);
+	background-color: var(--bg-selected, #f0f9ff); /* Легкий фон для выбранного */
+}
+
+/* Если элемент И выбран, И подсвечен при навигации */
+.item[data-state="checked"][data-highlighted] {
+	background-color: var(--surface-secondary, #e5e7eb);
+	border-left-color: var(--primary-color);
+}
+
+.indicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--primary-color);
+}
+
+/* Анимация появления */
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 360px) {
+	.selectsWrapper {
+		flex-direction: column;
+	}
+	.trigger {
+		inline-size: 100%;
+	}
+}
+
+@media (min-width: 1440px) {
+	.trigger {
+		font-size: var(--font-size-desktop-body-md);
+		line-height: var(--line-height-desktop-body-md);
+	}
+
+	.item {
+		padding: 12px 12px;
+		font-size: var(--font-size-desktop-body-md);
+	}
+}

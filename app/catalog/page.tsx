@@ -1,5 +1,5 @@
-const CatalogPage: React.FC = () => {
-	return <h1>Catalog</h1>
-}
+import { CatalogPage } from '@pages/catalog-page'
 
-export default CatalogPage
+export default function CatalogPageRoute() {
+	return <CatalogPage />
+}

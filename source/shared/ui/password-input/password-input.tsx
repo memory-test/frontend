@@ -16,6 +16,9 @@ export const PasswordInput = ({
 	error,
 	errorMessage,
 	className,
+	wrapperClassName,
+	inputClassName,
+	labelClassName,
 	...props
 }: TPasswordInputProps) => {
 	const generatedId = useId()
@@ -24,9 +27,12 @@ export const PasswordInput = ({
 	const isInvalid = error || Boolean(errorMessage)
 
 	return (
-		<div className={styles.inputWrapper}>
+		<div className={clsx(styles.inputWrapper, wrapperClassName)}>
 			{label && (
-				<Label.Root htmlFor={inputId} className={styles.label}>
+				<Label.Root
+					htmlFor={inputId}
+					className={clsx(styles.label, labelClassName)}
+				>
 					{label}
 				</Label.Root>
 			)}
@@ -44,7 +50,7 @@ export const PasswordInput = ({
 						aria-invalid={isInvalid || undefined}
 						aria-describedby={errorMessage ? errorId : undefined}
 						{...props}
-						className={styles.input}
+						className={clsx(styles.input, inputClassName)}
 					/>
 					<PasswordToggleField.Toggle className={styles.toggle}>
 						<PasswordToggleField.Icon
