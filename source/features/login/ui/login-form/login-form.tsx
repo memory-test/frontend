@@ -11,7 +11,6 @@ import type { TLoginFormProps } from './types'
 
 export const LoginForm: React.FC<TLoginFormProps> = ({
 	register,
-	errors,
 	onSubmit,
 	formError,
 	isLoading,
@@ -24,7 +23,6 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				placeholder="example@mail.ru"
 				autoComplete="email"
 				error={Boolean(formError)}
-				errorMessage={errors.email?.message}
 				{...register('email')}
 			/>
 
@@ -34,7 +32,6 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 					placeholder="Введите пароль"
 					autoComplete="current-password"
 					error={Boolean(formError)}
-					errorMessage={errors.password?.message}
 					{...register('password')}
 				/>
 
@@ -46,11 +43,9 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				</Link>
 			</div>
 
-			{formError && (
-				<p className={styles.formError} role="alert" aria-live="polite">
-					{formError}
-				</p>
-			)}
+			<p className={styles.formError} role="alert" aria-live="polite">
+				{formError}
+			</p>
 
 			<Button
 				type="submit"

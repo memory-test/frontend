@@ -6,14 +6,13 @@ import { useRouter } from 'next/navigation'
 
 const AuthPage: React.FC = () => {
 	const router = useRouter()
-	const { register, errors, onSubmit, formError, isLoading } = useLoginForm({
+	const { register, onSubmit, formError, isLoading } = useLoginForm({
 		onSuccess: () => router.push('/'),
 	})
 
 	return (
 		<LoginPage
 			register={register}
-			errors={errors}
 			onSubmit={onSubmit}
 			formError={formError}
 			isLoading={isLoading}
