@@ -13,6 +13,7 @@ export const routeSegments = {
 	exercise: ':id',
 	exerciseProcess: 'process',
 	exerciseResult: 'result',
+	settings: 'settings',
 } as const
 
 // Query params
@@ -55,4 +56,5 @@ export const routerPath = {
 		routeSegments.exercise,
 		routeSegments.exerciseResult,
 	]),
+	settings: defineRoute([routeSegments.settings]),
 }

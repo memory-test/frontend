@@ -1,0 +1,7 @@
+.linkGroup {
+	margin-bottom: 32px;
+
+	@media (min-width: 1440px) {
+		margin-bottom: 60px;
+	}
+}

@@ -1,0 +1,69 @@
+.container {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	border-radius: 50%;
+	transition: opacity var(--duration-fast);
+	width: fit-content;
+
+	&:hover {
+		opacity: 0.9;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 4px;
+	}
+}
+
+.avatarWrapper {
+	display: grid;
+	grid-template-areas: "avatar";
+	place-items: center;
+}
+
+.avatarWrapper > :first-child {
+	grid-area: avatar;
+}
+
+.fileInput {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.cameraOverlay {
+	grid-area: avatar;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: oklch(46.5% 4% 71.125 / 0.4);
+	border-radius: 50%;
+	color: var(--text-on-primary, #fff);
+	transition: background-color 0.2s ease;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.container:hover .cameraOverlay {
+	background-color: oklch(46.5% 4% 71.125 / 0.6);
+}
+
+.cameraOverlay svg {
+	pointer-events: none;
+}
