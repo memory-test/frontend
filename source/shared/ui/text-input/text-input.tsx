@@ -6,16 +6,31 @@ import styles from './styles.module.css'
 import type { TTextInputProps } from './types'
 
 export const TextInput = forwardRef<HTMLInputElement, TTextInputProps>(
-	({ label, id, error, errorMessage, className, ...props }, ref) => {
+	(
+		{
+			label,
+			id,
+			error,
+			errorMessage,
+			wrapperClassName,
+			className,
+			labelClassName,
+			...props
+		},
+		ref,
+	) => {
 		const generatedId = useId()
 		const inputId = id ?? generatedId
 		const errorId = `${inputId}-error`
 		const isInvalid = error || Boolean(errorMessage)
 
 		return (
-			<div className={styles.inputWrapper}>
+			<div className={clsx(styles.inputWrapper, wrapperClassName)}>
 				{label && (
-					<label htmlFor={inputId} className={styles.label}>
+					<label
+						htmlFor={inputId}
+						className={clsx(styles.label, labelClassName)}
+					>
 						{label}
 					</label>
 				)}

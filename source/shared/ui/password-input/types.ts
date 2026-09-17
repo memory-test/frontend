@@ -8,4 +8,7 @@ export type TPasswordInputProps = Omit<
 	autoComplete?: 'current-password' | 'new-password'
 	error?: boolean
 	errorMessage?: string
+	wrapperClassName?: string
+	inputClassName?: string
+	labelClassName?: string
 }

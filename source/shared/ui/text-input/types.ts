@@ -4,4 +4,6 @@ export type TTextInputProps = ComponentProps<'input'> & {
 	label?: string
 	error?: boolean
 	errorMessage?: string
+	wrapperClassName?: string
+	labelClassName?: string
 }

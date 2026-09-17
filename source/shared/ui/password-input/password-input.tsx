@@ -11,16 +11,32 @@ import styles from './styles.module.css'
 import type { TPasswordInputProps } from './types'
 
 export const PasswordInput = forwardRef<HTMLInputElement, TPasswordInputProps>(
-	({ label, id, error, errorMessage, className, ...props }, ref) => {
+	(
+		{
+			label,
+			id,
+			error,
+			errorMessage,
+			className,
+			wrapperClassName,
+			inputClassName,
+			labelClassName,
+			...props
+		},
+		ref,
+	) => {
 		const generatedId = useId()
 		const inputId = id ?? generatedId
 		const errorId = `${inputId}-error`
 		const isInvalid = error || Boolean(errorMessage)
 
 		return (
-			<div className={styles.inputWrapper}>
+			<div className={clsx(styles.inputWrapper, wrapperClassName)}>
 				{label && (
-					<Label.Root htmlFor={inputId} className={styles.label}>
+					<Label.Root
+						htmlFor={inputId}
+						className={clsx(styles.label, labelClassName)}
+					>
 						{label}
 					</Label.Root>
 				)}
@@ -39,7 +55,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, TPasswordInputProps>(
 							aria-invalid={isInvalid || undefined}
 							aria-describedby={errorMessage ? errorId : undefined}
 							{...props}
-							className={styles.input}
+							className={clsx(styles.input, inputClassName)}
 						/>
 						<PasswordToggleField.Toggle className={styles.toggle}>
 							<PasswordToggleField.Icon
