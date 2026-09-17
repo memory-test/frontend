@@ -1,0 +1,5 @@
+export { getSavedFontSize, saveFontSize } from './lib/font-size-settings'
+export type { TFontSize } from './model/font-size'
+export { DEFAULT_FONT_SIZE } from './model/font-size'
+export { ChangeFontSize } from './ui/change-font-size'
+export { FontSizeInitializer } from './ui/font-size-initializer'

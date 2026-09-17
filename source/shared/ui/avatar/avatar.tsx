@@ -1,5 +1,8 @@
+'use client'
+
 import clsx from 'clsx'
 import Image from 'next/image'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import type { TAvatarProps, TAvatarSize } from './types'
 
@@ -24,22 +27,34 @@ export const Avatar: React.FC<TAvatarProps> = ({
 	const initial = name.charAt(0).toUpperCase()
 	const dimension = getDimension(size)
 
-	return (
-		<div className={clsx(styles.avatarContainer, styles[size])}>
-			{!avatarUrl ? (
-				<span className={styles.avatarLetter} role="img" aria-label={name}>
+	const [imgError, setImgError] = useState(false)
+
+	if (!avatarUrl || imgError) {
+		return (
+			<div className={clsx(styles.avatarContainer, styles[size])}>
+				<span
+					className={styles.avatarLetter}
+					role="img"
+					aria-label={`Аватар пользователя ${name}`}
+				>
 					{initial}
 				</span>
-			) : (
-				<Image
-					src={avatarUrl}
-					alt={`Аватар ${name}`}
-					width={dimension}
-					height={dimension}
-					className={styles.avatar}
-					priority={size === 'lg'}
-				/>
-			)}
+			</div>
+		)
+	}
+
+	return (
+		<div className={clsx(styles.avatarContainer, styles[size])}>
+			<Image
+				src={avatarUrl}
+				alt={`Аватар ${name}`}
+				width={dimension}
+				height={dimension}
+				className={styles.avatar}
+				priority={size === 'lg'}
+				unoptimized
+				onError={() => setImgError(true)}
+			/>
 		</div>
 	)
 }

@@ -10,7 +10,9 @@ export const TextInput = ({
 	id,
 	error,
 	errorMessage,
+	wrapperClassName,
 	className,
+	labelClassName,
 	...props
 }: TTextInputProps) => {
 	const generatedId = useId()
@@ -19,9 +21,9 @@ export const TextInput = ({
 	const isInvalid = error || Boolean(errorMessage)
 
 	return (
-		<div className={styles.inputWrapper}>
+		<div className={clsx(styles.inputWrapper, wrapperClassName)}>
 			{label && (
-				<label htmlFor={inputId} className={styles.label}>
+				<label htmlFor={inputId} className={clsx(styles.label, labelClassName)}>
 					{label}
 				</label>
 			)}
