@@ -79,8 +79,6 @@
 	--duration-fast: 0.2s; /* источник */
 	--button-duration-fast: var(--duration-fast); /* алиас для совместимости */
 
-	/* ===== Размеры ===== */
-
 	/* Мобилка */
 
 	--font-size-mobile-body-lg: 1.25rem; /* 20px */
