@@ -176,6 +176,7 @@ header {
 	top: 0;
 	inset-inline: 0;
 	z-index: 100;
+	min-block-size: var(--header-block-size);
 }
 
 header,
