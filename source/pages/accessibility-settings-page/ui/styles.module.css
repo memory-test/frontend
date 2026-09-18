@@ -1,0 +1,25 @@
+.settingsWrapper {
+	display: grid;
+	row-gap: 25px;
+	margin-bottom: 25px;
+
+	@media (min-width: 1440px) {
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 25px;
+	}
+}
+
+.btnWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-width: 350px;
+	margin-inline: auto;
+
+	@media (min-width: 1440px) {
+		flex-direction: row;
+		max-width: fit-content;
+		margin-inline: 0;
+		margin-left: auto;
+	}
+}
