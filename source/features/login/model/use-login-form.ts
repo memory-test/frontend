@@ -46,11 +46,11 @@ export const useLoginForm = ({ onSuccess }: IUseLoginFormParams = {}) => {
 
 				onSuccess?.()
 			} catch (error) {
-				setFormError(
-					error instanceof ApiError
-						? error.message
-						: 'Не удалось войти. Попробуйте ещё раз',
-				)
+				if (error instanceof ApiError && error.status === 401) {
+					setFormError(GENERAL_ERROR_MESSAGE)
+					return
+				}
+				setFormError('Не удалось войти. Попробуйте ещё раз')
 			}
 		},
 		() => setFormError(GENERAL_ERROR_MESSAGE),
