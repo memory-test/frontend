@@ -152,7 +152,7 @@ p {
 }
 
 body {
-	min-height: 100dvh;
+	min-block-size: 100dvh;
 	display: flex;
 	flex-direction: column;
 	gap: 0;
@@ -166,6 +166,16 @@ main {
 	flex-grow: 1;
 	background-color: var(--bg-secondary);
 	padding: 32px 16px;
+	min-inline-size: 100%;
+	margin-inline: auto;
+	margin-block-start: var(--header-block-size);
+}
+
+header {
+	position: fixed;
+	top: 0;
+	inset-inline: 0;
+	z-index: 100;
 }
 
 header,
