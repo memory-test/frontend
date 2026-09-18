@@ -3,6 +3,7 @@
 	font-size: var(--font-size-mobile-heading-h3);
 	line-height: var(--line-height-mobile-heading-h3);
 	font-weight: var(--font-weight-medium);
+	color: var(--foreground-color);
 
 	@media (min-width: 1440px) {
 		margin-bottom: 24px;
@@ -15,9 +16,29 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@media (min-width: 1440px) {
+		align-items: flex-start;
+	}
 }
 
 .modal__btnWrapper {
 	display: flex;
 	gap: 20px;
+}
+
+.actionDescription {
+	color: var(--foreground-color);
+	@media (min-width: 1440px) {
+		--font-size-desktop-body-md: 1.125rem;
+		font-size: var(--font-size-desktop-body-md);
+		--line-height-desktop-body-md: 1.625rem;
+		line-height: var(--line-height-desktop-body-md);
+	}
+}
+
+.actionButton {
+	@media (min-width: 1440px) {
+		--py: 12px;
+		--px: 28px;
+	}
 }
