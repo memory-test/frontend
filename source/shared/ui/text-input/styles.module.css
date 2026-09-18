@@ -33,10 +33,12 @@
 
 .inputError {
 	border-color: var(--error-color);
+	background-color: var(--error-color-light);
 }
 
 .inputError:hover {
 	border-color: var(--error-color);
+	background-color: var(--error-color-light);
 }
 
 .errorText {

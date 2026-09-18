@@ -10,27 +10,20 @@ import styles from './styles.module.css'
 import type { TLoginFormProps } from './types'
 
 export const LoginForm: React.FC<TLoginFormProps> = ({
-	values,
-	onChange,
+	register,
 	onSubmit,
 	formError,
 	isLoading,
 }) => {
-	const handleSubmit = (event: React.FormEvent) => {
-		event.preventDefault()
-		onSubmit()
-	}
-
 	return (
-		<form className={styles.form} noValidate onSubmit={handleSubmit}>
+		<form className={styles.form} noValidate onSubmit={onSubmit}>
 			<TextInput
 				label="Электронная почта"
 				type="email"
 				placeholder="example@mail.ru"
 				autoComplete="email"
-				value={values.email}
 				error={Boolean(formError)}
-				onChange={(e) => onChange('email', e.target.value)}
+				{...register('email')}
 			/>
 
 			<div className={styles.passwordGroup}>
@@ -38,10 +31,10 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 					label="Пароль"
 					placeholder="Введите пароль"
 					autoComplete="current-password"
-					value={values.password}
 					error={Boolean(formError)}
-					onChange={(e) => onChange('password', e.target.value)}
+					{...register('password')}
 				/>
+
 				<Link
 					href={createUrl(routerPath.forgotPassword)}
 					className={styles.forgotLink}
@@ -50,11 +43,9 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				</Link>
 			</div>
 
-			{formError && (
-				<p className={styles.formError} role="alert" aria-live="polite">
-					{formError}
-				</p>
-			)}
+			<p className={styles.formError} role="alert">
+				{formError}
+			</p>
 
 			<Button
 				type="submit"

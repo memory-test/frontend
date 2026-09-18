@@ -1,4 +1,5 @@
 export type { IApiErrorShape } from './error'
 export { ApiError } from './error'
 export { http } from './http'
-export type { TRequestOptions } from './types'
+export { tokenStorage } from './token-storage'
+export type { ITokens, TRequestOptions } from './types'

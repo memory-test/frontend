@@ -1,15 +1,9 @@
-export type TLoginFormValues = {
-	email: string
-	password: string
-}
+import type { UseFormRegister } from 'react-hook-form'
+import type { TLoginFormValues } from '../../model/login.schema'
 
 export type TLoginFormProps = {
-	values: TLoginFormValues
-	onChange: <K extends keyof TLoginFormValues>(
-		name: K,
-		value: TLoginFormValues[K],
-	) => void
-	onSubmit: () => void
+	register: UseFormRegister<TLoginFormValues>
+	onSubmit: (event: React.FormEvent) => void
 	formError?: string
 	isLoading?: boolean
 }
