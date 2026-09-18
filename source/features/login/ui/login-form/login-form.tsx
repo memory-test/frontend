@@ -43,7 +43,7 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				</Link>
 			</div>
 
-			<p className={styles.formError} role="alert" aria-live="polite">
+			<p className={styles.formError} role="alert">
 				{formError}
 			</p>
 
