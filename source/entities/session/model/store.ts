@@ -1,17 +1,12 @@
-import type { ITokens } from '@shared/api'
-import { tokenStorage } from '@shared/api'
 import { create } from 'zustand'
 import type { IUser } from './types'
 
 interface ISessionState {
 	user: IUser | null
-	setSession: (tokens: ITokens, user: IUser) => void
+	setSession: (user: IUser) => void
 }
 
 export const useSessionStore = create<ISessionState>((set) => ({
 	user: null,
-	setSession: (tokens, user) => {
-		tokenStorage.setTokens(tokens)
-		set({ user })
-	},
+	setSession: (user) => set({ user }),
 }))

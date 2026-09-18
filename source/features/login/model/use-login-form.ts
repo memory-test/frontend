@@ -42,7 +42,7 @@ export const useLoginForm = ({ onSuccess }: IUseLoginFormParams = {}) => {
 				tokenStorage.setTokens(tokens)
 
 				const user = await getCurrentUser()
-				setSession(tokens, user)
+				setSession(user)
 
 				onSuccess?.()
 			} catch (error) {
