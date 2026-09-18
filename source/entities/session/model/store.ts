@@ -6,7 +6,6 @@ import type { IUser } from './types'
 interface ISessionState {
 	user: IUser | null
 	setSession: (tokens: ITokens, user: IUser) => void
-	clearSession: () => void
 }
 
 export const useSessionStore = create<ISessionState>((set) => ({
@@ -14,9 +13,5 @@ export const useSessionStore = create<ISessionState>((set) => ({
 	setSession: (tokens, user) => {
 		tokenStorage.setTokens(tokens)
 		set({ user })
-	},
-	clearSession: () => {
-		tokenStorage.clearTokens()
-		set({ user: null })
 	},
 }))
