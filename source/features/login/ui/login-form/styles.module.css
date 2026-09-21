@@ -28,11 +28,6 @@
 	width: 100%;
 }
 
-.divider {
-	text-align: center;
-	color: var(--foreground-secondary);
-}
-
 .registerHint {
 	text-align: center;
 }
