@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@shared/ui/button'
+import { FormError } from '@shared/ui/form-error/form-error'
 import { TextInput } from '@shared/ui/text-input'
 import styles from './styles.module.css'
 import type { TConfirmEmailFormProps } from './types'
@@ -32,9 +33,7 @@ export const ConfirmEmailForm: React.FC<TConfirmEmailFormProps> = ({
 				{...register('code')}
 			/>
 
-			<p className={styles.formError} role="alert">
-				{formError}
-			</p>
+			<FormError message={formError} />
 
 			<Button
 				type="submit"

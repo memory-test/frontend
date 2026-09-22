@@ -41,11 +41,12 @@ export const useConfirmEmailForm = ({
 			await startSession(tokens)
 			onSuccess?.()
 		} catch (error) {
+			if (error instanceof ApiError && error.status === 400) {
+				setError('root', { message: error.message })
+				return
+			}
 			setError('root', {
-				message:
-					error instanceof ApiError
-						? error.message
-						: 'Не удалось подтвердить код. Попробуйте ещё раз',
+				message: 'Не удалось подтвердить код. Попробуйте ещё раз',
 			})
 		}
 	})

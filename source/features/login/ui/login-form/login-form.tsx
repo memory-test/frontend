@@ -3,6 +3,7 @@
 import { createUrl, routerPath } from '@shared/lib/routes'
 import { AuthSocialButtons } from '@shared/ui/auth-social-buttons'
 import { Button } from '@shared/ui/button'
+import { FormError } from '@shared/ui/form-error/form-error'
 import { PasswordInput } from '@shared/ui/password-input'
 import { TextInput } from '@shared/ui/text-input'
 import Link from 'next/link'
@@ -43,9 +44,7 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				</Link>
 			</div>
 
-			<p className={styles.formError} role="alert">
-				{formError}
-			</p>
+			<FormError message={formError} />
 
 			<Button
 				type="submit"
