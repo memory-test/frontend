@@ -12,7 +12,6 @@ export const routeSegments = {
 	catalog: 'catalog',
 	exercise: ':id',
 	exerciseProcess: 'process',
-	/* 	exerciseResult: 'result', */ // <-- УДАЛЕНО
 	settings: 'settings',
 } as const
 
@@ -51,10 +50,5 @@ export const routerPath = {
 		routeSegments.exercise,
 		routeSegments.exerciseProcess,
 	]),
-	// exerciseResult: defineRoute([ // <-- УДАЛЕНО ВЕСЬ БЛОК
-	// 	routeSegments.catalog,
-	// 	routeSegments.exercise,
-	// 	routeSegments.exerciseResult,
-	// ]),
 	settings: defineRoute([routeSegments.settings]),
 }
