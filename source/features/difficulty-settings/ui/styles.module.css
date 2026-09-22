@@ -2,6 +2,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	@media (min-width: 1440px) {
+		gap: 24px;
+	}
 }
 
 .switchWrapper {
@@ -9,4 +12,25 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 20px;
+}
+
+.title {
+	color: var(--foreground-color);
+}
+
+.label {
+	color: var(--foreground-color);
+	@media (min-width: 1440px) {
+		--font-size-desktop-body-md: 1.125rem;
+		font-size: var(--font-size-desktop-body-md);
+		--line-height-desktop-body-md: 1.625rem;
+		line-height: var(--line-height-desktop-body-md);
+	}
+}
+
+.actionButton {
+	@media (min-width: 1440px) {
+		--py: 12px;
+		--px: 28px;
+	}
 }

@@ -38,9 +38,37 @@
 	/*  ===== цвет затемнения под модальными элементами  ===== */
 	--backdrop-color: oklch(0.9702 0 0 / 80%);
 
-	/* Тень */
+	/* ===== ТЕНИ ===== */
+	/* Хедер (мягкая, при скролле) */
+	--shadow-header: 0px 4px 12px 0px oklch(0.9067 0 0);
+
+	/* Dropdown меню (обычная) */
 	--shadow-dropdown: 0px 2px 2px 0px oklch(0.9067 0 0);
 
+	/* Dropdown меню (усиленная) */
+	--shadow-dropdown-elevated: 0px 12px 32px 0px oklch(0.9067 0 0);
+
+	/* Мобильная шторка (чёрная, контрастная) */
+	--shadow-drawer: 0px 8px 16px -4px oklch(0 0 0 / 0.08);
+
+	/* ===== Z-INDEX УРОВНИ ===== */
+	--z-index-overlay: 90;
+	--z-index-header: 100;
+	--z-index-dropdown: 110;
+
+	/* ===== BLUR ЭФФЕКТЫ ===== */
+	--blur-header: 8px;
+
+	/* ===== СКРУГЛЕНИЯ ===== */
+	--radius-header: 16px;
+	--radius-dropdown: 12px;
+	--radius-drawer: 16px;
+
+	/* ===== ОТСТУПЫ ===== */
+	--padding-header: 16px;
+	--padding-drawer: 40px 16px;
+
+	/* ===== РАЗМЕРЫ ===== */
 	/*  ===== высота хедера: от неё позиционируются шторки/дропдауны  ===== */
 	--header-block-size: 84px;
 
@@ -50,8 +78,6 @@
 	/* ===== Transition ===== */
 	--duration-fast: 0.2s; /* источник */
 	--button-duration-fast: var(--duration-fast); /* алиас для совместимости */
-
-	/* ===== Размеры ===== */
 
 	/* Мобилка */
 
@@ -152,7 +178,7 @@ p {
 }
 
 body {
-	min-height: 100dvh;
+	min-block-size: 100dvh;
 	display: flex;
 	flex-direction: column;
 	gap: 0;
@@ -166,6 +192,9 @@ main {
 	flex-grow: 1;
 	background-color: var(--bg-secondary);
 	padding: 32px 16px;
+	min-inline-size: 100%;
+	margin-inline: auto;
+	margin-block-start: var(--header-block-size);
 }
 
 header,
