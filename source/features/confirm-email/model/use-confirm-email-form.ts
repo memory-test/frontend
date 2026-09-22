@@ -3,7 +3,7 @@
 import { startSession } from '@entities/session'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiError } from '@shared/api'
-import { useSearchParams } from 'next/navigation'
+import { useRouteQueryParams } from '@shared/lib/routes'
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { confirmEmail } from '../api/confirm-email'
@@ -20,7 +20,7 @@ interface IUseConfirmEmailFormParams {
 export const useConfirmEmailForm = ({
 	onSuccess,
 }: IUseConfirmEmailFormParams = {}) => {
-	const searchParams = useSearchParams()
+	const { queryParams } = useRouteQueryParams()
 
 	const {
 		register,
@@ -30,8 +30,8 @@ export const useConfirmEmailForm = ({
 	} = useForm<TConfirmEmailFormValues>({
 		resolver: zodResolver(confirmEmailSchema),
 		defaultValues: {
-			email: searchParams.get('email') ?? '',
-			code: searchParams.get('code') ?? '',
+			email: queryParams.email ?? '',
+			code: queryParams.code ?? '',
 		},
 	})
 
