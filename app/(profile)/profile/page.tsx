@@ -1,5 +1,5 @@
-const ProfilePage: React.FC = () => {
-	return <h1>Профиль</h1>
-}
+import { UserSettingsPage } from '@pages/user-settings-page'
+
+const ProfilePage: React.FC = () => <UserSettingsPage />
 
 export default ProfilePage

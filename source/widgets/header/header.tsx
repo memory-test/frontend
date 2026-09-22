@@ -7,10 +7,26 @@ import { Avatar } from '@shared/ui/avatar'
 import { Button } from '@shared/ui/button'
 import { Logo } from '@shared/ui/logo'
 import { ProfileInfo } from '@shared/ui/profile-info'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import type { THeaderProps } from './types'
+
+export const useScrollHeader = () => {
+	const [isScrolled, setIsScrolled] = useState(false)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 10)
+		}
+
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
+
+	return isScrolled
+}
 
 // ==========================================
 // ВРЕМЕННЫЕ ТИПЫ И ХУК (STUB)
@@ -45,6 +61,7 @@ export const useAuth = (): TAuthState => {
 export const Header: React.FC<THeaderProps> = () => {
 	const router = useRouter()
 	const { user, isLoggedIn, logout, toggleAuth } = useAuth()
+	const isScrolled = useScrollHeader()
 
 	const handleLogout = () => {
 		logout()
@@ -80,7 +97,7 @@ export const Header: React.FC<THeaderProps> = () => {
 	const currentMobileMenuItems = getMobileMenuItems(isLoggedIn)
 
 	return (
-		<header className={styles.header}>
+		<header className={clsx(styles.header, isScrolled && styles.scrolled)}>
 			<div className={styles.brand}>
 				<Logo />
 				<span className={styles.brandTitle}>Тренажер памяти</span>

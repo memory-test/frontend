@@ -3,7 +3,6 @@
 	flex-direction: column;
 	gap: 20px;
 	align-items: center;
-	background-color: var(--surface-primary);
 	inline-size: 100%;
 	max-inline-size: 350px;
 
@@ -14,6 +13,10 @@
 		gap: 32px;
 		max-inline-size: 590px;
 	}
+}
+
+.title {
+	color: var(--foreground-color);
 }
 
 .info {
@@ -34,7 +37,7 @@
 	grid-template-columns: auto minmax(0, 1fr);
 	gap: 8px 4px;
 	margin: 0;
-	align-self: self-start;
+	align-self: start;
 
 	@media (min-width: 1440px) {
 		gap: 16px 8px;
