@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@shared/ui/button'
-import { FormError } from '@shared/ui/form-error/form-error'
+import { FormError } from '@shared/ui/form-error'
+
 import { TextInput } from '@shared/ui/text-input'
 import styles from './styles.module.css'
 import type { TConfirmEmailFormProps } from './types'
