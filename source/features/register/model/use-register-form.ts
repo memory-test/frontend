@@ -5,7 +5,7 @@ import { ApiError } from '@shared/api'
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { registerUser } from '../api/register'
-import { initialValues } from './constants'
+import { EMAIL_TAKEN_MESSAGE, initialValues } from './constants'
 import type { TRegisterFormValues } from './register.schema'
 import { registerSchema } from './register.schema'
 
@@ -35,7 +35,7 @@ export const useRegisterForm = ({ onSuccess }: IUseRegisterFormParams = {}) => {
 			if (error instanceof ApiError && error.fieldErrors) {
 				for (const [field, messages] of Object.entries(error.fieldErrors)) {
 					setError(field as keyof TRegisterFormValues, {
-						message: messages[0],
+						message: field === 'email' ? EMAIL_TAKEN_MESSAGE : messages[0],
 					})
 				}
 				return

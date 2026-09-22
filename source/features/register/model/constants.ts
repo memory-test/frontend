@@ -5,3 +5,4 @@ export const initialValues: TRegisterFormValues = {
 	email: '',
 	password: '',
 }
+export const EMAIL_TAKEN_MESSAGE = 'Аккаунт с этой почтой уже существует'
