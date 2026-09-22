@@ -1,4 +1,5 @@
 import { HTTPError, TimeoutError } from 'ky'
+import type { TFieldErrors } from './error'
 import { ApiError } from './error'
 
 interface IBackendErrorBody {
@@ -6,6 +7,16 @@ interface IBackendErrorBody {
 	message?: string
 	code?: string
 	details?: unknown
+}
+
+function extractFieldErrors(body: object): TFieldErrors | undefined {
+	const entries = Object.entries(body).filter(
+		(entry): entry is [string, string[]] =>
+			Array.isArray(entry[1]) &&
+			entry[1].every((item) => typeof item === 'string'),
+	)
+
+	return entries.length > 0 ? Object.fromEntries(entries) : undefined
 }
 
 export function normalizeError(error: unknown): ApiError {
@@ -17,6 +28,7 @@ export function normalizeError(error: unknown): ApiError {
 			message: body.detail ?? body.message ?? error.message,
 			code: body.code,
 			details: body.details,
+			fieldErrors: extractFieldErrors(body),
 		})
 	}
 

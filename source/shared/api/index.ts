@@ -1,4 +1,4 @@
-export type { IApiErrorShape } from './error'
+export type { IApiErrorShape, TFieldErrors } from './error'
 export { ApiError } from './error'
 export { http } from './http'
 export { tokenStorage } from './token-storage'
