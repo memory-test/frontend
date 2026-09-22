@@ -1,8 +1,8 @@
 'use client'
 
-import { getCurrentUser, useSessionStore } from '@entities/session'
+import { startSession } from '@entities/session'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ApiError, tokenStorage } from '@shared/api'
+import { ApiError } from '@shared/api'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { loginUser } from '../api/login'
@@ -16,7 +16,6 @@ interface IUseLoginFormParams {
 
 export const useLoginForm = ({ onSuccess }: IUseLoginFormParams = {}) => {
 	const [formError, setFormError] = useState<string | undefined>(undefined)
-	const setSession = useSessionStore((state) => state.setSession)
 
 	const {
 		register,
@@ -38,12 +37,7 @@ export const useLoginForm = ({ onSuccess }: IUseLoginFormParams = {}) => {
 		async (values) => {
 			try {
 				const tokens = await loginUser(values)
-				// токен нужен в хранилище до запроса профиля - оттуда его берёт интерцептор
-				tokenStorage.setTokens(tokens)
-
-				const user = await getCurrentUser()
-				setSession(user)
-
+				await startSession(tokens)
 				onSuccess?.()
 			} catch (error) {
 				if (error instanceof ApiError && error.status === 401) {
