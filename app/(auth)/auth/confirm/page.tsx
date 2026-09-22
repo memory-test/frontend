@@ -6,7 +6,7 @@ import { createUrl, routerPath } from '@shared/lib/routes'
 import { useRouter } from 'next/navigation'
 import { Suspense } from 'react'
 
-const ConfirmEmailForm: React.FC = () => {
+const ConfirmEmailContent: React.FC = () => {
 	const router = useRouter()
 	const { register, errors, onSubmit, formError, isLoading } =
 		useConfirmEmailForm({
@@ -26,7 +26,7 @@ const ConfirmEmailForm: React.FC = () => {
 
 const ConfirmEmailRoute: React.FC = () => (
 	<Suspense fallback={null}>
-		<ConfirmEmailForm />
+		<ConfirmEmailContent />
 	</Suspense>
 )
 
