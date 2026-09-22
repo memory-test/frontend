@@ -5,6 +5,9 @@
 	--primary-dark: oklch(54.9% 13.5% 172.599); /* #4f7c6e */
 	--primary-light: oklch(92.8% 4% 172.625); /* #ddebe6 */
 	--text-on-primary: oklch(100% 0% 89.876); /* #fff */
+	--color-exercise-progress: var(--primary-color, #5b8c7d);
+	/* Цвет дорожки (фон кольца) */
+	--color-exercise-track: oklch(96.1% 0.004 179.7);
 
 	/* ===== Состояния кнопок ===== */
 	--btn-outline-active: oklch(82% 6% 172.625); /* #b3d1c7 */
