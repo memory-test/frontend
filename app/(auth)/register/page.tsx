@@ -8,10 +8,8 @@ import { useRouter } from 'next/navigation'
 const RegisterRoute: React.FC = () => {
 	const router = useRouter()
 	const { register, errors, onSubmit, formError, isLoading } = useRegisterForm({
-		onSuccess: (email) => {
-			const params = new URLSearchParams({ email })
-			router.push(`${createUrl(routerPath.confirmEmail)}?${params.toString()}`)
-		},
+		onSuccess: (email) =>
+			router.push(createUrl(routerPath.confirmEmail, undefined, { email })),
 	})
 
 	return (
