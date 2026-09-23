@@ -1,9 +1,11 @@
 export { exerciseApi } from './api/api'
 export type {
-	IExerciseFull,
-	IExerciseShort,
 	IPaginatedResponse,
 	TDifficulty,
+	TExerciseFull,
 	TExerciseListParams,
+	TExerciseOf,
+	TExerciseShort,
+	TExerciseState,
 	TExerciseType,
 } from './model/types'
