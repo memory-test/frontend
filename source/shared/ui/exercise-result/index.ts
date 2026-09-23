@@ -1,0 +1,1 @@
+export { ExerciseResult } from './ExerciseResult'

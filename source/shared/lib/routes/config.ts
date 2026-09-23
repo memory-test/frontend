@@ -13,7 +13,6 @@ export const routeSegments = {
 	catalog: 'catalog',
 	exercise: ':id',
 	exerciseProcess: 'process',
-	exerciseResult: 'result',
 	settings: 'settings',
 } as const
 
@@ -54,11 +53,6 @@ export const routerPath = {
 		routeSegments.catalog,
 		routeSegments.exercise,
 		routeSegments.exerciseProcess,
-	]),
-	exerciseResult: defineRoute([
-		routeSegments.catalog,
-		routeSegments.exercise,
-		routeSegments.exerciseResult,
 	]),
 	settings: defineRoute([routeSegments.settings]),
 }
