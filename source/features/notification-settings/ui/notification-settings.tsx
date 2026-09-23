@@ -8,10 +8,7 @@ export const NotificationSettings: React.FC = () => {
 	const { settings, toggleSetting } = useNotificationSettings()
 
 	return (
-		<section
-			className={styles.card}
-			aria-labelledby="notification-settings-title"
-		>
+		<section className={styles.wrapper}>
 			<h3 id="notification-settings-title" className={styles.title}>
 				Настройки уведомлений
 			</h3>

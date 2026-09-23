@@ -6,9 +6,17 @@ import styles from './edit-user-data.module.css'
 import { ProfileForm } from './profile-form'
 import { ProfileView } from './profile-view'
 
-export const EditUserData: React.FC = () => {
+type TEditUserDataProps = {
+	isEditing: boolean
+	onEditingChange: (value: boolean) => void
+}
+
+export const EditUserData: React.FC<TEditUserDataProps> = ({
+	isEditing,
+	onEditingChange,
+}) => {
 	const { profile, isLoading, updateProfile, updateEmail } = useUserProfile()
-	const [isEditing, setIsEditing] = useState(false)
+
 	const [error, setError] = useState<string | null>(null)
 
 	const [form, setForm] = useState<TEditForm>({
@@ -44,7 +52,7 @@ export const EditUserData: React.FC = () => {
 			if (form.email !== profile?.email) {
 				await updateEmail(form)
 			}
-			setIsEditing(false)
+			onEditingChange(false)
 			setError(null)
 		} catch (e) {
 			setError(e instanceof Error ? e.message : 'Ошибка при сохранении')
@@ -60,11 +68,10 @@ export const EditUserData: React.FC = () => {
 		}
 		setAvatarUrl(profile?.avatar_url ?? undefined)
 		setError(null)
-		setIsEditing(false)
+		onEditingChange(false)
 	}
 
 	const handleAvatarChange = (url: string) => {
-		// Очищаем предыдущий blob URL
 		if (avatarUrl?.startsWith('blob:')) {
 			URL.revokeObjectURL(avatarUrl)
 		}
@@ -97,7 +104,7 @@ export const EditUserData: React.FC = () => {
 					className={styles.viewProfileCard}
 					aria-labelledby="profile-title"
 				>
-					<ProfileView profile={profile} onEdit={() => setIsEditing(true)} />
+					<ProfileView profile={profile} onEdit={() => onEditingChange(true)} />
 				</section>
 			)}
 		</>

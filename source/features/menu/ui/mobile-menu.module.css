@@ -37,6 +37,7 @@
 .overlayWrapper {
 	position: fixed;
 	inset: var(--header-block-size) 0 0 0;
+	z-index: var(--z-index-overlay);
 	animation: fade-in var(--duration-fast) ease-out;
 }
 
@@ -53,11 +54,15 @@
 	left: 0;
 	right: 0;
 	background: var(--bg-secondary);
-	padding: 40px 16px;
+	padding: var(--padding-drawer);
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	animation: slide-down var(--duration-fast) ease-out;
+	box-shadow: var(--shadow-drawer);
+	border-bottom: 1px solid var(--border-default);
+	border-bottom-left-radius: var(--radius-drawer);
+	border-bottom-right-radius: var(--radius-drawer);
 }
 
 .item {

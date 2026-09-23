@@ -1,0 +1,13 @@
+.timerWrapper {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px;
+	background-color: #e8ebf2;
+	border-radius: 16px;
+}
+
+.timer {
+	font-weight: var(--font-weight-medium);
+	min-width: 47px;
+}
