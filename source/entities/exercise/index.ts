@@ -1,4 +1,4 @@
-export { exerciseApi } from './api/api'
+export { exerciseApi, useGetExerciseById } from './api'
 export type {
 	IExerciseFull,
 	IExerciseShort,
