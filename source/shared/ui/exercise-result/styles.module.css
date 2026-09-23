@@ -35,18 +35,37 @@
 	font-size: var(--font-size-mobile-button-md);
 	line-height: 1.1;
 
+	/* --- ПЕРЕХОДЫ --- */
+	/* Анимируем цвет, тень и трансформацию за 0.2 секунды по кривой ease-out */
+	transition:
+		color var(--duration-fast) ease-out,
+		box-shadow var(--duration-fast) ease-out;
+
+	/* Для SVG задаем отдельный переход, так как он может двигаться независимо */
 	svg {
 		width: 16px;
 		height: 16px;
+		transition: transform var(--duration-fast) ease-out; /* Плавное движение иконки */
 	}
 
 	&:hover {
 		box-shadow: 0 2px 0 var(--foreground-color);
+
+		/* --- Эффект движения стрелки --- */
+		/* Сдвигаем иконку немного влево, чтобы показать направление действия */
+		svg {
+			transform: translateX(-3px);
+		}
 	}
 
 	&:active {
 		color: var(--border-active);
 		box-shadow: 0 2px 0 var(--border-active);
+
+		/* При нажатии иконка возвращается чуть назад или остается смещенной */
+		svg {
+			transform: translateX(-1px);
+		}
 	}
 
 	&:focus {
@@ -67,6 +86,11 @@
 		svg {
 			width: 24px;
 			height: 24px;
+
+			/* На десктопе амплитуду можно поменять */
+			&:hover {
+				transform: translateX(-4px);
+			}
 		}
 	}
 }
@@ -238,12 +262,41 @@
 	border-radius: 12px;
 	padding: 4px;
 
+	/* --- Плавность изменений --- */
+	transition:
+		border-color var(--duration-fast) ease,
+		background-color var(--duration-fast) ease;
+
 	@media (min-width: 1440px) {
 		inline-size: 188px;
 		padding-block-start: 16px;
 		min-block-size: 188px;
 		border: solid 1px var(--foreground-secondary);
+
+		/* Эффект при наведении мыши на блок */
+		&:hover {
+			border-color: var(--primary-color); /* Рамка становится акцентной */
+			background-color: color-mix(
+				in oklab,
+				var(--primary-color) 5%,
+				transparent
+			);
+
+			/* Иконка внутри тоже реагирует */
+			.iconBox svg {
+				transform: scale(1.1); /* Немного увеличиваем иконку */
+				color: var(--primary-color); /* Меняем цвет иконки */
+			}
+		}
 	}
+}
+
+/* Транзишн для самой иконки внутри statItem, чтобы масштаб был плавным */
+.statItem .iconBox svg {
+	transition:
+		transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+		color 0.3s ease;
+	/* cubic-bezier дает эффект "пружинки" при увеличении */
 }
 
 .iconBox {
