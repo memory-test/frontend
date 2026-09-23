@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 
 const HomePage: React.FC = () => {
 	return (
-		<div>
+		<div style={{ marginTop: '84px' }}>
 			<nav>
 				<ul>
 					<li>
