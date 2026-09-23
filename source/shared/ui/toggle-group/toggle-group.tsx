@@ -7,6 +7,7 @@ export const ToggleGroup: React.FC<TToggleGroupProps> = ({
 	label,
 	size = 'md',
 	items,
+	variant = 'row',
 	className,
 	labelClassName,
 	...props
@@ -18,7 +19,7 @@ export const ToggleGroup: React.FC<TToggleGroupProps> = ({
 			<ToggleRadix.Root className={clsx(styles.root, className)} {...props}>
 				{items.map((item) => (
 					<ToggleRadix.Item
-						className={clsx(styles.item, styles[size])}
+						className={clsx(styles.item, styles[variant], styles[size])}
 						key={item.value}
 						value={item.value}
 					>
