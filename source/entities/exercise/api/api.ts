@@ -9,13 +9,13 @@ import type {
 export const exerciseApi = {
 	// Получить список заданий
 	getList: (params?: TExerciseListParams) => {
-		return http.get<IPaginatedResponse<TExerciseShort>>('/api/v1/exercises/', {
+		return http.get<IPaginatedResponse<TExerciseShort>>('/exercises/', {
 			searchParams: params,
 		})
 	},
 
 	// Получить задание по ID
 	getById: (id: number) => {
-		return http.get<TExerciseFull>(`/api/v1/exercises/${id}/`)
+		return http.get<TExerciseFull>(`/exercises/${id}/`)
 	},
 }
