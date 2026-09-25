@@ -1,16 +1,22 @@
 'use client'
 
+import { useLoginForm } from '@features/login'
 import { LoginPage } from '@pages/login-page'
-import { useState } from 'react'
+import { createUrl, routerPath } from '@shared/lib/routes'
+import { useRouter } from 'next/navigation'
 
 const AuthPage: React.FC = () => {
-	const [values, setValues] = useState({ email: '', password: '' })
+	const router = useRouter()
+	const { register, onSubmit, formError, isLoading } = useLoginForm({
+		onSuccess: () => router.push(createUrl(routerPath.home)),
+	})
 
 	return (
 		<LoginPage
-			values={values}
-			onChange={(name, value) => setValues((c) => ({ ...c, [name]: value }))}
-			onSubmit={() => console.log('submit', values)}
+			register={register}
+			onSubmit={onSubmit}
+			formError={formError}
+			isLoading={isLoading}
 		/>
 	)
 }

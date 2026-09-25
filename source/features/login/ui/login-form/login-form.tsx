@@ -1,36 +1,31 @@
 'use client'
 
 import { createUrl, routerPath } from '@shared/lib/routes'
+import { AuthSocialButtons } from '@shared/ui/auth-social-buttons'
 import { Button } from '@shared/ui/button'
+import { FormError } from '@shared/ui/form-error'
+
 import { PasswordInput } from '@shared/ui/password-input'
 import { TextInput } from '@shared/ui/text-input'
-import Image from 'next/image'
 import Link from 'next/link'
 import styles from './styles.module.css'
 import type { TLoginFormProps } from './types'
 
 export const LoginForm: React.FC<TLoginFormProps> = ({
-	values,
-	onChange,
+	register,
 	onSubmit,
 	formError,
 	isLoading,
 }) => {
-	const handleSubmit = (event: React.FormEvent) => {
-		event.preventDefault()
-		onSubmit()
-	}
-
 	return (
-		<form className={styles.form} noValidate onSubmit={handleSubmit}>
+		<form className={styles.form} noValidate onSubmit={onSubmit}>
 			<TextInput
 				label="Электронная почта"
 				type="email"
 				placeholder="example@mail.ru"
 				autoComplete="email"
-				value={values.email}
 				error={Boolean(formError)}
-				onChange={(e) => onChange('email', e.target.value)}
+				{...register('email')}
 			/>
 
 			<div className={styles.passwordGroup}>
@@ -38,10 +33,10 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 					label="Пароль"
 					placeholder="Введите пароль"
 					autoComplete="current-password"
-					value={values.password}
 					error={Boolean(formError)}
-					onChange={(e) => onChange('password', e.target.value)}
+					{...register('password')}
 				/>
+
 				<Link
 					href={createUrl(routerPath.forgotPassword)}
 					className={styles.forgotLink}
@@ -50,11 +45,7 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				</Link>
 			</div>
 
-			{formError && (
-				<p className={styles.formError} role="alert" aria-live="polite">
-					{formError}
-				</p>
-			)}
+			<FormError message={formError} />
 
 			<Button
 				type="submit"
@@ -65,24 +56,7 @@ export const LoginForm: React.FC<TLoginFormProps> = ({
 				Войти
 			</Button>
 
-			<span className={styles.divider}>или</span>
-
-			<Button
-				type="button"
-				variant="outline"
-				size="lg"
-				icon={<Image src="/logo-yandex.svg" alt="" width={24} height={24} />}
-			>
-				Войти через Яндекс
-			</Button>
-			<Button
-				type="button"
-				variant="outline"
-				size="lg"
-				icon={<Image src="/logo-ok.svg" alt="" width={24} height={24} />}
-			>
-				Войти через Одноклассники
-			</Button>
+			<AuthSocialButtons />
 
 			<p className={styles.registerHint}>
 				Нет аккаунта?{' '}

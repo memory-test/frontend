@@ -5,6 +5,7 @@ export const routeSegments = {
 	auth: 'auth',
 	forgotPassword: 'forgot-password',
 	recoveryPassword: 'recovery-password',
+	confirm: 'confirm',
 	register: 'register',
 	profile: 'profile',
 	profileEdit: 'edit',
@@ -20,6 +21,8 @@ export const routeQueryParams = {
 	query: 'query',
 	pageNumber: 'page',
 	perPage: 'per_page',
+	email: 'email',
+	code: 'code',
 } as const
 
 // Routes (Композиция сегментов)
@@ -36,6 +39,7 @@ export const routerPath = {
 		routeSegments.auth,
 		routeSegments.recoveryPassword,
 	]),
+	confirmEmail: defineRoute([routeSegments.auth, routeSegments.confirm]),
 
 	// Остальные маршруты
 

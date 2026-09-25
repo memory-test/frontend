@@ -24,10 +24,12 @@
 
 .inputRootError {
 	border-color: var(--error-color);
+	background-color: var(--error-color-light);
 }
 
 .inputRootError:hover {
 	border-color: var(--error-color);
+	background-color: var(--error-color-light);
 }
 
 .errorText {

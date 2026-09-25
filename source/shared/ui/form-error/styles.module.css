@@ -1,0 +1,7 @@
+.formError {
+	min-height: var(--line-height-mobile-body-lg);
+	color: var(--error-color);
+	text-align: center;
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+}
