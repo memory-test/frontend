@@ -16,17 +16,8 @@
 	text-decoration: underline;
 }
 
-.formError {
-	color: var(--error-color);
-}
-
 .submit {
 	width: 100%;
-}
-
-.divider {
-	text-align: center;
-	color: var(--foreground-secondary);
 }
 
 .registerHint {
