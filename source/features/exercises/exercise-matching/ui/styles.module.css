@@ -1,0 +1,25 @@
+.board {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.pairBadge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: 100%;
+	block-size: 100%;
+	border-radius: 50%;
+	background-color: var(--surface-primary);
+	color: var(--primary-color);
+	font-size: 0.75rem;
+	font-weight: var(--font-weight-medium);
+	line-height: 1;
+}
