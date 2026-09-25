@@ -3,6 +3,7 @@
 import type { TExerciseFull } from '@entities/exercise'
 import { useGetExerciseById } from '@entities/exercise'
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
+import { ExerciseOrdering } from '@features/exercises/exercise-ordering'
 import type React from 'react'
 import type { TExercisePageProps } from './types'
 
@@ -11,6 +12,9 @@ const renderExercise = (exercise: TExerciseFull) => {
 	switch (exercise.type) {
 		case 'choice':
 			return <ExerciseChoice {...exercise} />
+
+		case 'ordering':
+			return <ExerciseOrdering {...exercise} />
 
 		default:
 			return <p>Заглушка</p>

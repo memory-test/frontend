@@ -31,6 +31,11 @@ export type TExerciseChoiceAnswerInfo = {
 	id: number
 }
 
+export type TExerciseOrderingAnswerInfo = {
+	text: string
+	image: string | null
+}
+
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
 	question: string
 	image?: string | null
@@ -51,7 +56,7 @@ type TExerciseVariant<
 export type TExerciseFull =
 	| TExerciseVariant<'choice', TExerciseChoiceAnswerInfo[]>
 	| TExerciseVariant<'input', Record<string, unknown>>
-	| TExerciseVariant<'ordering', Record<string, unknown>>
+	| TExerciseVariant<'ordering', TExerciseOrderingAnswerInfo[]>
 	| TExerciseVariant<'grouping', Record<string, unknown>>
 	| TExerciseVariant<'matching', Record<string, unknown>>
 	| TExerciseVariant<'drawing', Record<string, unknown>>
