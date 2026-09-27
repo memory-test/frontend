@@ -32,8 +32,10 @@ export type TExerciseChoiceAnswerInfo = {
 }
 
 export type TExerciseOrderingAnswerInfo = {
+	id: number
 	text: string
 	image: string | null
+	position: number
 }
 
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {

@@ -1,0 +1,23 @@
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 16px;
+}
+
+.item {
+	padding: 16px 24px;
+	background-color: var(--surface-primary);
+	border: 1px solid var(--border-default);
+	border-radius: 12px;
+	cursor: grab;
+	user-select: none;
+	font-family: var(--font-main);
+	font-size: var(--font-size-mobile-body-md);
+	color: var(--foreground-color);
+	touch-action: none;
+}
+
+.item:active {
+	cursor: grabbing;
+}
