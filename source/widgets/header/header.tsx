@@ -29,36 +29,6 @@ export const useScrollHeader = () => {
 	return isScrolled
 }
 
-// // ==========================================
-// // ВРЕМЕННЫЕ ТИПЫ И ХУК (STUB)
-// // TODO: Заменить на реальный хук авторизации (например, next-auth,
-// // кастомный Context или Zustand) перед релизом.
-// // ==========================================
-// type TUser = { name: string; avatarUrl: string }
-
-// type TAuthState = {
-// 	user: TUser | null
-// 	isLoggedIn: boolean
-// 	logout: () => void
-// 	/** Только для локальной разработки: переключение состояния */
-// 	toggleAuth: () => void
-// }
-
-// export const useAuth = (): TAuthState => {
-// 	const [isLoggedIn, setIsLoggedIn] = useState(true)
-// 	const user: TUser = { name: 'Иван Петрович', avatarUrl: '/images/promo.jpg' }
-
-// 	return {
-// 		user: isLoggedIn ? user : null,
-// 		isLoggedIn,
-// 		logout: () => {
-// 			setIsLoggedIn(false)
-// 			console.log('[stub] logout called')
-// 		},
-// 		toggleAuth: () => setIsLoggedIn((prev) => !prev),
-// 	}
-// }
-
 export const Header: React.FC<THeaderProps> = () => {
 	const router = useRouter()
 	const user = useSessionStore((state) => state.user)
