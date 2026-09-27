@@ -53,8 +53,9 @@
 	}
 }
 
-.switchStateButton {
-	/* display управляется через inline-стили в React */
+button.switchStateButton,
+.cardsSection .switchStateButton {
+	display: none;
 	opacity: 0;
 	transform: translateY(-10px);
 	transition:
@@ -93,7 +94,9 @@
 	}
 
 	/* 2. Показываем и анимируем кнопку "Назад" */
+	.cardsSection.isEditing button.switchStateButton,
 	.cardsSection.isEditing .switchStateButton {
+		display: flex;
 		justify-self: start;
 		align-self: start;
 		opacity: 1;
