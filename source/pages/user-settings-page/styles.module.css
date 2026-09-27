@@ -54,7 +54,7 @@
 }
 
 .switchStateButton {
-	display: none;
+	/* display управляется через inline-стили в React */
 	opacity: 0;
 	transform: translateY(-10px);
 	transition:
@@ -92,14 +92,16 @@
 		display: none;
 	}
 
+	/* 2. Показываем и анимируем кнопку "Назад" */
 	.cardsSection.isEditing .switchStateButton {
-		display: flex;
-		justify-self: start; /* Запрещает растягиваться по ширине ячейки */
+		justify-self: start;
 		align-self: start;
+		opacity: 1;
+		transform: translateY(0);
 		animation: slideDown var(--duration-fast) ease var(--duration-fast) forwards;
 	}
 
-	/* 2. Карточка редактирования профиля занимает всю ширину */
+	/* 3. Карточка редактирования профиля занимает всю ширину */
 	.cardsSection.isEditing .profileEditing {
 		grid-column: 1 / -1;
 		padding: 48px 32px;

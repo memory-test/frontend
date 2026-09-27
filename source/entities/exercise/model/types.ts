@@ -84,3 +84,25 @@ export type TExerciseListParams = {
 	page?: number
 	limit?: number
 }
+
+// Результат всегда одинаковый для всех типов заданий
+export interface TResultExercise {
+	score: number
+	success: boolean
+}
+
+// Union-тип, строго соответствующий схеме PassRequest (oneOf) из OpenAPI
+export type TPassExercisePayload =
+	| {
+			started_at: string
+			finished_at: string
+			duration_seconds: number
+			answers: string[] // Для типа 'input' и других текстовых
+	  }
+	| {
+			started_at: string
+			finished_at: string
+			duration_seconds: number
+			answers_ids: number[] // Для типа 'choice'
+	  }
+// Сюда можно добавить ordering, grouping и т.д. по мере их реализации

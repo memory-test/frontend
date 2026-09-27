@@ -27,6 +27,7 @@ export const UserSettingsPage: React.FC = () => {
 				variant={'outline'}
 				onClick={() => setIsEditingProfile(false)}
 				className={styles.switchStateButton}
+				style={{ display: isEditingProfile ? 'flex' : 'none' }}
 			>
 				Назад
 			</Button>

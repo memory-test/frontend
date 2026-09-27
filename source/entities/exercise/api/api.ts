@@ -4,7 +4,7 @@ import type {
 	TExerciseFull,
 	TExerciseListParams,
 	TExerciseShort,
-} from '..//model/types'
+} from '../model/types'
 
 export const exerciseApi = {
 	// Получить список заданий
