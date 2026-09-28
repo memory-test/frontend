@@ -91,18 +91,25 @@ export interface TResultExercise {
 	success: boolean
 }
 
-// Union-тип, строго соответствующий схеме PassRequest (oneOf) из OpenAPI
-export type TPassExercisePayload =
-	| {
-			started_at: string
-			finished_at: string
-			duration_seconds: number
-			answers: string[] // Для типа 'input' и других текстовых
-	  }
-	| {
-			started_at: string
-			finished_at: string
-			duration_seconds: number
-			answers_ids: number[] // Для типа 'choice'
-	  }
-// Сюда можно добавить ordering, grouping и т.д. по мере их реализации
+// ==========================================
+// ПЕЙЛОАДЫ ДЛЯ ПРОХОЖДЕНИЯ ЗАДАНИЯ (PassRequest)
+// ==========================================
+
+// 1. Общая часть - базовый тип (соответственно OpenAPI)
+type TPassExerciseBase = {
+	started_at: string
+	finished_at: string
+	duration_seconds: number
+}
+
+// 2. Вариант пейлоада, зависящий от типа упражнения.
+type TPassExerciseVariant<T extends TExerciseType> = T extends 'choice'
+	? TPassExerciseBase & { answers_ids: number[] }
+	: T extends 'input'
+		? TPassExerciseBase & { answers: string[] }
+		: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
+
+// 3. Итоговый тип.
+// Если тип не указан (по умолчанию = TExerciseType), это union всех вариантов (в соответствии с OpenAPI, схеме PassRequest.)
+export type TPassExercisePayload<T extends TExerciseType = TExerciseType> =
+	TPassExerciseVariant<T>

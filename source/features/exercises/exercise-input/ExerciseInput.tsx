@@ -1,6 +1,11 @@
 'use client'
 
-import type { TExerciseState } from '@entities/exercise'
+import type {
+	TExerciseState,
+	TPassExercisePayload,
+	TResultExercise,
+} from '@entities/exercise'
+import { formatTime } from '@shared/lib/format-time'
 import { Button } from '@shared/ui/button'
 import { ExerciseBase } from '@shared/ui/exercise-base'
 import { ExerciseResult } from '@shared/ui/exercise-result'
@@ -11,21 +16,11 @@ import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useRef, useState } from 'react'
 import styles from './styles.module.css'
-import type {
-	TExerciseInputProps,
-	TInputCheckPayload,
-	TResultExercise,
-} from './types'
+import type { TExerciseInputProps } from './types'
 
 interface AnswerItem {
 	id: string
 	value: string
-}
-
-const formatTimeSpent = (seconds: number): string => {
-	const mins = Math.floor(seconds / 60)
-	const secs = seconds % 60
-	return `${mins} мин ${secs} сек`
 }
 
 export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
@@ -48,7 +43,7 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 	const startTime = useRef<Date>(new Date())
 
 	const handleChange = (id: string, newValue: string) => {
-		setError(null) // Сбрасываем ошибку при вводе
+		setError(null)
 		setAnswers((prev) =>
 			prev.map((item) =>
 				item.id === id ? { ...item, value: newValue } : item,
@@ -67,7 +62,6 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 	}
 
 	const handleOnNext = async () => {
-		// Берем только непустые значения
 		const validAnswers = answers
 			.map((item) => item.value.trim())
 			.filter((value) => value.length > 0)
@@ -79,14 +73,13 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 		try {
 			const durationSeconds = Math.round(elapsedTime.current)
 
-			const payload: TInputCheckPayload = {
+			const payload: TPassExercisePayload<'input'> = {
 				started_at: startTime.current.toISOString(),
 				finished_at: new Date().toISOString(),
 				duration_seconds: durationSeconds,
 				answers: validAnswers,
 			}
 
-			// ВЫЗОВ API
 			const response = await onPass(payload)
 
 			setResultData(response)
@@ -98,7 +91,6 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 				err as { response?: { data?: { detail?: string; answers?: string[] } } }
 			)?.response?.data
 
-			// Обработка ошибок согласно OpenAPI (detail или конкретное поле)
 			const errorMessage =
 				errorData?.detail ||
 				errorData?.answers?.[0] ||
@@ -120,7 +112,8 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 	}
 
 	const handleComplete = () => {
-		router.push('/catalog') // Или '/exercises'?
+		// router.push('/catalog') <-- было
+		router.replace('/catalog') // <-- стало
 	}
 
 	// --- СТЕЙТ RESULT ---
@@ -134,7 +127,7 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 				exerciseName={title}
 				date={startTime.current.toISOString()}
 				resultPercent={Math.round(resultData.score * 100)}
-				timeSpent={formatTimeSpent(Math.round(elapsedTime.current))}
+				timeSpent={formatTime(Math.round(elapsedTime.current))}
 				userAmountRightAnswer={correctAnswers.toString()}
 				allAmountRightAnswer={totalAnswers.toString()}
 				onReset={handleReset}
@@ -154,7 +147,7 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 					id={id}
 					title={title}
 					description={description}
-					question={question || description || 'Введите ответ'} // Fallback на случай, если question пустой
+					question={question || description || 'Введите ответ'}
 					onTimeStop={(time) => (elapsedTime.current = time)}
 					onNext={handleOnNext}
 					isDisabled={isDisabled}
@@ -175,7 +168,6 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 										value={item.value}
 										onChange={(e) => handleChange(item.id, e.target.value)}
 										disabled={isLoading}
-										// Автофокус только на первом поле при рендере
 										autoFocus={index === 0}
 									/>
 									{answers.length > 1 && (
