@@ -6,6 +6,7 @@ import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { ExerciseBase } from '@shared/ui/exercise-base'
 import { ExerciseResult } from '@shared/ui/exercise-result'
+import { Surface } from '@shared/ui/surface'
 import type { TTimerResult } from '@shared/ui/timer'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
@@ -100,10 +101,10 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 					onNext={handleOnNext}
 					isDisabled={!isComplete}
 				>
-					<div className={styles.board}>
+					<Surface className={styles.board}>
 						<div className={styles.column}>{renderColumn('first')}</div>
 						<div className={styles.column}>{renderColumn('second')}</div>
-					</div>
+					</Surface>
 				</ExerciseBase>
 			)}
 			{/* TODO: некоторые пропсы замоканы */}

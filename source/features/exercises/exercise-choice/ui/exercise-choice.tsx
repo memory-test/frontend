@@ -1,12 +1,17 @@
 'use client'
 
 import type { TExerciseState } from '@entities/exercise'
+import { formatTime } from '@shared/lib/format-time'
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { ExerciseBase } from '@shared/ui/exercise-base'
+import { ExerciseResult } from '@shared/ui/exercise-result'
 import { Surface } from '@shared/ui/surface'
+import type { TTimerResult } from '@shared/ui/timer'
 import type { TToggleItem } from '@shared/ui/toggle-group'
 import { ToggleGroup } from '@shared/ui/toggle-group'
+import { useRouter } from 'next/navigation'
 import type React from 'react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import type { TExerciseChoiceProps } from './types'
 
@@ -17,18 +22,35 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	question,
 	answers_info: answersInfo,
 }) => {
+	const router = useRouter()
+
 	const toggleItems: TToggleItem[] = answersInfo.map((answer) => ({
 		value: String(answer.id),
 		content: answer.text,
 	}))
 
 	const [toggleState, setToggleState] = useState('')
+	const [timing, setTiming] = useState<TTimerResult | null>(null)
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
 
-	const elapsedTime = useRef(0)
+	const handleOnNext = (timing: TTimerResult) => {
+		setTiming(timing)
 
-	const handleOnNext = () => {
+		const payload = {
+			started_at: timing.startedAt,
+			finished_at: timing.finishedAt,
+			duration_seconds: timing.durationSeconds,
+			answers_ids: [+toggleState],
+		}
+
+		console.log(payload)
+
 		setExerciseState('result')
+	}
+
+	const handleReset = () => {
+		setToggleState('')
+		setExerciseState('process')
 	}
 
 	return (
@@ -39,7 +61,6 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 					title={title}
 					description={description}
 					question={question}
-					onTimeStop={(time) => (elapsedTime.current = time)}
 					onNext={handleOnNext}
 					isDisabled={!toggleState}
 				>
@@ -58,7 +79,20 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 				</ExerciseBase>
 			)}
 
-			{exerciseState === 'result' && <h1>результат</h1>}
+			{exerciseState === 'result' && timing && (
+				<ExerciseResult
+					exerciseName={title}
+					date={timing.finishedAt}
+					timeSpent={formatTime(timing.durationSeconds)}
+					resultPercent={75}
+					userAmountRightAnswer="17"
+					allAmountRightAnswer="20"
+					onReset={handleReset}
+					onComplete={() => {
+						router.replace(createUrl(routerPath.catalog))
+					}}
+				/>
+			)}
 		</section>
 	)
 }
