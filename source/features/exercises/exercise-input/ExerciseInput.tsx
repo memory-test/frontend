@@ -11,10 +11,11 @@ import { ExerciseBase } from '@shared/ui/exercise-base'
 import { ExerciseResult } from '@shared/ui/exercise-result'
 import { Surface } from '@shared/ui/surface'
 import { TextInput } from '@shared/ui/text-input'
+import type { TTimerResult } from '@shared/ui/timer'
 import { X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import type { TExerciseInputProps } from './types'
 
@@ -23,7 +24,7 @@ interface AnswerItem {
 	value: string
 }
 
-export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
+export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 	id,
 	title,
 	description,
@@ -37,10 +38,10 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 	const [resultData, setResultData] = useState<TResultExercise | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
-	const router = useRouter()
 
-	const elapsedTime = useRef(0)
-	const startTime = useRef<Date>(new Date())
+	const [timing, setTiming] = useState<TTimerResult | null>(null)
+
+	const router = useRouter()
 
 	const handleChange = (id: string, newValue: string) => {
 		setError(null)
@@ -61,22 +62,22 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 		)
 	}
 
-	const handleOnNext = async () => {
+	const handleOnNext = async (timingResult: TTimerResult) => {
 		const validAnswers = answers
 			.map((item) => item.value.trim())
 			.filter((value) => value.length > 0)
 
 		if (validAnswers.length === 0 || isLoading) return
 
+		setTiming(timingResult)
 		setIsLoading(true)
 		setError(null)
-		try {
-			const durationSeconds = Math.round(elapsedTime.current)
 
+		try {
 			const payload: TPassExercisePayload<'input'> = {
-				started_at: startTime.current.toISOString(),
-				finished_at: new Date().toISOString(),
-				duration_seconds: durationSeconds,
+				started_at: timingResult.startedAt,
+				finished_at: timingResult.finishedAt,
+				duration_seconds: timingResult.durationSeconds,
 				answers: validAnswers,
 			}
 
@@ -106,18 +107,16 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 		setExerciseState('process')
 		setAnswers([{ id: crypto.randomUUID(), value: '' }])
 		setResultData(null)
+		setTiming(null)
 		setError(null)
-		elapsedTime.current = 0
-		startTime.current = new Date()
 	}
 
 	const handleComplete = () => {
-		// router.push('/catalog') <-- было
-		router.replace('/catalog') // <-- стало
+		router.replace('/catalog')
 	}
 
 	// --- СТЕЙТ RESULT ---
-	if (exerciseState === 'result' && resultData) {
+	if (exerciseState === 'result' && resultData && timing) {
 		const totalAnswers =
 			answers.filter((item) => item.value.trim().length > 0).length || 1
 		const correctAnswers = Math.round(resultData.score * totalAnswers)
@@ -125,9 +124,9 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 		return (
 			<ExerciseResult
 				exerciseName={title}
-				date={startTime.current.toISOString()}
+				date={timing.finishedAt}
 				resultPercent={Math.round(resultData.score * 100)}
-				timeSpent={formatTime(Math.round(elapsedTime.current))}
+				timeSpent={formatTime(timing.durationSeconds)}
 				userAmountRightAnswer={correctAnswers.toString()}
 				allAmountRightAnswer={totalAnswers.toString()}
 				onReset={handleReset}
@@ -148,7 +147,6 @@ export const ExerciseInputFeature: React.FC<TExerciseInputProps> = ({
 					title={title}
 					description={description}
 					question={question || description || 'Введите ответ'}
-					onTimeStop={(time) => (elapsedTime.current = time)}
 					onNext={handleOnNext}
 					isDisabled={isDisabled}
 				>

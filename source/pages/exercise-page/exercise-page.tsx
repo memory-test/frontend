@@ -8,7 +8,7 @@ import {
 	usePassExercise,
 } from '@entities/exercise'
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
-import { ExerciseInputFeature } from '@features/exercises/exercise-input'
+import { ExerciseInput } from '@features/exercises/exercise-input'
 import type React from 'react'
 import type { TExercisePageProps } from './types'
 
@@ -23,8 +23,8 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 			// ExerciseChoice должен ожидать onPass с answers_ids
 			return <ExerciseChoice {...exercise} /* onPass={onPass} */ />
 		case 'input':
-			// ExerciseInputFeature ожидает onPass с answers
-			return <ExerciseInputFeature {...exercise} onPass={onPass} />
+			// ExerciseInput ожидает onPass с answers
+			return <ExerciseInput {...exercise} onPass={onPass} />
 
 		default:
 			return <p>Заглушка</p>

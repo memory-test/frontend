@@ -1,1 +1,1 @@
-export { ExerciseInputFeature } from './ExerciseInput'
+export { ExerciseInput } from './ExerciseInput'
