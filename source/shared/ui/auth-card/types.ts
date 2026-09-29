@@ -1,6 +1,6 @@
 export type TAuthCardProps = {
 	title: string
 	subtitle: string
-	size?: 'default' | 'compact'
+	compactHeight?: number
 	children: React.ReactNode
 }

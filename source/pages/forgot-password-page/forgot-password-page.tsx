@@ -15,7 +15,7 @@ export const ForgotPasswordPage: React.FC<TForgotPasswordPageProps> = (
 	if (props.step === 'sent') {
 		return (
 			<AuthCard
-				size="compact"
+				compactHeight={522}
 				title="Проверьте почту"
 				subtitle="Мы отправили письмо для восстановления пароля"
 			>
@@ -28,7 +28,7 @@ export const ForgotPasswordPage: React.FC<TForgotPasswordPageProps> = (
 
 	return (
 		<AuthCard
-			size="compact"
+			compactHeight={522}
 			title="Восстановление пароля"
 			subtitle="Введите электронную почту, которую использовали при регистрации"
 		>
