@@ -1,12 +1,9 @@
-.baseWrapper {
+.pageWrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
-
-	@media (min-width: 1440px) {
-		max-width: 1000px;
-		margin-inline: auto;
-	}
+	gap: 32px;
+	max-width: 1000px;
+	margin-inline: auto;
 }
 
 .link {
@@ -21,32 +18,21 @@
 	}
 }
 
-.timerWrapper {
-	display: flex;
-	align-items: center;
-	gap: 32px;
-}
-
-.timerWrapper > span,
-.title,
-.question,
-.descriptionLabel {
+.title {
 	font-size: var(--font-size-mobile-body-lg);
 	line-height: var(--line-height-mobile-body-lg);
 
 	@media (min-width: 1440px) {
-		font-size: var(--font-size-desktop-body-lg);
-		line-height: var(--line-height-desktop-body-lg);
+		font-size: var(--font-size-desktop-heading-h2);
+		line-height: var(--line-height-desktop-heading-h2);
 	}
 }
 
-.title,
-.question {
-	text-align: center;
-}
-
-.title {
-	font-weight: var(--font-weight-medium);
+.text {
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-heading-h3);
+		line-height: var(--line-height-desktop-heading-h3);
+	}
 }
 
 .button {

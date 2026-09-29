@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react'
+import type { TTimerResult } from '../timer'
 
 export type TExerciseBaseProps = {
 	id: number
 	title: string
 	description: string
 	question: string
-	onTimeStop: (time: number) => void
-	onNext: () => void
+	onNext: (timing: TTimerResult) => void
 	children: ReactNode
 	isDisabled: boolean
 	className?: string

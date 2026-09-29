@@ -1,5 +1,11 @@
+export type TTimerResult = {
+	startedAt: string
+	finishedAt: string
+	durationSeconds: number
+}
+
 export type TTimerProps = {
 	isRunning: boolean
-	onStop?: (time: number) => void
+	onStop?: (result: TTimerResult) => void
 	className?: string
 }
