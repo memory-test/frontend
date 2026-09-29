@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { resetPasswordConfirm } from '../api/recovery-password'
+import { INVALID_CODE_MESSAGE } from './constants'
 import type { TRecoveryPasswordFormValues } from './recovery-password.schema'
 import { recoveryPasswordSchema } from './recovery-password.schema'
 
@@ -58,7 +59,7 @@ export const useRecoveryPasswordForm = ({
 				return
 			}
 			if (error instanceof ApiError && error.status === 400) {
-				setError('root', { message: error.message })
+				setError('root', { message: INVALID_CODE_MESSAGE })
 				return
 			}
 			setError('root', {
