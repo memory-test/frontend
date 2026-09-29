@@ -1,4 +1,5 @@
-import { tokenStorage } from '@shared/api'
+import { ApiError, tokenStorage } from '@shared/api'
+
 import { getCurrentUser } from '../api/get-current-user'
 import { useSessionStore } from './store'
 
@@ -8,7 +9,9 @@ export async function restoreSession(): Promise<void> {
 	try {
 		const user = await getCurrentUser()
 		useSessionStore.getState().setSession(user)
-	} catch {
-		tokenStorage.clearTokens()
+	} catch (error) {
+		if (error instanceof ApiError && error.status === 401) {
+			tokenStorage.clearTokens()
+		}
 	}
 }
