@@ -11,12 +11,16 @@ import styles from './styles.module.css'
 
 interface IForgotPasswordSentProps {
 	email: string
+	onCodeSubmit: (code: string) => void
 }
 
 export const ForgotPasswordSent: React.FC<IForgotPasswordSentProps> = ({
 	email,
+	onCodeSubmit,
 }) => {
-	const { register, onSubmit, errors } = useEnterCodeForm({ email })
+	const { register, onSubmit, errors } = useEnterCodeForm({
+		onSuccess: onCodeSubmit,
+	})
 	const { secondsLeft, isFinished, isLoading, error, resend } =
 		useResendPasswordReset({ email })
 

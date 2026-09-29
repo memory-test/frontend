@@ -7,7 +7,7 @@ import { AuthCard } from '@shared/ui/auth-card'
 
 export type TForgotPasswordPageProps =
 	| ({ step: 'form' } & TForgotPasswordFormProps)
-	| { step: 'sent'; email: string }
+	| { step: 'sent'; email: string; onCodeSubmit: (code: string) => void }
 
 export const ForgotPasswordPage: React.FC<TForgotPasswordPageProps> = (
 	props,
@@ -19,7 +19,10 @@ export const ForgotPasswordPage: React.FC<TForgotPasswordPageProps> = (
 				title="Проверьте почту"
 				subtitle="Мы отправили письмо для восстановления пароля"
 			>
-				<ForgotPasswordSent email={props.email} />
+				<ForgotPasswordSent
+					email={props.email}
+					onCodeSubmit={props.onCodeSubmit}
+				/>
 			</AuthCard>
 		)
 	}
