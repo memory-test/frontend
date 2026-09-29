@@ -15,7 +15,8 @@ export const Timer: React.FC<TTimerProps> = ({
 }) => {
 	const [elapsedSeconds, setElapsedSeconds] = useState(0)
 
-	const startedAtRef = useRef(0)
+	const startedAtRef = useRef<string | null>(null)
+	const startedMsRef = useRef(0)
 	const baseMsRef = useRef(0)
 	const onStopRef = useRef(onStop)
 
@@ -26,11 +27,17 @@ export const Timer: React.FC<TTimerProps> = ({
 	useEffect(() => {
 		if (!isRunning) return
 
-		startedAtRef.current = performance.now()
+		if (startedAtRef.current === null) {
+			startedAtRef.current = new Date().toISOString()
+		}
+
+		const startedAt = startedAtRef.current
+
+		startedMsRef.current = performance.now()
 
 		const tick = () => {
 			const elapsedMs =
-				baseMsRef.current + (performance.now() - startedAtRef.current)
+				baseMsRef.current + (performance.now() - startedMsRef.current)
 
 			setElapsedSeconds(Math.floor(elapsedMs / 1000))
 		}
@@ -40,10 +47,16 @@ export const Timer: React.FC<TTimerProps> = ({
 
 		return () => {
 			clearInterval(intervalId)
-			baseMsRef.current += performance.now() - startedAtRef.current
-			const totalSeconds = Math.floor(baseMsRef.current / 1000)
-			setElapsedSeconds(totalSeconds)
-			onStopRef.current?.(totalSeconds)
+
+			baseMsRef.current += performance.now() - startedMsRef.current
+
+			setElapsedSeconds(Math.floor(baseMsRef.current / 1000))
+
+			onStopRef.current?.({
+				startedAt,
+				finishedAt: new Date().toISOString(),
+				durationSeconds: Math.round(baseMsRef.current / 1000),
+			})
 		}
 	}, [isRunning])
 

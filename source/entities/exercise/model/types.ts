@@ -31,6 +31,17 @@ export type TExerciseChoiceAnswerInfo = {
 	id: number
 }
 
+export type TExerciseMatchingOption = {
+	id: number
+	text: string
+	image: string | null
+}
+
+export type TExerciseMatchingAnswerInfo = {
+	left: TExerciseMatchingOption[]
+	right: TExerciseMatchingOption[]
+}
+
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
 	question: string
 	image?: string | null
@@ -53,7 +64,7 @@ export type TExerciseFull =
 	| TExerciseVariant<'input', Record<string, unknown>>
 	| TExerciseVariant<'ordering', Record<string, unknown>>
 	| TExerciseVariant<'grouping', Record<string, unknown>>
-	| TExerciseVariant<'matching', Record<string, unknown>>
+	| TExerciseVariant<'matching', TExerciseMatchingAnswerInfo>
 	| TExerciseVariant<'drawing', Record<string, unknown>>
 	| TExerciseVariant<'offline', Record<string, unknown>>
 	| TExerciseVariant<null, Record<string, unknown>>
@@ -102,12 +113,19 @@ type TPassExerciseBase = {
 	duration_seconds: number
 }
 
+type TPassExerciseMatching = {
+	first_id: number
+	second_id: number
+}
+
 // 2. Вариант пейлоада, зависящий от типа упражнения.
 type TPassExerciseVariant<T extends TExerciseType> = T extends 'choice'
 	? TPassExerciseBase & { answers_ids: number[] }
 	: T extends 'input'
 		? TPassExerciseBase & { answers: string[] }
-		: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
+		: T extends 'matching'
+			? TPassExerciseBase & { pairs: TPassExerciseMatching[] }
+			: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
 
 // 3. Итоговый тип.
 // Если тип не указан (по умолчанию = TExerciseType), это union всех вариантов (в соответствии с OpenAPI, схеме PassRequest.)

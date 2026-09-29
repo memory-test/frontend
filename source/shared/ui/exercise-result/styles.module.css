@@ -7,7 +7,6 @@
 	color: var(--foreground-color);
 	font-weight: var(--font-weight-medium);
 	font-family: inherit;
-	background-color: var(--bg-primary);
 
 	@media (min-width: 1440px) {
 		padding-top: 32px;
