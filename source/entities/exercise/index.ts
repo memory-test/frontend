@@ -1,4 +1,4 @@
-export { exerciseApi, useGetExerciseById } from './api'
+export { exerciseApi, useGetExerciseById, usePassExercise } from './api'
 export type {
 	IPaginatedResponse,
 	TDifficulty,
@@ -8,4 +8,6 @@ export type {
 	TExerciseShort,
 	TExerciseState,
 	TExerciseType,
+	TPassExercisePayload,
+	TResultExercise,
 } from './model/types'
