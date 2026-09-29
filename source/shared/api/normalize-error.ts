@@ -3,20 +3,28 @@ import type { TFieldErrors } from './error'
 import { ApiError } from './error'
 
 interface IBackendErrorBody {
-	detail?: string
+	detail?: string | string[]
 	message?: string
 	code?: string
 	details?: unknown
 }
 
+const NON_FIELD_KEYS = new Set(['detail', 'message', 'code', 'details'])
+
 function extractFieldErrors(body: object): TFieldErrors | undefined {
 	const entries = Object.entries(body).filter(
 		(entry): entry is [string, string[]] =>
+			!NON_FIELD_KEYS.has(entry[0]) &&
 			Array.isArray(entry[1]) &&
 			entry[1].every((item) => typeof item === 'string'),
 	)
 
 	return entries.length > 0 ? Object.fromEntries(entries) : undefined
+}
+
+function extractMessage(body: IBackendErrorBody, fallback: string): string {
+	if (Array.isArray(body.detail)) return body.detail[0] ?? fallback
+	return body.detail ?? body.message ?? fallback
 }
 
 export function normalizeError(error: unknown): ApiError {
@@ -25,7 +33,7 @@ export function normalizeError(error: unknown): ApiError {
 
 		return new ApiError({
 			status: error.response.status,
-			message: body.detail ?? body.message ?? error.message,
+			message: extractMessage(body, error.message),
 			code: body.code,
 			details: body.details,
 			fieldErrors: extractFieldErrors(body),
