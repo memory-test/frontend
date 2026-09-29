@@ -1,0 +1,25 @@
+.insctructionWrapper {
+	display: grid;
+	grid-template-columns: 32px 1fr;
+	grid-template-areas:
+		"icon label"
+		"_ desc";
+	align-items: center;
+	gap: 16px;
+	padding: 26px;
+	background-color: var(--surface-primary);
+	border-radius: 12px;
+}
+
+.insctructionIcon {
+	grid-area: icon;
+}
+
+.insctructionLabel {
+	grid-area: label;
+}
+
+.insctruction {
+	grid-area: desc;
+	color: var(--foreground-color);
+}

@@ -91,21 +91,23 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 		})
 
 	return (
-		<section>
+		<>
 			{exerciseState === 'process' && (
-				<ExerciseBase
-					id={id}
-					title={title}
-					description={description}
-					question={question}
-					onNext={handleOnNext}
-					isDisabled={!isComplete}
-				>
-					<Surface className={styles.board}>
-						<div className={styles.column}>{renderColumn('first')}</div>
-						<div className={styles.column}>{renderColumn('second')}</div>
-					</Surface>
-				</ExerciseBase>
+				<section>
+					<ExerciseBase
+						id={id}
+						title={title}
+						description={description}
+						question={question}
+						onNext={handleOnNext}
+						isDisabled={!isComplete}
+					>
+						<Surface className={styles.board}>
+							<div className={styles.column}>{renderColumn('first')}</div>
+							<div className={styles.column}>{renderColumn('second')}</div>
+						</Surface>
+					</ExerciseBase>
+				</section>
 			)}
 			{/* TODO: некоторые пропсы замоканы */}
 			{exerciseState === 'result' && timing && (
@@ -122,6 +124,6 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 					}}
 				/>
 			)}
-		</section>
+		</>
 	)
 }

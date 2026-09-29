@@ -2,11 +2,11 @@
 
 import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
+import { ExerciseInstruction } from '@shared/ui/exercise-instruction'
 import { Surface } from '@shared/ui/surface'
 import type { TTimerResult } from '@shared/ui/timer'
 import { Timer } from '@shared/ui/timer'
 import clsx from 'clsx'
-import { CircleAlert } from 'lucide-react'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 import styles from './styles.module.css'
@@ -53,15 +53,7 @@ export const ExerciseBase: React.FC<TExerciseBaseProps> = ({
 
 			<span className={styles.title}>{title}</span>
 
-			<div className={styles.descriptionWrapper}>
-				<CircleAlert
-					size={32}
-					strokeWidth={1.5}
-					className={styles.descriptionIcon}
-				/>
-				<span className={styles.descriptionLabel}>Инструкция</span>
-				<span className={styles.description}>{description}</span>
-			</div>
+			<ExerciseInstruction text={description} />
 
 			<Surface className={styles.question}>
 				<span>{question}</span>

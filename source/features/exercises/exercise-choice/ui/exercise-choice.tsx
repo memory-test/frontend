@@ -54,29 +54,31 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	}
 
 	return (
-		<section>
+		<>
 			{exerciseState === 'process' && (
-				<ExerciseBase
-					id={id}
-					title={title}
-					description={description}
-					question={question}
-					onNext={handleOnNext}
-					isDisabled={!toggleState}
-				>
-					<Surface>
-						<ToggleGroup
-							className={styles.toggle}
-							type="single"
-							items={toggleItems}
-							variant="buttons"
-							value={toggleState}
-							onValueChange={(value) => {
-								if (value) setToggleState(value)
-							}}
-						/>
-					</Surface>
-				</ExerciseBase>
+				<section>
+					<ExerciseBase
+						id={id}
+						title={title}
+						description={description}
+						question={question}
+						onNext={handleOnNext}
+						isDisabled={!toggleState}
+					>
+						<Surface>
+							<ToggleGroup
+								className={styles.toggle}
+								type="single"
+								items={toggleItems}
+								variant="buttons"
+								value={toggleState}
+								onValueChange={(value) => {
+									if (value) setToggleState(value)
+								}}
+							/>
+						</Surface>
+					</ExerciseBase>
+				</section>
 			)}
 
 			{exerciseState === 'result' && timing && (
@@ -93,6 +95,6 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 					}}
 				/>
 			)}
-		</section>
+		</>
 	)
 }
