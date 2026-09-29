@@ -1,16 +1,30 @@
 'use client'
 
-import type { TExerciseFull } from '@entities/exercise'
-import { useGetExerciseById } from '@entities/exercise'
+import {
+	type TExerciseFull,
+	type TPassExercisePayload,
+	type TResultExercise,
+	useGetExerciseById,
+	usePassExercise,
+} from '@entities/exercise'
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
+import { ExerciseInput } from '@features/exercises/exercise-input'
 import type React from 'react'
 import type { TExercisePageProps } from './types'
 
+type TRenderExerciseProps = TExerciseFull & {
+	onPass: (payload: TPassExercisePayload) => Promise<TResultExercise>
+}
+
 // TODO: Заменить в default заглушку на assertNever(exercise) как появятся все варианты
-const renderExercise = (exercise: TExerciseFull) => {
+const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 	switch (exercise.type) {
 		case 'choice':
-			return <ExerciseChoice {...exercise} />
+			// ExerciseChoice должен ожидать onPass с answers_ids
+			return <ExerciseChoice {...exercise} /* onPass={onPass} */ />
+		case 'input':
+			// ExerciseInput ожидает onPass с answers
+			return <ExerciseInput {...exercise} onPass={onPass} />
 
 		default:
 			return <p>Заглушка</p>
@@ -25,8 +39,17 @@ export const ExercisePage: React.FC<TExercisePageProps> = ({ exerciseId }) => {
 		error,
 	} = useGetExerciseById(exerciseId)
 
-	if (isPending) return <main>Загрузка...</main>
-	if (isError) return <main>Не удалось загрузить задание: {error.message}</main>
+	// mutateAsync - строгий тип: (payload: TPassExercisePayload) => Promise<TResultExercise>
+	const { mutateAsync: passExercise } = usePassExercise(exerciseId)
 
-	return <main>{renderExercise(exercise)}</main>
+	if (isPending) return <main>Загрузка...</main>
+	if (isError || !exercise) {
+		return (
+			<main>
+				Не удалось загрузить задание: {error?.message || 'Неизвестная ошибка'}
+			</main>
+		)
+	}
+
+	return <main>{renderExercise({ ...exercise, onPass: passExercise })}</main>
 }

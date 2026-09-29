@@ -7,5 +7,6 @@ export const useGetExerciseById = (id: number) => {
 	return useQuery({
 		queryKey: ['exercise', id],
 		queryFn: () => exerciseApi.getById(id),
+		enabled: !!id && id > 0, // <-- добавлено
 	})
 }
