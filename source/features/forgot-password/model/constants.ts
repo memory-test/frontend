@@ -1,0 +1,1 @@
+export const RESEND_CODE_TIMEOUT_SECONDS = 60
