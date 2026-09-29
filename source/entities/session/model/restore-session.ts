@@ -1,5 +1,4 @@
 import { ApiError, tokenStorage } from '@shared/api'
-
 import { getCurrentUser } from '../api/get-current-user'
 import { useSessionStore } from './store'
 
