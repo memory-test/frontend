@@ -4,6 +4,8 @@ export type {
 	TDifficulty,
 	TExerciseFull,
 	TExerciseListParams,
+	TExerciseMatchingAnswerInfo,
+	TExerciseMatchingOption,
 	TExerciseOf,
 	TExerciseShort,
 	TExerciseState,

@@ -6,7 +6,6 @@ export const useDeleteCurrentUser = () => {
 
 	return useMutation({
 		mutationFn: deleteCurrentUser,
-		// TODO: добавить удаление токенов авторизации
 		onSuccess: () => {
 			queryClient.clear()
 		},

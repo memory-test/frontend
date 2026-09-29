@@ -1,5 +1,6 @@
 'use client'
 
+import { logout, useSessionStore } from '@entities/session'
 import { DesktopMenu, MobileMenu } from '@features/menu'
 import { getMobileMenuItems } from '@features/menu/menu-config'
 import { createUrl, routerPath } from '@shared/lib/routes'
@@ -28,39 +29,10 @@ export const useScrollHeader = () => {
 	return isScrolled
 }
 
-// ==========================================
-// ВРЕМЕННЫЕ ТИПЫ И ХУК (STUB)
-// TODO: Заменить на реальный хук авторизации (например, next-auth,
-// кастомный Context или Zustand) перед релизом.
-// ==========================================
-type TUser = { name: string; avatarUrl: string }
-
-type TAuthState = {
-	user: TUser | null
-	isLoggedIn: boolean
-	logout: () => void
-	/** Только для локальной разработки: переключение состояния */
-	toggleAuth: () => void
-}
-
-export const useAuth = (): TAuthState => {
-	const [isLoggedIn, setIsLoggedIn] = useState(true)
-	const user: TUser = { name: 'Иван Петрович', avatarUrl: '/images/promo.jpg' }
-
-	return {
-		user: isLoggedIn ? user : null,
-		isLoggedIn,
-		logout: () => {
-			setIsLoggedIn(false)
-			console.log('[stub] logout called')
-		},
-		toggleAuth: () => setIsLoggedIn((prev) => !prev),
-	}
-}
-
 export const Header: React.FC<THeaderProps> = () => {
 	const router = useRouter()
-	const { user, isLoggedIn, logout, toggleAuth } = useAuth()
+	const user = useSessionStore((state) => state.user)
+	const isLoggedIn = Boolean(user)
 	const isScrolled = useScrollHeader()
 
 	const handleLogout = () => {
@@ -69,15 +41,11 @@ export const Header: React.FC<THeaderProps> = () => {
 	}
 
 	const desktopProfileSlot = user ? (
-		<ProfileInfo name={user.name} avatarUrl={user.avatarUrl} size="md" />
+		<ProfileInfo name={user.name} size="md" />
 	) : undefined
 
 	const mobileProfileSlot = (
-		<Avatar
-			name={user ? user.name : 'Гость'}
-			avatarUrl={user ? user.avatarUrl : ''}
-			size="sm"
-		/>
+		<Avatar name={user ? user.name : 'Гость'} size="sm" />
 	)
 
 	const desktopAuthSlot = !isLoggedIn ? (
@@ -103,29 +71,12 @@ export const Header: React.FC<THeaderProps> = () => {
 				<span className={styles.brandTitle}>Тренажер памяти</span>
 			</div>
 
-			{process.env.NODE_ENV === 'development' && (
-				<button
-					type="button"
-					className={styles.devToggle}
-					onClick={toggleAuth}
-					title="Переключить состояние авторизации (DEV)"
-				>
-					[DEV] {isLoggedIn ? 'Стать гостем' : 'Стать юзером'}
-				</button>
-			)}
-
 			<div className={styles.menus}>
 				<DesktopMenu
 					className={styles.desktopOnly}
 					accountSlot={desktopProfileSlot}
 					authSlot={desktopAuthSlot}
-					profileSlot={
-						<Avatar
-							avatarUrl={user?.avatarUrl || ''}
-							name={user?.name || ''}
-							size="sm"
-						/>
-					}
+					profileSlot={<Avatar name={user?.name || ''} size="sm" />}
 					notificationsSlot={notificationsSlot}
 					onLogout={handleLogout}
 				/>

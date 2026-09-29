@@ -1,11 +1,11 @@
 import { ExercisePage } from '@pages/exercise-page'
 import { notFound } from 'next/navigation'
 
-type TPops = {
+type TProps = {
 	params: Promise<{ exerciseId: string }>
 }
 
-const ProcessPage = async ({ params }: TPops) => {
+const ProcessPage = async ({ params }: TProps) => {
 	const { exerciseId } = await params
 	const id = Number(exerciseId)
 

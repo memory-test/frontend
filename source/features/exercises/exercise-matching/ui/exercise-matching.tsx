@@ -7,19 +7,20 @@ import type {
 } from '@entities/exercise'
 import { formatTime } from '@shared/lib/format-time'
 import { createUrl, routerPath } from '@shared/lib/routes'
+import { Button } from '@shared/ui/button'
 import { ExerciseBase } from '@shared/ui/exercise-base'
 import { ExerciseResult } from '@shared/ui/exercise-result'
 import { Surface } from '@shared/ui/surface'
 import type { TTimerResult } from '@shared/ui/timer'
-import type { TToggleItem } from '@shared/ui/toggle-group'
-import { ToggleGroup } from '@shared/ui/toggle-group'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState } from 'react'
+import type { TMatchingColumns } from '../model/types'
+import { useMatching } from '../model/use-matching'
 import styles from './styles.module.css'
-import type { TExerciseChoiceProps } from './types'
+import type { TExerciseMatchingProps } from './types'
 
-export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
+export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 	id,
 	title,
 	description,
@@ -29,12 +30,15 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 }) => {
 	const router = useRouter()
 
-	const toggleItems: TToggleItem[] = answersInfo.map((answer) => ({
-		value: String(answer.id),
-		content: answer.text,
-	}))
-
-	const [toggleState, setToggleState] = useState('')
+	const {
+		columns,
+		pairs,
+		selection,
+		selectItem,
+		isComplete,
+		buildPairs,
+		resetPairs,
+	} = useMatching(answersInfo)
 
 	const [timing, setTiming] = useState<TTimerResult | null>(null)
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
@@ -42,15 +46,22 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	const [resultData, setResultData] = useState<TResultExercise | null>(null)
 	const [error, setError] = useState<string | null>(null)
 
+	const pairNumbers = new Map<string, number>()
+
+	Object.entries(pairs).forEach(([firstId, secondId], index) => {
+		pairNumbers.set(firstId, index + 1)
+		pairNumbers.set(secondId, index + 1)
+	})
+
 	const handleOnNext = async (timing: TTimerResult) => {
 		setTiming(timing)
 		setError(null)
 
-		const payload: TPassExercisePayload<'choice'> = {
+		const payload: TPassExercisePayload<'matching'> = {
 			started_at: timing.startedAt,
 			finished_at: timing.finishedAt,
 			duration_seconds: timing.durationSeconds,
-			answers_ids: [+toggleState],
+			pairs: buildPairs(),
 		}
 
 		try {
@@ -70,12 +81,36 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	}
 
 	const handleReset = () => {
-		setToggleState('')
+		resetPairs()
 		setExerciseState('process')
 		setResultData(null)
 		setTiming(null)
 		setError(null)
 	}
+
+	const renderColumn = (side: keyof TMatchingColumns) =>
+		columns[side].map((item) => {
+			const pairNumber = pairNumbers.get(item.id)
+			const isSelected = selection?.id === item.id
+
+			return (
+				<Button
+					key={item.id}
+					variant={isSelected || pairNumber ? 'default' : 'outline'}
+					onClick={() => selectItem(item.id, side)}
+					aria-pressed={isSelected}
+					iconAfter={
+						pairNumber ? (
+							<span className={styles.pairBadge} aria-hidden="true">
+								{pairNumber}
+							</span>
+						) : undefined
+					}
+				>
+					{item.text}
+				</Button>
+			)
+		})
 
 	return (
 		<>
@@ -87,7 +122,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 						description={description}
 						question={question}
 						onNext={handleOnNext}
-						isDisabled={!toggleState}
+						isDisabled={!isComplete}
 					>
 						<Surface>
 							{error && (
@@ -96,16 +131,10 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 								</p>
 							)}
 
-							<ToggleGroup
-								className={styles.toggle}
-								type="single"
-								items={toggleItems}
-								variant="buttons"
-								value={toggleState}
-								onValueChange={(value) => {
-									if (value) setToggleState(value)
-								}}
-							/>
+							<div className={styles.board}>
+								<div className={styles.column}>{renderColumn('first')}</div>
+								<div className={styles.column}>{renderColumn('second')}</div>
+							</div>
 						</Surface>
 					</ExerciseBase>
 				</section>

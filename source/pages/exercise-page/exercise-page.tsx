@@ -9,6 +9,7 @@ import {
 } from '@entities/exercise'
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
 import { ExerciseInput } from '@features/exercises/exercise-input'
+import { ExerciseMatching } from '@features/exercises/exercise-matching'
 import type React from 'react'
 import type { TExercisePageProps } from './types'
 
@@ -21,11 +22,12 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 	switch (exercise.type) {
 		case 'choice':
 			// ExerciseChoice должен ожидать onPass с answers_ids
-			return <ExerciseChoice {...exercise} /* onPass={onPass} */ />
+			return <ExerciseChoice {...exercise} onPass={onPass} />
 		case 'input':
 			// ExerciseInput ожидает onPass с answers
 			return <ExerciseInput {...exercise} onPass={onPass} />
-
+		case 'matching':
+			return <ExerciseMatching {...exercise} onPass={onPass} />
 		default:
 			return <p>Заглушка</p>
 	}

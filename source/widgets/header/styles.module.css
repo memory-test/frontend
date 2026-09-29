@@ -75,19 +75,3 @@
 	gap: 12px;
 	align-items: center;
 }
-
-/* Временная DEV-кнопка — скрываем на мобильных */
-.devToggle {
-	display: none;
-}
-
-@container (min-width: 768px) {
-	.devToggle {
-		display: block;
-		font-size: 12px;
-		padding: 4px 8px;
-		border: 1px dashed red;
-		margin-right: 20px;
-		cursor: pointer;
-	}
-}

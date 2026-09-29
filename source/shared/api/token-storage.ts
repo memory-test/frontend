@@ -1,4 +1,3 @@
-import { isTokenExpired } from './jwt'
 import type { ITokens } from './types'
 
 const ACCESS_TOKEN_KEY = 'accessToken'
@@ -16,7 +15,6 @@ export const tokenStorage = {
 		const refresh = localStorage.getItem(REFRESH_TOKEN_KEY)
 
 		if (!access || !refresh) return null
-		if (isTokenExpired(access)) return null
 
 		return { access, refresh }
 	},
