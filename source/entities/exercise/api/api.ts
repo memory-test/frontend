@@ -4,7 +4,9 @@ import type {
 	TExerciseFull,
 	TExerciseListParams,
 	TExerciseShort,
-} from '..//model/types'
+	TPassExercisePayload,
+	TResultExercise,
+} from '../model/types'
 
 export const exerciseApi = {
 	// Получить список заданий
@@ -17,5 +19,10 @@ export const exerciseApi = {
 	// Получить задание по ID
 	getById: (id: number) => {
 		return http.get<TExerciseFull>(`/exercises/${id}/`)
+	},
+
+	// Пройти задание
+	pass: (id: number, payload: TPassExercisePayload) => {
+		return http.post<TResultExercise>(`/exercises/${id}/pass/`, payload)
 	},
 }

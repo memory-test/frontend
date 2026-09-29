@@ -1,2 +1,2 @@
 export { exerciseApi } from './api'
-export { useGetExerciseById } from './hooks'
+export { useGetExerciseById, usePassExercise } from './hooks'
