@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { requestPasswordReset } from '../api/forgot-password'
+import { SEND_CODE_ERROR_MESSAGE } from './constants'
 import type { TForgotPasswordFormValues } from './forgot-password.schema'
 import { forgotPasswordSchema } from './forgot-password.schema'
 
@@ -28,9 +29,7 @@ export const useForgotPasswordForm = ({
 			await requestPasswordReset(values)
 			onSuccess?.(values.email)
 		} catch {
-			setError('root', {
-				message: 'Не удалось отправить письмо. Попробуйте ещё раз',
-			})
+			setError('root', { message: SEND_CODE_ERROR_MESSAGE })
 		}
 	})
 

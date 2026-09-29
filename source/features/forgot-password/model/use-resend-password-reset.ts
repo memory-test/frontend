@@ -3,7 +3,10 @@
 import { useCountdown } from '@shared/lib/use-countdown'
 import { useState } from 'react'
 import { requestPasswordReset } from '../api/forgot-password'
-import { RESEND_CODE_TIMEOUT_SECONDS } from './constants'
+import {
+	RESEND_CODE_TIMEOUT_SECONDS,
+	SEND_CODE_ERROR_MESSAGE,
+} from './constants'
 
 interface IUseResendPasswordResetParams {
 	email: string
@@ -26,7 +29,7 @@ export const useResendPasswordReset = ({
 			await requestPasswordReset({ email })
 			restart()
 		} catch {
-			setError('Не удалось отправить письмо. Попробуйте ещё раз')
+			setError(SEND_CODE_ERROR_MESSAGE)
 		} finally {
 			setIsLoading(false)
 		}
