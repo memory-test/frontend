@@ -1,7 +1,8 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	--form-gap: 20px;
+	gap: var(--form-gap);
 }
 
 .submit {
@@ -10,7 +11,7 @@
 
 .backHint {
 	text-align: center;
-	margin-top: 24px;
+	margin-top: calc(29px - var(--form-gap));
 	font-size: var(--font-size-mobile-body-lg);
 	line-height: var(--line-height-mobile-body-lg);
 

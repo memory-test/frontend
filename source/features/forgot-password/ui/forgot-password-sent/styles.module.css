@@ -1,7 +1,8 @@
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 28px;
+	--form-gap: 28px;
+	gap: var(--form-gap);
 }
 
 .actionButton {
@@ -21,7 +22,7 @@
 
 .backHint {
 	text-align: center;
-	margin-top: 1px;
+	margin-top: calc(29px - var(--form-gap));
 	font-size: var(--font-size-mobile-body-lg);
 	line-height: var(--line-height-mobile-body-lg);
 
