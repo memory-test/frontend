@@ -18,6 +18,7 @@ import {
 } from '@dnd-kit/sortable'
 import type { TExerciseState } from '@entities/exercise'
 import { ExerciseBase } from '@shared/ui/exercise-base'
+import type { TTimerResult } from '@shared/ui/timer'
 import type React from 'react'
 import { useRef, useState } from 'react'
 import { SortableItem } from './sortable-item'
@@ -55,6 +56,7 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 	description,
 	question,
 	answers_info: answersInfo,
+	onPass,
 }) => {
 	const [items, setItems] = useState(() => shuffleUntilDifferent(answersInfo))
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
