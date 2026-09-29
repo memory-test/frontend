@@ -10,3 +10,5 @@ export const registerSchema = z.object({
 	email: emailSchema,
 	password: passwordSchema,
 })
+
+export type TRegisterFormValues = z.infer<typeof registerSchema>

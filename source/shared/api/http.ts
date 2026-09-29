@@ -31,6 +31,8 @@ export const http = {
 		request<T>('get', url, options),
 	post: <T>(url: string, json?: unknown, options?: TRequestOptions) =>
 		request<T>('post', url, { ...options, json }),
+	postVoid: (url: string, json?: unknown, options?: TRequestOptions) =>
+		requestVoid('post', url, { ...options, json }),
 	put: <T>(url: string, json?: unknown, options?: TRequestOptions) =>
 		request<T>('put', url, { ...options, json }),
 	patch: <T>(url: string, json?: unknown, options?: TRequestOptions) =>
