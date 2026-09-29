@@ -1,3 +1,8 @@
+.error {
+	margin: 0 0 24px;
+	color: var(--error-color);
+}
+
 .board {
 	display: grid;
 	grid-template-columns: 1fr 1fr;

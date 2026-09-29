@@ -1,6 +1,10 @@
 'use client'
 
-import type { TExerciseState } from '@entities/exercise'
+import type {
+	TExerciseState,
+	TPassExercisePayload,
+	TResultExercise,
+} from '@entities/exercise'
 import { formatTime } from '@shared/lib/format-time'
 import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
@@ -22,6 +26,7 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 	description,
 	question,
 	answers_info: answersInfo,
+	onPass,
 }) => {
 	const router = useRouter()
 
@@ -38,6 +43,9 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 	const [timing, setTiming] = useState<TTimerResult | null>(null)
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
 
+	const [resultData, setResultData] = useState<TResultExercise | null>(null)
+	const [error, setError] = useState<string | null>(null)
+
 	const pairNumbers = new Map<string, number>()
 
 	Object.entries(pairs).forEach(([firstId, secondId], index) => {
@@ -45,25 +53,39 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 		pairNumbers.set(secondId, index + 1)
 	})
 
-	const handleOnNext = (timing: TTimerResult) => {
+	const handleOnNext = async (timing: TTimerResult) => {
 		setTiming(timing)
+		setError(null)
 
-		const payload = {
+		const payload: TPassExercisePayload<'matching'> = {
 			started_at: timing.startedAt,
 			finished_at: timing.finishedAt,
 			duration_seconds: timing.durationSeconds,
 			pairs: buildPairs(),
 		}
 
-		// TODO: hook
-		console.log(payload)
+		try {
+			const response = await onPass(payload)
 
-		setExerciseState('result')
+			setResultData(response)
+			setExerciseState('result')
+		} catch (err) {
+			console.error(err)
+
+			setError(
+				err instanceof Error
+					? err.message
+					: 'Что-то пошло не так. Попробуйте обновить страницу',
+			)
+		}
 	}
 
 	const handleReset = () => {
 		resetPairs()
 		setExerciseState('process')
+		setResultData(null)
+		setTiming(null)
+		setError(null)
 	}
 
 	const renderColumn = (side: keyof TMatchingColumns) =>
@@ -102,20 +124,28 @@ export const ExerciseMatching: React.FC<TExerciseMatchingProps> = ({
 						onNext={handleOnNext}
 						isDisabled={!isComplete}
 					>
-						<Surface className={styles.board}>
-							<div className={styles.column}>{renderColumn('first')}</div>
-							<div className={styles.column}>{renderColumn('second')}</div>
+						<Surface>
+							{error && (
+								<p role="alert" className={styles.error}>
+									⚠️ {error}
+								</p>
+							)}
+
+							<div className={styles.board}>
+								<div className={styles.column}>{renderColumn('first')}</div>
+								<div className={styles.column}>{renderColumn('second')}</div>
+							</div>
 						</Surface>
 					</ExerciseBase>
 				</section>
 			)}
-			{/* TODO: некоторые пропсы замоканы */}
-			{exerciseState === 'result' && timing && (
+
+			{exerciseState === 'result' && timing && resultData && (
 				<ExerciseResult
 					exerciseName={title}
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
-					resultPercent={75}
+					resultPercent={resultData.score}
 					userAmountRightAnswer="17"
 					allAmountRightAnswer="20"
 					onReset={handleReset}

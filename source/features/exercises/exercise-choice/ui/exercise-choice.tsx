@@ -1,6 +1,10 @@
 'use client'
 
-import type { TExerciseState } from '@entities/exercise'
+import type {
+	TExerciseState,
+	TPassExercisePayload,
+	TResultExercise,
+} from '@entities/exercise'
 import { formatTime } from '@shared/lib/format-time'
 import { createUrl, routerPath } from '@shared/lib/routes'
 import { ExerciseBase } from '@shared/ui/exercise-base'
@@ -21,6 +25,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	description,
 	question,
 	answers_info: answersInfo,
+	onPass,
 }) => {
 	const router = useRouter()
 
@@ -30,27 +35,46 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	}))
 
 	const [toggleState, setToggleState] = useState('')
+
 	const [timing, setTiming] = useState<TTimerResult | null>(null)
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
 
-	const handleOnNext = (timing: TTimerResult) => {
-		setTiming(timing)
+	const [resultData, setResultData] = useState<TResultExercise | null>(null)
+	const [error, setError] = useState<string | null>(null)
 
-		const payload = {
+	const handleOnNext = async (timing: TTimerResult) => {
+		setTiming(timing)
+		setError(null)
+
+		const payload: TPassExercisePayload<'choice'> = {
 			started_at: timing.startedAt,
 			finished_at: timing.finishedAt,
 			duration_seconds: timing.durationSeconds,
 			answers_ids: [+toggleState],
 		}
 
-		console.log(payload)
+		try {
+			const response = await onPass(payload)
 
-		setExerciseState('result')
+			setResultData(response)
+			setExerciseState('result')
+		} catch (err) {
+			console.error(err)
+
+			setError(
+				err instanceof Error
+					? err.message
+					: 'Что-то пошло не так. Попробуйте обновить страницу',
+			)
+		}
 	}
 
 	const handleReset = () => {
 		setToggleState('')
 		setExerciseState('process')
+		setResultData(null)
+		setTiming(null)
+		setError(null)
 	}
 
 	return (
@@ -66,6 +90,12 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 						isDisabled={!toggleState}
 					>
 						<Surface>
+							{error && (
+								<p role="alert" className={styles.error}>
+									⚠️ {error}
+								</p>
+							)}
+
 							<ToggleGroup
 								className={styles.toggle}
 								type="single"
@@ -81,12 +111,12 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 				</section>
 			)}
 
-			{exerciseState === 'result' && timing && (
+			{exerciseState === 'result' && timing && resultData && (
 				<ExerciseResult
 					exerciseName={title}
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
-					resultPercent={75}
+					resultPercent={resultData.score}
 					userAmountRightAnswer="17"
 					allAmountRightAnswer="20"
 					onReset={handleReset}

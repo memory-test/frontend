@@ -22,12 +22,12 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 	switch (exercise.type) {
 		case 'choice':
 			// ExerciseChoice должен ожидать onPass с answers_ids
-			return <ExerciseChoice {...exercise} /* onPass={onPass} */ />
+			return <ExerciseChoice {...exercise} onPass={onPass} />
 		case 'input':
 			// ExerciseInput ожидает onPass с answers
 			return <ExerciseInput {...exercise} onPass={onPass} />
 		case 'matching':
-			return <ExerciseMatching {...exercise} />
+			return <ExerciseMatching {...exercise} onPass={onPass} />
 		default:
 			return <p>Заглушка</p>
 	}

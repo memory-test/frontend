@@ -113,12 +113,19 @@ type TPassExerciseBase = {
 	duration_seconds: number
 }
 
+type TPassExerciseMatching = {
+	first_id: number
+	second_id: number
+}
+
 // 2. Вариант пейлоада, зависящий от типа упражнения.
 type TPassExerciseVariant<T extends TExerciseType> = T extends 'choice'
 	? TPassExerciseBase & { answers_ids: number[] }
 	: T extends 'input'
 		? TPassExerciseBase & { answers: string[] }
-		: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
+		: T extends 'matching'
+			? TPassExerciseBase & { pairs: TPassExerciseMatching[] }
+			: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
 
 // 3. Итоговый тип.
 // Если тип не указан (по умолчанию = TExerciseType), это union всех вариантов (в соответствии с OpenAPI, схеме PassRequest.)
