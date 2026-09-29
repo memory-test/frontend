@@ -1,5 +1,6 @@
 export type { IApiErrorShape, TFieldErrors } from './error'
 export { ApiError } from './error'
 export { http } from './http'
+export { onSessionExpired } from './session-events'
 export { tokenStorage } from './token-storage'
 export type { ITokens, TRequestOptions } from './types'
