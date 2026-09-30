@@ -12,7 +12,7 @@ export const AccessibilitySettingsPage = () => {
 		useAccessibilitySettings()
 
 	return (
-		<section>
+		<section className={styles.section}>
 			<div className={styles.settingsWrapper}>
 				<Surface>
 					<ChangeFontSize

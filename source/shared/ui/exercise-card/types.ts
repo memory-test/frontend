@@ -5,6 +5,5 @@ export type TExerciseCardProps = {
 	image: string
 	slot: ReactElement
 	onStart: (() => void) | string
-	onDescription: () => void
 	className?: string
 }
