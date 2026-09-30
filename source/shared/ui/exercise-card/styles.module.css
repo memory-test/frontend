@@ -31,11 +31,6 @@
 	border-radius: 16px;
 }
 
-.buttonContainer {
-	display: flex;
-	gap: 8px;
-}
-
 .link {
 	text-decoration: none;
 }
