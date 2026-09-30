@@ -1,5 +1,6 @@
 import { QueryProvider } from '@app/providers'
 import '@app/styles/globals.css'
+import { SessionInitializer } from '@entities/session'
 import { HighContrastInitializer } from '@features/accessibility-settings/change-contrast'
 import { FontSizeInitializer } from '@features/accessibility-settings/change-font-size'
 import { fontMain } from '@shared/fonts'
@@ -11,6 +12,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 			<body className={fontMain.variable}>
 				<FontSizeInitializer />
 				<HighContrastInitializer />
+				<SessionInitializer />
 				<QueryProvider>
 					<Header />
 					{children}

@@ -1,5 +1,6 @@
 'use client'
 
+import { logout } from '@entities/session'
 import { useDeleteCurrentUser } from '@entities/user'
 import { Button } from '@shared/ui/button'
 import { Modal } from '@shared/ui/modal'
@@ -14,6 +15,8 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const deleteMutation = useDeleteCurrentUser()
+	const handleDelete = () =>
+		deleteMutation.mutate(undefined, { onSuccess: logout })
 	const router = useRouter()
 
 	const handleOpenChange = (open: boolean) => {
@@ -53,11 +56,7 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 					<Modal.Title>Не удалось удалить аккаунт</Modal.Title>
 					<Modal.Description>{deleteMutation.error.message}</Modal.Description>
 					<div className={styles.modal__btnWrapper}>
-						<Button
-							size="sm"
-							variant="outline"
-							onClick={() => deleteMutation.mutate()}
-						>
+						<Button size="sm" variant="outline" onClick={handleDelete}>
 							Повторить
 						</Button>
 						<Modal.Close asChild>
@@ -73,11 +72,7 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 				<Modal.Title>Вы уверены, что хотите удалить аккаунт?</Modal.Title>
 				<Modal.Description>Восстановить аккаунт не получится</Modal.Description>
 				<div className={styles.modal__btnWrapper}>
-					<Button
-						size="sm"
-						variant="outline"
-						onClick={() => deleteMutation.mutate()}
-					>
+					<Button size="sm" variant="outline" onClick={handleDelete}>
 						Удалить
 					</Button>
 					<Modal.Close asChild>
