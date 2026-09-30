@@ -6,7 +6,7 @@ import type {
 
 export type TExerciseMatchingProps = Omit<
 	TExerciseOf<'matching'>,
-	'type' | 'difficulty' | 'is_active' | 'created_at'
+	'type' | 'difficulty' | 'is_active' | 'created_at' | 'answer_mode'
 > & {
 	onPass: (
 		payload: TPassExercisePayload<'matching'>,

@@ -3,7 +3,10 @@ export interface IUser {
 	email: string | null
 	name: string
 	birthDate: string | null
+	age: string
 	currentDifficulty: 'easy' | 'medium' | 'hard'
-	role: 'user' | 'admin'
 	progressPercent: number
+	role: 'user' | 'admin'
+	isActive: boolean
+	dateJoined: string
 }

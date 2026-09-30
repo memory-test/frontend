@@ -1,5 +1,7 @@
-const ProgressPage: React.FC = () => {
-	return <h1>Progress</h1>
+import { ProgressPage } from '@pages/progress-page'
+
+const UserProgressPage: React.FC = () => {
+	return <ProgressPage />
 }
 
-export default ProgressPage
+export default UserProgressPage

@@ -25,8 +25,11 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	description,
 	question,
 	answers_info: answersInfo,
+	answer_mode: answerMode,
 	onPass,
 }) => {
+	const toggleType = answerMode === 'single_answer' ? 'single' : 'multiple'
+
 	const router = useRouter()
 
 	const toggleItems: TToggleItem[] = answersInfo.map((answer) => ({
@@ -34,7 +37,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 		content: answer.text,
 	}))
 
-	const [toggleState, setToggleState] = useState('')
+	const [toggleState, setToggleState] = useState<string[]>([])
 
 	const [timing, setTiming] = useState<TTimerResult | null>(null)
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
@@ -50,7 +53,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 			started_at: timing.startedAt,
 			finished_at: timing.finishedAt,
 			duration_seconds: timing.durationSeconds,
-			answers_ids: [+toggleState],
+			answers_ids: toggleState.map(Number),
 		}
 
 		try {
@@ -70,7 +73,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 	}
 
 	const handleReset = () => {
-		setToggleState('')
+		setToggleState([])
 		setExerciseState('process')
 		setResultData(null)
 		setTiming(null)
@@ -96,16 +99,29 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 								</p>
 							)}
 
-							<ToggleGroup
-								className={styles.toggle}
-								type="single"
-								items={toggleItems}
-								variant="buttons"
-								value={toggleState}
-								onValueChange={(value) => {
-									if (value) setToggleState(value)
-								}}
-							/>
+							{toggleType === 'single' && (
+								<ToggleGroup
+									className={styles.toggle}
+									type={toggleType}
+									items={toggleItems}
+									variant="buttons"
+									value={toggleState[0] ?? ''}
+									onValueChange={(value) => {
+										if (value) setToggleState([value])
+									}}
+								/>
+							)}
+
+							{toggleType === 'multiple' && (
+								<ToggleGroup
+									className={styles.toggle}
+									type={toggleType}
+									items={toggleItems}
+									variant="buttons"
+									value={toggleState}
+									onValueChange={setToggleState}
+								/>
+							)}
 						</Surface>
 					</ExerciseBase>
 				</section>
@@ -116,7 +132,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 					exerciseName={title}
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
-					resultPercent={resultData.score}
+					resultPercent={resultData.score * 100}
 					userAmountRightAnswer="17"
 					allAmountRightAnswer="20"
 					onReset={handleReset}

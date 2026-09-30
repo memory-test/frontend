@@ -49,6 +49,8 @@ export type TExerciseOrderingAnswerInfo = {
 	position: number
 }
 
+type TChoiceAnswerMode = 'single_answer' | 'multiple_answer'
+
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
 	question: string
 	image?: string | null
@@ -58,16 +60,18 @@ type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
 type TExerciseVariant<
 	T extends TExerciseType | null,
 	TAnswersInfo,
+	TAnswerMode = null,
 > = TExerciseFullBase & {
 	type: T
 	answers_info: TAnswersInfo
+	answer_mode: TAnswerMode
 }
 
 /**
  * Полная информация о задании
  */
 export type TExerciseFull =
-	| TExerciseVariant<'choice', TExerciseChoiceAnswerInfo[]>
+	| TExerciseVariant<'choice', TExerciseChoiceAnswerInfo[], TChoiceAnswerMode>
 	| TExerciseVariant<'input', Record<string, unknown>>
 	| TExerciseVariant<'ordering', TExerciseOrderingAnswerInfo[]>
 	| TExerciseVariant<'grouping', Record<string, unknown>>

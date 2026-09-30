@@ -12,7 +12,6 @@ export const ExerciseCard: React.FC<TExerciseCardProps> = ({
 	image,
 	slot,
 	onStart,
-	onDescription,
 	className,
 }) => {
 	return (
@@ -28,34 +27,23 @@ export const ExerciseCard: React.FC<TExerciseCardProps> = ({
 				/>
 				<div className={styles.slotWrapper}>{slot}</div>
 			</div>
-			<div className={styles.buttonContainer}>
-				{typeof onStart === 'string' ? (
-					<Link
-						href={createUrl(routerPath.exercise, { id: onStart })}
-						className={clsx(
-							buttonStylees.button,
-							buttonStylees.default,
-							buttonStylees.sm,
-							styles.button,
-							styles.link,
-						)}
-					>
-						Начать
-					</Link>
-				) : (
-					<Button onClick={onStart} size="sm" className={styles.button}>
-						Начать
-					</Button>
-				)}
-				<Button
-					variant="outline"
-					onClick={onDescription}
-					size="sm"
-					className={styles.button}
+			{typeof onStart === 'string' ? (
+				<Link
+					href={createUrl(routerPath.exercise, { id: onStart })}
+					className={clsx(
+						buttonStylees.button,
+						buttonStylees.default,
+						buttonStylees.sm,
+						styles.link,
+					)}
 				>
-					Подробнее
+					Начать
+				</Link>
+			) : (
+				<Button onClick={onStart} size="sm">
+					Начать
 				</Button>
-			</div>
+			)}
 		</article>
 	)
 }
