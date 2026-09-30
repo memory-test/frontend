@@ -17,6 +17,11 @@
 	}
 }
 
+.title,
+.text {
+	color: var(--foreground-color);
+}
+
 .hero {
 	display: flex;
 	flex-direction: column;
