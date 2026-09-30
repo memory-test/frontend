@@ -49,7 +49,8 @@ export type TExerciseOrderingAnswerInfo = {
 	position: number
 }
 
-type TChoiceAnswerMode = 'single_answer' | 'multiple_answer'
+type TChoiceAnswerMode = 'single_answer' | 'multiple_answers'
+export type TInputAnswerMode = 'single_answer' | 'list_answer' | 'free_answer'
 
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
 	question: string
@@ -72,7 +73,7 @@ type TExerciseVariant<
  */
 export type TExerciseFull =
 	| TExerciseVariant<'choice', TExerciseChoiceAnswerInfo[], TChoiceAnswerMode>
-	| TExerciseVariant<'input', Record<string, unknown>>
+	| TExerciseVariant<'input', Record<string, unknown>, TInputAnswerMode>
 	| TExerciseVariant<'ordering', TExerciseOrderingAnswerInfo[]>
 	| TExerciseVariant<'grouping', Record<string, unknown>>
 	| TExerciseVariant<'matching', TExerciseMatchingAnswerInfo>

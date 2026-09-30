@@ -5,6 +5,8 @@ import type {
 	TPassExercisePayload,
 	TResultExercise,
 } from '@entities/exercise'
+import { useSessionStore } from '@entities/session'
+import { ApiError } from '@shared/api'
 import { formatTime } from '@shared/lib/format-time'
 import { Button } from '@shared/ui/button'
 import { ExerciseBase } from '@shared/ui/exercise-base'
@@ -29,8 +31,12 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 	title,
 	description,
 	question,
+	answer_mode,
 	onPass,
 }) => {
+	const router = useRouter()
+	const setSession = useSessionStore((state) => state.setSession)
+
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
 	const [answers, setAnswers] = useState<AnswerItem[]>([
 		{ id: crypto.randomUUID(), value: '' },
@@ -38,10 +44,7 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 	const [resultData, setResultData] = useState<TResultExercise | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
-
 	const [timing, setTiming] = useState<TTimerResult | null>(null)
-
-	const router = useRouter()
 
 	const handleChange = (id: string, newValue: string) => {
 		setError(null)
@@ -85,19 +88,30 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 
 			setResultData(response)
 			setExerciseState('result')
+
+			// <-- 4. ДОБАВЛЕНО: Обновляем профиль, чтобы получить актуальный progress_percent
+			const { getCurrentUser } = await import('@entities/session')
+			const updatedUser = await getCurrentUser()
+			setSession(updatedUser)
 		} catch (err: unknown) {
 			console.error('Ошибка при проверке задания:', err)
 
-			const errorData = (
-				err as { response?: { data?: { detail?: string; answers?: string[] } } }
-			)?.response?.data
+			// <-- 5. УЛУЧШЕНО: Чистая обработка ошибок без as any / as { response... }
+			if (err instanceof ApiError) {
+				const errorData = err.data as
+					| { detail?: string; answers?: string[] }
+					| undefined
 
-			const errorMessage =
-				errorData?.detail ||
-				errorData?.answers?.[0] ||
-				'Произошла ошибка при проверке ответа. Попробуйте ещё раз.'
+				const errorMessage =
+					errorData?.detail ||
+					errorData?.answers?.[0] ||
+					err.message ||
+					'Произошла ошибка при проверке ответа. Попробуйте ещё раз.'
 
-			setError(errorMessage)
+				setError(errorMessage)
+			} else {
+				setError('Произошла неизвестная ошибка сети.')
+			}
 		} finally {
 			setIsLoading(false)
 		}
@@ -139,6 +153,9 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 	const isDisabled =
 		!answers.some((item) => item.value.trim().length > 0) || isLoading
 
+	const canAddMoreAnswers =
+		answer_mode === 'list_answer' || answer_mode === 'free_answer'
+
 	return (
 		<section>
 			{exerciseState === 'process' && (
@@ -152,7 +169,12 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 				>
 					<Surface className={styles.inputContainer}>
 						{error && (
-							<div className="text-red-500 text-sm mb-3 p-2 bg-red-50 rounded">
+							<div
+								className={
+									styles.error ||
+									'text-red-500 text-sm mb-3 p-2 bg-red-50 rounded'
+								}
+							>
 								⚠️ {error}
 							</div>
 						)}
@@ -185,15 +207,17 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 							))}
 						</div>
 
-						<Button
-							type="button"
-							variant="outline"
-							className={styles.addBtn}
-							onClick={addAnswerField}
-							disabled={isLoading}
-						>
-							+ Добавить ещё вариант
-						</Button>
+						{canAddMoreAnswers && (
+							<Button
+								type="button"
+								variant="outline"
+								className={styles.addBtn}
+								onClick={addAnswerField}
+								disabled={isLoading}
+							>
+								+ Добавить ещё вариант
+							</Button>
+						)}
 					</Surface>
 				</ExerciseBase>
 			)}
