@@ -121,9 +121,6 @@ export const CatalogPage: React.FC = () => {
 														</Tag>
 													}
 													onStart={String(exercise.id)}
-													onDescription={() => {
-														console.log('Подробнее:', exercise.id)
-													}}
 												/>
 											</Surface>
 										</li>
