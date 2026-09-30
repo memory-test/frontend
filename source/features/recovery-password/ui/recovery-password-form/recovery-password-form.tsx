@@ -1,8 +1,10 @@
 'use client'
 
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { FormError } from '@shared/ui/form-error'
 import { PasswordInput } from '@shared/ui/password-input'
+import Link from 'next/link'
 import styles from './styles.module.css'
 import type { TRecoveryPasswordFormProps } from './types'
 
@@ -41,6 +43,10 @@ export const RecoveryPasswordForm: React.FC<TRecoveryPasswordFormProps> = ({
 			>
 				Сохранить пароль
 			</Button>
+
+			<p className={styles.backHint}>
+				<Link href={createUrl(routerPath.forgotPassword)}>Назад</Link>
+			</p>
 		</form>
 	)
 }

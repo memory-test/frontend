@@ -1,9 +1,22 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	--form-gap: 20px;
+	gap: var(--form-gap);
 }
 
 .submit {
 	width: 100%;
+}
+
+.backHint {
+	text-align: center;
+	margin-top: calc(29px - var(--form-gap));
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
+	}
 }
