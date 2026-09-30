@@ -88,6 +88,7 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 						onBlur={() => handleRevertOnBlur('email')}
 						placeholder="Введите вашу почту"
 						className={styles.customInput}
+						autoComplete="email"
 					/>
 
 					{isEmailChanged && (
@@ -120,6 +121,7 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 									onChange({ ...form, current_password: e.target.value })
 								}
 								placeholder="Введите пароль для подтверждения"
+								autoComplete="current-password"
 							/>
 						</div>
 					)}
@@ -130,7 +132,7 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 
 			<div className={styles.actionButtons}>
 				<Button
-					onClick={onSave}
+					//onClick={onSave}
 					variant="default"
 					type="submit"
 					size="sm"

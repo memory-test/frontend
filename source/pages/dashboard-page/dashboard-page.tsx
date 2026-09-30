@@ -1,8 +1,6 @@
-// source/pages/dashboard-page/dashboard-page.tsx
-
 'use client'
 
-import { useSessionStore } from '@entities/session' // <-- Читаем из стора
+import { useSessionStore } from '@entities/session'
 import { Button } from '@shared/ui/button'
 import { ProgressCard } from '@shared/ui/progress-card'
 import { Surface } from '@shared/ui/surface'
@@ -34,14 +32,13 @@ const getDifficultyColor = (
 
 export const DashboardPage: React.FC = () => {
 	const router = useRouter()
-
-	// Влад сделает так, чтобы в сторе лежал актуальный пользователь
 	const user = useSessionStore((state) => state.user)
 
-	// Если стор еще не загрузился или пользователь не авторизован
 	if (!user) {
 		return <div className={styles.loader}>Загрузка профиля...</div>
 	}
+
+	const progressPercent = user.progressPercent ?? 0
 
 	const handleStartTraining = () => {
 		router.push('/catalog')
@@ -66,7 +63,7 @@ export const DashboardPage: React.FC = () => {
 				<ProgressCard
 					icon={<Target size={24} className={styles.progressIcon} />}
 					title="Общий результат занятий"
-					percentRate={Math.round(user.progressPercent)} // Влад добавит это поле в IUser
+					percentRate={Math.round(progressPercent)}
 				/>
 			</Surface>
 		</main>

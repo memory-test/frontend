@@ -5,4 +5,5 @@ export interface IUser {
 	birthDate: string | null
 	currentDifficulty: 'easy' | 'medium' | 'hard'
 	role: 'user' | 'admin'
+	progressPercent: number
 }
