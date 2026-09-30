@@ -16,11 +16,19 @@ import {
 	sortableKeyboardCoordinates,
 	verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import type { TExerciseState } from '@entities/exercise'
+import type {
+	TExerciseState,
+	TPassExercisePayload,
+	TResultExercise,
+} from '@entities/exercise'
+import { formatTime } from '@shared/lib/format-time'
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { ExerciseBase } from '@shared/ui/exercise-base'
+import { ExerciseResult } from '@shared/ui/exercise-result'
 import type { TTimerResult } from '@shared/ui/timer'
+import { useRouter } from 'next/navigation'
 import type React from 'react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { SortableItem } from './sortable-item'
 import styles from './styles.module.css'
 import type { TExerciseOrderingProps } from './types'
@@ -58,10 +66,15 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 	answers_info: answersInfo,
 	onPass,
 }) => {
+	const router = useRouter()
+
 	const [items, setItems] = useState(() => shuffleUntilDifferent(answersInfo))
 	const [exerciseState, setExerciseState] = useState<TExerciseState>('process')
-	const [isOrderChanged, setIsOrderChanged] = useState(false) // ← новое
-	const elapsedTime = useRef(0)
+	const [isOrderChanged, setIsOrderChanged] = useState(false)
+
+	const [timing, setTiming] = useState<TTimerResult | null>(null)
+	const [resultData, setResultData] = useState<TResultExercise | null>(null)
+	const [error, setError] = useState<string | null>(null)
 
 	const sensors = useSensors(
 		useSensor(PointerSensor),
@@ -86,43 +99,93 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 		})
 	}
 
-	const handleOnNext = () => {
-		setExerciseState('result')
+	const handleOnNext = async (timing: TTimerResult) => {
+		setTiming(timing)
+		setError(null)
+
+		try {
+			const payload: TPassExercisePayload<'ordering'> = {
+				started_at: timing.startedAt,
+				finished_at: timing.finishedAt,
+				duration_seconds: timing.durationSeconds,
+				// order: items.map(item => item.id)  // TODO когда бэкенд уточнит
+			}
+
+			const response = await onPass(payload)
+			setResultData(response)
+			setExerciseState('result')
+		} catch (err) {
+			console.error('Ошибка при проверке задания:', err)
+			setError(
+				err instanceof Error
+					? err.message
+					: 'Что-то пошло не так. Попробуйте обновить страницу',
+			)
+		}
+	}
+
+	const handleReset = () => {
+		setItems(shuffleUntilDifferent(answersInfo))
+		setExerciseState('process')
+		setIsOrderChanged(false)
+		setResultData(null)
+		setTiming(null)
+		setError(null)
 	}
 
 	return (
-		<section>
+		<>
 			{exerciseState === 'process' && (
-				<ExerciseBase
-					id={id}
-					title={title}
-					description={description}
-					question={question}
-					onTimeStop={(time) => (elapsedTime.current = time)}
-					onNext={handleOnNext}
-					isDisabled={!isOrderChanged} // ← блокируем до первого перемещения
-				>
-					<DndContext
-						sensors={sensors}
-						collisionDetection={closestCenter}
-						onDragEnd={handleDragEnd}
-						modifiers={[restrictToParentElement]}
+				<section>
+					<ExerciseBase
+						id={id}
+						title={title}
+						description={description}
+						question={question}
+						onNext={handleOnNext}
+						isDisabled={!isOrderChanged}
 					>
-						<SortableContext
-							items={items.map((item) => item.id)}
-							strategy={verticalListSortingStrategy}
+						{error && (
+							<p role="alert" className={styles.error}>
+								⚠️ {error}
+							</p>
+						)}
+
+						<DndContext
+							sensors={sensors}
+							collisionDetection={closestCenter}
+							onDragEnd={handleDragEnd}
+							modifiers={[restrictToParentElement]}
 						>
-							<div className={styles.list}>
-								{items.map((item) => (
-									<SortableItem key={item.id} id={item.id} text={item.text} />
-								))}
-							</div>
-						</SortableContext>
-					</DndContext>
-				</ExerciseBase>
+							<SortableContext
+								items={items.map((item) => item.id)}
+								strategy={verticalListSortingStrategy}
+							>
+								<div className={styles.list}>
+									{items.map((item) => (
+										<SortableItem key={item.id} id={item.id} text={item.text} />
+									))}
+								</div>
+							</SortableContext>
+						</DndContext>
+					</ExerciseBase>
+				</section>
 			)}
 
-			{exerciseState === 'result' && <h1>результат</h1>}
-		</section>
+			{exerciseState === 'result' && timing && resultData && (
+				<ExerciseResult
+					exerciseName={title}
+					date={timing.finishedAt}
+					timeSpent={formatTime(timing.durationSeconds)}
+					resultPercent={resultData.score}
+					userAmountRightAnswer="17"
+					allAmountRightAnswer="20"
+					onReset={handleReset}
+					onComplete={() => {
+						router.replace(createUrl(routerPath.catalog))
+					}}
+				/>
+			)}
+		</>
 	)
 }
