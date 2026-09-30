@@ -10,6 +10,7 @@ import {
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
 import { ExerciseInput } from '@features/exercises/exercise-input'
 import { ExerciseMatching } from '@features/exercises/exercise-matching'
+import { ExerciseOrdering } from '@features/exercises/exercise-ordering'
 import type React from 'react'
 import type { TExercisePageProps } from './types'
 
@@ -28,6 +29,9 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 			return <ExerciseInput {...exercise} onPass={onPass} />
 		case 'matching':
 			return <ExerciseMatching {...exercise} onPass={onPass} />
+		case 'ordering':
+			return <ExerciseOrdering {...exercise} onPass={onPass} />
+
 		default:
 			return <p>Заглушка</p>
 	}
