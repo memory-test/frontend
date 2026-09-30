@@ -1,27 +1,26 @@
-.form {
+.wrapper {
 	display: flex;
 	flex-direction: column;
-	--form-gap: 20px;
+	--form-gap: 28px;
 	gap: var(--form-gap);
 }
 
-.passwordGroup {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.forgotLink {
-	align-self: flex-end;
-	color: var(--foreground-color);
-	text-decoration: underline;
-}
-
-.submit {
+.actionButton {
 	width: 100%;
 }
 
-.registerHint {
+.resendHint {
+	text-align: center;
+	font-size: var(--font-size-mobile-body-lg);
+	line-height: var(--line-height-mobile-body-lg);
+
+	@media (min-width: 1440px) {
+		font-size: var(--font-size-desktop-body-lg);
+		line-height: var(--line-height-desktop-body-lg);
+	}
+}
+
+.backHint {
 	text-align: center;
 	margin-top: calc(29px - var(--form-gap));
 	font-size: var(--font-size-mobile-body-lg);
