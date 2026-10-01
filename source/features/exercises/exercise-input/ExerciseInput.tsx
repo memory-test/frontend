@@ -98,13 +98,8 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 
 			// <-- 5. УЛУЧШЕНО: Чистая обработка ошибок без as any / as { response... }
 			if (err instanceof ApiError) {
-				const errorData = err.data as
-					| { detail?: string; answers?: string[] }
-					| undefined
-
 				const errorMessage =
-					errorData?.detail ||
-					errorData?.answers?.[0] ||
+					err.fieldErrors?.answers?.[0] ||
 					err.message ||
 					'Произошла ошибка при проверке ответа. Попробуйте ещё раз.'
 
