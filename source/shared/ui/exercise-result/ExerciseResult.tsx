@@ -1,4 +1,4 @@
-import { ArrowLeft, BarChart3, CheckCircle2, Clock, X } from 'lucide-react' // Импорт иконок
+import { ArrowLeft, Clock } from 'lucide-react' // Импорт иконок
 import Link from 'next/link'
 import type React from 'react'
 import { Button } from '../button'
@@ -86,21 +86,10 @@ export const ExerciseResult: React.FC<ExerciseResultProps> = ({
 	date,
 	resultPercent,
 	timeSpent,
-	userAmountRightAnswer,
-	allAmountRightAnswer,
 	onReset,
 	onComplete,
 }) => {
 	const formattedDate = formatDate(date)
-
-	// --- ПРЕОБРАЗОВАНИЕ ДАННЫХ (Single Source of Truth for numbers) ---
-
-	const correctCount = Number(userAmountRightAnswer)
-	const totalCount = Number(allAmountRightAnswer)
-	const errorCount = totalCount - correctCount
-
-	// Защита от NaN, если вдруг пришли мусорные данные
-	const safeErrorCount = Number.isNaN(errorCount) ? 0 : errorCount
 
 	let title = ''
 	let description = ''
@@ -155,35 +144,6 @@ export const ExerciseResult: React.FC<ExerciseResultProps> = ({
 					</div>
 					<span className={styles.statLabel}>Время выполнения</span>
 					<strong className={styles.statValue}>{timeSpent}</strong>
-				</div>
-
-				<div className={styles.statItem}>
-					<div className={styles.iconBox}>
-						<CheckCircle2 strokeWidth={1.5} />
-					</div>
-					<span className={styles.statLabel}>Правильные ответы</span>
-					{/* Используем оригинальные строки для отображения дроби, 
-                        чтобы не потерять форматирование бэкенда, если оно специфично */}
-					<strong className={styles.statValue}>
-						{userAmountRightAnswer}/{allAmountRightAnswer}
-					</strong>
-				</div>
-
-				<div className={styles.statItem}>
-					<div className={styles.iconBox}>
-						<X strokeWidth={1.5} />
-					</div>
-					<span className={styles.statLabel}>Количество ошибок</span>
-					{/* Используем уже посчитанное число */}
-					<strong className={styles.statValue}>{safeErrorCount}</strong>
-				</div>
-
-				<div className={styles.statItem}>
-					<div className={styles.iconBox}>
-						<BarChart3 strokeWidth={1.5} />
-					</div>
-					<span className={styles.statLabel}>Лучший результат</span>
-					<strong className={styles.statValue}>{resultPercent}%</strong>
 				</div>
 			</Surface>
 

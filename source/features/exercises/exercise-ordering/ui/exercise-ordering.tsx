@@ -178,8 +178,6 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
 					resultPercent={resultData.score}
-					userAmountRightAnswer="17"
-					allAmountRightAnswer="20"
 					onReset={handleReset}
 					onComplete={() => {
 						router.replace(createUrl(routerPath.catalog))
