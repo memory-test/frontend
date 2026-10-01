@@ -4,21 +4,12 @@ import type {
 	TResultExercise,
 } from '@entities/exercise'
 
-export type TGroupingAnswerInfo = {
-	items: {
-		id: number
-		text: string
-		image: string | null
-	}[]
-	groups: string[]
-}
-
 // Элемент с состоянием (в какой группе)
 export type TGroupingItemState = {
 	id: number
 	text: string
 	image: string | null
-	group: string | null // строка (имя группы)
+	group: string | null
 }
 
 export type TExerciseGroupingProps = Omit<

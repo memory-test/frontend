@@ -1,6 +1,6 @@
 'use client'
 
-import { useDraggable } from '@dnd-kit/core'
+import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import clsx from 'clsx'
 import type React from 'react'
@@ -19,11 +19,19 @@ export const GroupingItem: React.FC<TGroupingItemProps> = ({
 	isSelected,
 	onClick,
 }) => {
-	const { attributes, listeners, setNodeRef, transform, isDragging } =
-		useDraggable({ id: `item-${id}` })
+	const {
+		attributes,
+		listeners,
+		setNodeRef,
+		transform,
+		transition,
+		isDragging,
+	} = useSortable({ id: `item-${id}` })
 
 	const style = {
-		transform: CSS.Transform.toString(transform),
+		// ← сбрасываем transform, когда карточку тащат
+		transform: isDragging ? undefined : CSS.Transform.toString(transform),
+		transition: isDragging ? undefined : transition,
 	}
 
 	return (
@@ -39,7 +47,7 @@ export const GroupingItem: React.FC<TGroupingItemProps> = ({
 				[styles.itemDragging]: isDragging,
 			})}
 		>
-			{text}
+			<span className={styles.itemText}>{text}</span>
 		</button>
 	)
 }
