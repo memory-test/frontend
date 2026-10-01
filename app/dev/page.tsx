@@ -1,14 +1,11 @@
-/* import { QueryParamsControl } from '@features/query-params-control'
+import { QueryParamsControl } from '@features/query-params-control'
 import { createUrl, routerPath } from '@shared/lib/routes'
 import Link from 'next/link'
-import { Suspense } from 'react' */
-import { DashboardPage } from '@pages/dashboard-page'
+import { Suspense } from 'react'
 
 const HomePage: React.FC = () => {
-	return <DashboardPage />
-	/* ( 
+	return (
 		<div style={{ marginTop: '84px' }}>
-			
 			<nav>
 				<ul>
 					<li>
@@ -23,7 +20,7 @@ const HomePage: React.FC = () => {
 				<QueryParamsControl />
 			</Suspense>
 		</div>
-	) */
+	)
 }
 
 export default HomePage
