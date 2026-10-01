@@ -132,7 +132,6 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 
 			<div className={styles.actionButtons}>
 				<Button
-					//onClick={onSave}
 					variant="default"
 					type="submit"
 					size="sm"
