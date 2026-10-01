@@ -18,6 +18,7 @@ export const useDeleteAccountForm = () => {
 		handleSubmit,
 		reset,
 		watch,
+		setFocus,
 		formState: { errors },
 	} = useForm<TDeleteAccountFormValues>({
 		resolver: zodResolver(deleteAccountSchema),
@@ -34,6 +35,10 @@ export const useDeleteAccountForm = () => {
 		})
 		return () => subscription.unsubscribe()
 	}, [watch, isWrongPassword, resetMutation])
+
+	useEffect(() => {
+		if (isWrongPassword) setFocus('password')
+	}, [isWrongPassword, setFocus])
 
 	const onSubmit = handleSubmit((values) =>
 		deleteMutation.mutate(values.password, { onSuccess: logout }),
