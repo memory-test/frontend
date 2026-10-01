@@ -62,7 +62,6 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 				<>
 					<Modal.Title>Не удалось удалить аккаунт</Modal.Title>
 					<Modal.Description>{DELETE_ERROR_MESSAGE}</Modal.Description>
-
 					<div className={styles.modal__btnWrapper}>
 						<Button size="sm" variant="outline" onClick={onSubmit}>
 							Повторить
