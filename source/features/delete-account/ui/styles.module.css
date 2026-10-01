@@ -29,6 +29,11 @@
 	width: 100%;
 }
 
+.passwordField {
+	width: 100%;
+	max-width: 360px;
+}
+
 .modal__btnWrapper {
 	display: flex;
 	gap: 20px;

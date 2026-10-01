@@ -74,6 +74,7 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 					label="Пароль"
 					placeholder="Введите пароль"
 					autoComplete="current-password"
+					wrapperClassName={styles.passwordField}
 					errorMessage={passwordError}
 					{...register('password')}
 				/>
