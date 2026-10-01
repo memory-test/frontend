@@ -23,6 +23,7 @@ export const routeQueryParams = {
 	perPage: 'per_page',
 	email: 'email',
 	code: 'code',
+	from: 'from',
 } as const
 
 // Routes (Композиция сегментов)
