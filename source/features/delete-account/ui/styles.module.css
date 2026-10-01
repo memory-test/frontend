@@ -21,6 +21,14 @@
 	}
 }
 
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	width: 100%;
+}
+
 .modal__btnWrapper {
 	display: flex;
 	gap: 20px;
