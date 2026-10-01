@@ -7,5 +7,5 @@ export async function startSession(tokens: ITokens): Promise<void> {
 	tokenStorage.setTokens(tokens)
 
 	const user = await getCurrentUser()
-	useSessionStore.getState().setSession(user)
+	useSessionStore.getState().setSession(user) // setSession сам сбросит isInitializing
 }
