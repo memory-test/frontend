@@ -22,8 +22,10 @@ export const useUserProfile = () => {
 						id: user.id,
 						name: user.name,
 						email: user.email,
-						birth_date: user.birthDate,
+						birth_date: user.birthDate, // Или user.birth_date, зависит от того, как сохранено в сторе
+						age: user.age ?? '', // <-- ДОБАВЛЕНО: согласно OpenAPI (age: string)
 						current_difficulty: user.currentDifficulty,
+						progress_percent: Number(user.progressPercent ?? 0), // <-- ДОБАВЛЕНО: согласно OpenAPI (progress_percent: string). Преобразуем число в строку, если в сторе оно число.
 						role: user.role,
 						is_active: user.isActive,
 						date_joined: user.dateJoined,
@@ -53,9 +55,8 @@ export const useUserProfile = () => {
 						new_email: form.email,
 					})
 				} catch (emailError: unknown) {
-					// 🚨 УМНЫЙ ХАК ДЛЯ БАГА БЭКЕНДА:
-					// Если бэк вернул ошибку, но мы подозреваем, что он всё равно сохранил данные,
-					// мы проверим это, запросив актуального пользователя.
+					// ХАК ДЛЯ БАГА БЭКЕНДА:
+					// Если бэк вернул ошибку, проверяем, что он всё равно сохранил данные,  запросив актуального пользователя.
 					console.warn(
 						'⚠️ Запрос смены email вернул ошибку. Проверяем, сохранился ли email на самом деле...',
 						emailError,
