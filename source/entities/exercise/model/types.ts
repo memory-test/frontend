@@ -49,6 +49,15 @@ export type TExerciseOrderingAnswerInfo = {
 	position: number
 }
 
+export type TExerciseGroupingAnswerInfo = {
+	items: {
+		id: number
+		text: string
+		image: string | null
+	}[]
+	groups: string[]
+}
+
 type TChoiceAnswerMode = 'single_answer' | 'multiple_answer'
 
 type TExerciseFullBase = Omit<TExerciseShort, 'type'> & {
@@ -74,7 +83,7 @@ export type TExerciseFull =
 	| TExerciseVariant<'choice', TExerciseChoiceAnswerInfo[], TChoiceAnswerMode>
 	| TExerciseVariant<'input', Record<string, unknown>>
 	| TExerciseVariant<'ordering', TExerciseOrderingAnswerInfo[]>
-	| TExerciseVariant<'grouping', Record<string, unknown>>
+	| TExerciseVariant<'grouping', TExerciseGroupingAnswerInfo>
 	| TExerciseVariant<'matching', TExerciseMatchingAnswerInfo>
 	| TExerciseVariant<'drawing', Record<string, unknown>>
 	| TExerciseVariant<'offline', Record<string, unknown>>
@@ -136,7 +145,11 @@ type TPassExerciseVariant<T extends TExerciseType> = T extends 'choice'
 		? TPassExerciseBase & { answers: string[] }
 		: T extends 'matching'
 			? TPassExerciseBase & { pairs: TPassExerciseMatching[] }
-			: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering, grouping и будущих типов
+			: T extends 'grouping'
+				? TPassExerciseBase & {
+						assignments: { item_id: number; group: string }[]
+					}
+				: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering и будущих типов
 
 // 3. Итоговый тип.
 // Если тип не указан (по умолчанию = TExerciseType), это union всех вариантов (в соответствии с OpenAPI, схеме PassRequest.)
