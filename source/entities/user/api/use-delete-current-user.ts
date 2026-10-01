@@ -6,6 +6,7 @@ export const useDeleteCurrentUser = () => {
 
 	return useMutation({
 		mutationFn: deleteCurrentUser,
+		networkMode: 'always',
 		onSuccess: () => {
 			queryClient.clear()
 		},
