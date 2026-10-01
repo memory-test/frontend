@@ -6,6 +6,7 @@ import { PasswordInput } from '@shared/ui/password-input'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState } from 'react'
+import { DELETE_ERROR_MESSAGE } from '../model/constants'
 import { useDeleteAccountForm } from '../model/use-delete-account-form'
 import styles from './styles.module.css'
 import type { TDeleteAccountProps } from './types'
@@ -14,8 +15,15 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 	titleAs: Title = 'h3',
 }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const { register, onSubmit, passwordError, deleteMutation, resetState } =
-		useDeleteAccountForm()
+	const {
+		register,
+		onSubmit,
+		passwordError,
+		hasRequestError,
+		deleteMutation,
+		resetState,
+	} = useDeleteAccountForm()
+
 	const router = useRouter()
 
 	const handleOpenChange = (open: boolean) => {
@@ -49,11 +57,12 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 			)
 		}
 
-		if (deleteMutation.isError) {
+		if (hasRequestError) {
 			return (
 				<>
 					<Modal.Title>Не удалось удалить аккаунт</Modal.Title>
-					<Modal.Description>{deleteMutation.error.message}</Modal.Description>
+					<Modal.Description>{DELETE_ERROR_MESSAGE}</Modal.Description>
+
 					<div className={styles.modal__btnWrapper}>
 						<Button size="sm" variant="outline" onClick={onSubmit}>
 							Повторить
