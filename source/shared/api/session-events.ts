@@ -1,11 +1,17 @@
 type TListener = () => void
 
-let listener: TListener | null = null
+const listeners = new Set<TListener>()
 
-export function onSessionExpired(callback: TListener): void {
-	listener = callback
+export function onSessionExpired(callback: TListener): () => void {
+	listeners.add(callback)
+
+	return () => {
+		listeners.delete(callback)
+	}
 }
 
 export function notifySessionExpired(): void {
-	listener?.()
+	for (const listener of listeners) {
+		listener()
+	}
 }
