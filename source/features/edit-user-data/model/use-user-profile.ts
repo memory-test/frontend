@@ -22,10 +22,10 @@ export const useUserProfile = () => {
 						id: user.id,
 						name: user.name,
 						email: user.email,
-						birth_date: user.birthDate, // Или user.birth_date, зависит от того, как сохранено в сторе
+						birth_date: user.birthDate,
 						age: user.age ?? '', // <-- ДОБАВЛЕНО: согласно OpenAPI (age: string)
 						current_difficulty: user.currentDifficulty,
-						progress_percent: Number(user.progressPercent ?? 0), // <-- ДОБАВЛЕНО: согласно OpenAPI (progress_percent: string). Преобразуем число в строку, если в сторе оно число.
+						progress_percent: Number(user.progressPercent ?? 0), // <-- ДОБАВЛЕНО: согласно OpenAPI (progress_percent: string).
 						role: user.role,
 						is_active: user.isActive,
 						date_joined: user.dateJoined,
