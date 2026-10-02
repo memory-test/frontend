@@ -46,7 +46,6 @@ export type TExerciseOrderingAnswerInfo = {
 	id: number
 	text: string
 	image: string | null
-	position: number
 }
 
 export type TExerciseGroupingAnswerInfo = {
@@ -151,7 +150,9 @@ type TPassExerciseVariant<T extends TExerciseType> = T extends 'choice'
 				? TPassExerciseBase & {
 						assignments: { item_id: number; group: string }[]
 					}
-				: TPassExerciseBase & Record<string, unknown> // Заглушка для ordering и будущих типов
+				: T extends 'ordering'
+					? TPassExerciseBase & { answers_ids: number[] }
+					: TPassExerciseBase & Record<string, unknown> // Заглушка для grouping и будущих типов
 
 // 3. Итоговый тип.
 // Если тип не указан (по умолчанию = TExerciseType), это union всех вариантов (в соответствии с OpenAPI, схеме PassRequest.)
