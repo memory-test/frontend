@@ -26,14 +26,13 @@ export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 	titleAs: Title = 'h3',
 }) => {
 	const difficulty = useSessionStore((state) => state.user?.currentDifficulty)
+	const isInitializing = useSessionStore((state) => state.isInitializing)
 
 	const { mutate: changeDifficulty, isError } = useUpdateDifficulty()
 
-	return (
-		<section className={styles.settingsCard}>
-			<Title className={styles.title}>Настройка сложности</Title>
-
-			{difficulty ? (
+	const renderControl = () => {
+		if (difficulty) {
+			return (
 				<ToggleGroup
 					label="Выбор уровня сложности"
 					labelClassName={styles.label}
@@ -46,9 +45,21 @@ export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 						changeDifficulty(value)
 					}}
 				/>
-			) : (
-				<p>Загрузка сложности...</p>
-			)}
+			)
+		}
+
+		if (isInitializing) {
+			return <p>Загрузка сложности...</p>
+		}
+
+		return <p role="alert">Не удалось загрузить сложность. Обновите страницу</p>
+	}
+
+	return (
+		<section className={styles.settingsCard}>
+			<Title className={styles.title}>Настройка сложности</Title>
+
+			{renderControl()}
 
 			{isError && <p role="alert">Не удалось сохранить настройку</p>}
 		</section>

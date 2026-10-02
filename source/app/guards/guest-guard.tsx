@@ -1,26 +1,28 @@
 'use client'
 
-import { tokenStorage } from '@shared/api'
-import { createUrl, routerPath } from '@shared/lib/routes'
-import { useRouter } from 'next/navigation'
+import { useSessionStore } from '@entities/session'
+import { createUrl, routeQueryParams, routerPath } from '@shared/lib/routes'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+
+const isInternalPath = (value: string): boolean =>
+	value.startsWith('/') && !value.startsWith('//')
 
 export const GuestGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const router = useRouter()
+	const searchParams = useSearchParams()
 
-	const [isAllowed, setIsAllowed] = useState(false)
+	const user = useSessionStore((state) => state.user)
+	const isInitializing = useSessionStore((state) => state.isInitializing)
 
 	useEffect(() => {
-		if (tokenStorage.getTokens()) {
-			router.replace(createUrl(routerPath.profile))
-			return
-		}
+		if (isInitializing || !user) return
 
-		setIsAllowed(true)
-	}, [router])
+		const from = searchParams.get(routeQueryParams.from) ?? ''
 
-	if (!isAllowed) return null
+		router.replace(isInternalPath(from) ? from : createUrl(routerPath.home))
+	}, [isInitializing, user, router, searchParams])
 
 	return children
 }
