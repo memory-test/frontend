@@ -1,7 +1,12 @@
 import { GuestGuard } from '@app/guards'
+import { Suspense } from 'react'
 
 const AuthLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-	return <GuestGuard>{children}</GuestGuard>
+	return (
+		<Suspense fallback={null}>
+			<GuestGuard>{children}</GuestGuard>
+		</Suspense>
+	)
 }
 
 export default AuthLayout
