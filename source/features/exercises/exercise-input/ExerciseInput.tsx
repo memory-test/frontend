@@ -130,7 +130,7 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 			<ExerciseResult
 				exerciseName={title}
 				date={timing.finishedAt}
-				resultPercent={Math.round(resultData.score * 100)}
+				resultPercent={resultData.score * 100}
 				timeSpent={formatTime(timing.durationSeconds)}
 				onReset={handleReset}
 				onComplete={handleComplete}
