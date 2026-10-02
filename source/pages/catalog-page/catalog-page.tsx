@@ -12,6 +12,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import styles from './styles.module.css'
 
+const PAGE_SIZE = 5
+
 const DIFFICULTY_OPTIONS = [
 	{ value: 'easy', label: 'Простая' },
 	{ value: 'medium', label: 'Средняя' },
@@ -38,6 +40,7 @@ export const CatalogPage: React.FC = () => {
 	const userDifficulty = useSessionStore(
 		(state) => state.user?.currentDifficulty,
 	)
+	const isInitializing = useSessionStore((state) => state.isInitializing)
 
 	const [difficultyOverride, setDifficultyOverride] = useState<TDifficulty>()
 	const [type, setType] = useState<TExerciseType | undefined>(undefined)
@@ -55,15 +58,16 @@ export const CatalogPage: React.FC = () => {
 		setPage(1)
 	}
 
-	const { data, isLoading, error } = useQuery({
+	const { data, isPending, error } = useQuery({
 		queryKey: ['exercises', difficulty, type, page],
 		queryFn: () =>
 			exerciseApi.getList({
 				difficulty,
 				type,
 				page,
-				limit: 20,
+				limit: PAGE_SIZE,
 			}),
+		enabled: !isInitializing,
 	})
 
 	return (
@@ -93,7 +97,7 @@ export const CatalogPage: React.FC = () => {
 				</div>
 
 				<section className={styles.cards}>
-					{isLoading && <p>Загрузка...</p>}
+					{isPending && <p>Загрузка...</p>}
 					{error && <p>Ошибка загрузки</p>}
 					{data && data.results.length === 0 && <p>Заданий пока нет</p>}
 					{data && data.results.length > 0 && (
@@ -130,7 +134,7 @@ export const CatalogPage: React.FC = () => {
 									← Назад
 								</button>
 								<span className={styles.paginationInfo}>
-									Страница {page} из {Math.ceil(data.count / 5)}
+									Страница {page} из {Math.ceil(data.count / PAGE_SIZE)}
 								</span>
 								<button
 									type="button"

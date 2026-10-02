@@ -41,7 +41,7 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 			return <ExerciseGrouping {...exercise} onPass={onPass} />
 
 		default:
-			return <p>Заглушка</p>
+			return <p>Этот тип задания еще не реализован</p>
 	}
 }
 
