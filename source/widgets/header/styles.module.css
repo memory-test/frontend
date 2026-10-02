@@ -75,3 +75,35 @@
 	gap: 12px;
 	align-items: center;
 }
+
+.skeletonPlaceholder {
+	/* Мобильная: круглый плейсхолдер под бургер 48×48 */
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+
+	/* Цвет в тон хедера: primary-color с 15% прозрачности */
+	background-color: color-mix(in oklch, var(--primary-color) 15%, transparent);
+
+	/* Плавная пульсация */
+	animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Десктоп: резервируем место под МАКСИМАЛЬНУЮ ширину (кнопки гостя = 510.5px) */
+@container (min-width: 1440px) {
+	.skeletonPlaceholder {
+		width: 511px;
+		height: 48px;
+		border-radius: 24px;
+	}
+}
+
+@keyframes skeleton-pulse {
+	0%,
+	100% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 1;
+	}
+}
