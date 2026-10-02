@@ -1,5 +1,13 @@
 import { create } from 'zustand'
-import type { ISessionState } from './types'
+import type { IUser } from './types'
+
+export interface ISessionState {
+	user: IUser | null
+	isInitializing: boolean // <-- Флаг первоначальной загрузки
+	setSession: (user: IUser) => void
+	clearSession: () => void
+	setInitializing: (value: boolean) => void // <-- Метод для управления флагом
+}
 
 export const useSessionStore = create<ISessionState>((set) => ({
 	user: null,
