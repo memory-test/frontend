@@ -90,7 +90,7 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 						description={description}
 						question={question}
 						onNext={handleOnNext}
-						isDisabled={!toggleState}
+						isDisabled={toggleState.length <= 0}
 					>
 						<Surface>
 							{error && (
