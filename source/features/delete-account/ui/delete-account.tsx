@@ -1,5 +1,6 @@
 'use client'
 
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { Modal } from '@shared/ui/modal'
 import { PasswordInput } from '@shared/ui/password-input'
@@ -27,13 +28,20 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 	const router = useRouter()
 
 	const handleOpenChange = (open: boolean) => {
-		if (!open && deleteMutation.isPending) return
-
-		setIsOpen(open)
-
-		if (!open) {
-			resetState()
+		if (open) {
+			setIsOpen(true)
+			return
 		}
+
+		if (deleteMutation.isPending) return
+
+		if (deleteMutation.isSuccess) {
+			router.replace(createUrl(routerPath.home))
+			return
+		}
+
+		setIsOpen(false)
+		resetState()
 	}
 
 	const renderModalContent = () => {
@@ -50,9 +58,9 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 			return (
 				<>
 					<Modal.Title>Аккаунт удалён</Modal.Title>
-					<Button size="sm" onClick={() => router.replace('/')}>
-						На главную
-					</Button>
+					<Modal.Close asChild>
+						<Button size="sm">На главную</Button>
+					</Modal.Close>
 				</>
 			)
 		}
