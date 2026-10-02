@@ -6,12 +6,13 @@ interface IUserResponse {
 	email: string | null
 	name: string
 	birth_date: string | null
-	age: string
+	age: number // <-- ИСПРАВЛЕНО: в OpenAPI спеке age имеет тип integer, а не string
 	current_difficulty: 'easy' | 'medium' | 'hard'
 	progress_percent: number
 	role: 'user' | 'admin'
 	is_active: boolean
 	date_joined: string
+	avatar: string | null
 }
 
 export async function getCurrentUser(): Promise<IUser> {
@@ -22,11 +23,12 @@ export async function getCurrentUser(): Promise<IUser> {
 		email: response.email,
 		name: response.name,
 		birthDate: response.birth_date,
-		age: response.age,
+		age: response.age?.toString() ?? '',
 		currentDifficulty: response.current_difficulty,
 		progressPercent: response.progress_percent,
 		role: response.role,
 		isActive: response.is_active,
 		dateJoined: response.date_joined,
+		avatar: response.avatar,
 	}
 }

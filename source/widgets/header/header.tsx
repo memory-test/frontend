@@ -63,11 +63,19 @@ export const Header: React.FC<THeaderProps> = () => {
 	const isLoggedIn = Boolean(user)
 
 	const desktopProfileSlot = user ? (
-		<ProfileInfo name={user.name} size="md" />
+		<ProfileInfo
+			name={user.name}
+			size="md"
+			avatarUrl={user.avatar || undefined}
+		/>
 	) : undefined
 
 	const mobileProfileSlot = (
-		<Avatar name={user ? user.name : 'Гость'} size="sm" />
+		<Avatar
+			name={user ? user.name : 'Гость'}
+			size="sm"
+			avatarUrl={user?.avatar || undefined}
+		/>
 	)
 
 	const desktopAuthSlot = !isLoggedIn ? (
@@ -96,7 +104,13 @@ export const Header: React.FC<THeaderProps> = () => {
 					className={styles.desktopOnly}
 					accountSlot={desktopProfileSlot}
 					authSlot={desktopAuthSlot}
-					profileSlot={<Avatar name={user?.name || ''} size="sm" />}
+					profileSlot={
+						<Avatar
+							name={user?.name || ''}
+							size="sm"
+							avatarUrl={user?.avatar || undefined}
+						/>
+					}
 					notificationsSlot={notificationsSlot}
 					onLogout={handleLogout}
 				/>

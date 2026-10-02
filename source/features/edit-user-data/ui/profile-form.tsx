@@ -11,8 +11,8 @@ import styles from './profile-form.module.css'
 type TProfileFormProps = {
 	form: TEditForm
 	initialForm: TEditForm | null
-	avatarUrl: string | undefined
-	onAvatarChange: (url: string) => void
+	avatar?: string | null
+	onAvatarUpload: (file: File) => void
 	onChange: (form: TEditForm) => void
 	onSave: () => void
 	onCancel: () => void
@@ -22,8 +22,8 @@ type TProfileFormProps = {
 export const ProfileForm: React.FC<TProfileFormProps> = ({
 	form,
 	initialForm,
-	avatarUrl,
-	onAvatarChange,
+	avatar,
+	onAvatarUpload,
 	onChange,
 	onSave,
 	onCancel,
@@ -37,11 +37,6 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 
 	const isEmailChanged = form.email !== initialForm?.email
 
-	const handleAvatarUpload = (file: File) => {
-		const url = URL.createObjectURL(file)
-		onAvatarChange(url)
-	}
-
 	return (
 		<form
 			className={styles.form}
@@ -52,10 +47,10 @@ export const ProfileForm: React.FC<TProfileFormProps> = ({
 		>
 			<div className={styles.avatarSection}>
 				<AvatarUpload
-					avatarUrl={avatarUrl}
+					avatarUrl={avatar || undefined}
 					name={form.name}
 					size="lg"
-					onChange={handleAvatarUpload}
+					onChange={onAvatarUpload}
 				/>
 			</div>
 			<div className={styles.fieldsSection}>

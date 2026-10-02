@@ -3,6 +3,7 @@ import {
 	useSetEmail,
 	useUpdateProfile,
 } from '@entities/user/api/use-update-profile'
+import { useUploadAvatar } from '@entities/user/api/use-upload-avatar'
 import { useMemo } from 'react'
 import { buildBirthDate } from './helpers'
 import type { TEditForm, TUserProfile } from './types'
@@ -13,6 +14,7 @@ export const useUserProfile = () => {
 
 	const updateProfileMutation = useUpdateProfile()
 	const setEmailMutation = useSetEmail()
+	const uploadAvatarMutation = useUploadAvatar()
 
 	// Мемоизируем profile, чтобы он не создавался заново при каждом рендере
 	const profile: TUserProfile | null = useMemo(
@@ -29,13 +31,31 @@ export const useUserProfile = () => {
 						role: user.role,
 						is_active: user.isActive,
 						date_joined: user.dateJoined,
-						avatar_url: undefined,
+						avatar: user.avatar,
 					}
 				: null,
 		[user], // Пересоздаем только если user изменился
 	)
 
 	const isLoading = !user
+
+	// <-- ДОБАВЛЕНО: Функция для загрузки аватара
+	const handleAvatarUpload = async (file: File) => {
+		try {
+			// 1. Отправляем файл на сервер
+			await uploadAvatarMutation.mutateAsync(file)
+
+			// 2. После успеха запрашиваем актуального пользователя, чтобы обновить стор
+			// (и хедер сразу покажет новый аватар)
+			const { getCurrentUser } = await import('@entities/session')
+			const updatedUser = await getCurrentUser()
+			setSession(updatedUser)
+		} catch (error) {
+			console.error('❌ ОШИБКА ПРИ ЗАГРУЗКЕ АВАТАРА:', error)
+			// Пробрасываем ошибку, чтобы UI мог показать сообщение (например, "Файл слишком большой")
+			throw error
+		}
+	}
 
 	const updateProfile = async (form: TEditForm) => {
 		if (!user) return
@@ -73,6 +93,7 @@ export const useUserProfile = () => {
 		profile,
 		isLoading,
 		updateProfile,
+		handleAvatarUpload,
 		isPending: updateProfileMutation.isPending || setEmailMutation.isPending,
 		error: updateProfileMutation.error || setEmailMutation.error,
 	}
