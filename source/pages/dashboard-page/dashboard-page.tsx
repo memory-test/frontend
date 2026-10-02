@@ -63,7 +63,7 @@ export const DashboardPage: React.FC = () => {
 				<ProgressCard
 					icon={<Target size={24} className={styles.progressIcon} />}
 					title="Общий результат занятий"
-					percentRate={Math.round(progressPercent)}
+					percentRate={progressPercent}
 				/>
 			</Surface>
 		</main>

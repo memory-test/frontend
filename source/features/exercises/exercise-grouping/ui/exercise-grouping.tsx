@@ -288,10 +288,6 @@ export const ExerciseGrouping: React.FC<TExerciseGroupingProps> = ({
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
 					resultPercent={resultData.score * 100}
-					userAmountRightAnswer={Math.round(
-						resultData.score * items.length,
-					).toString()}
-					allAmountRightAnswer={items.length.toString()}
 					onReset={handleReset}
 					onComplete={() => {
 						router.replace(createUrl(routerPath.catalog))
