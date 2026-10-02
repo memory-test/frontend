@@ -12,7 +12,12 @@ import { ExerciseGrouping } from '@features/exercises/exercise-grouping'
 import { ExerciseInput } from '@features/exercises/exercise-input'
 import { ExerciseMatching } from '@features/exercises/exercise-matching'
 import { ExerciseOrdering } from '@features/exercises/exercise-ordering'
+import { tokenStorage } from '@shared/api'
+import { createUrl, routerPath } from '@shared/lib/routes'
+import { Button } from '@shared/ui/button'
+import { Modal } from '@shared/ui/modal'
 import type React from 'react'
+import { useCallback, useState } from 'react'
 import type { TExercisePageProps } from './types'
 
 type TRenderExerciseProps = TExerciseFull & {
@@ -41,6 +46,8 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 }
 
 export const ExercisePage: React.FC<TExercisePageProps> = ({ exerciseId }) => {
+	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+
 	const {
 		data: exercise,
 		isPending,
@@ -51,6 +58,17 @@ export const ExercisePage: React.FC<TExercisePageProps> = ({ exerciseId }) => {
 	// mutateAsync - строгий тип: (payload: TPassExercisePayload) => Promise<TResultExercise>
 	const { mutateAsync: passExercise } = usePassExercise(exerciseId)
 
+	const handlePass = useCallback(
+		async (payload: TPassExercisePayload): Promise<TResultExercise> => {
+			if (!tokenStorage.getTokens()) {
+				setIsAuthModalOpen(true)
+			}
+
+			return passExercise(payload)
+		},
+		[passExercise],
+	)
+
 	if (isPending) return <main>Загрузка...</main>
 	if (isError || !exercise) {
 		return (
@@ -60,5 +78,23 @@ export const ExercisePage: React.FC<TExercisePageProps> = ({ exerciseId }) => {
 		)
 	}
 
-	return <main>{renderExercise({ ...exercise, onPass: passExercise })}</main>
+	return (
+		<main>
+			{renderExercise({ ...exercise, onPass: handlePass })}
+
+			<Modal open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen}>
+				<Modal.Title>Необходимо войти в аккаунт</Modal.Title>
+				<Modal.Description>
+					Чтобы отправить задание на проверку и увидеть результат, войдите в
+					аккаунт. Ответы этой попытки не сохранятся.
+				</Modal.Description>
+				<div style={{ display: 'flex', gap: '24px' }}>
+					<Button href={createUrl(routerPath.auth)}>Войти</Button>
+					<Modal.Close asChild>
+						<Button variant="outline">Остаться гостем</Button>
+					</Modal.Close>
+				</div>
+			</Modal>
+		</main>
+	)
 }

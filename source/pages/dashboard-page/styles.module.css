@@ -1,0 +1,36 @@
+/* source/pages/dashboard-page/styles.module.css */
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 24px; /* Отступ между карточками */
+}
+
+.welcomeCard,
+.progressSection {
+	padding: 24px; /* Внутренние отступы карточек */
+	width: 100%; /* Карточки занимают всю доступную ширину контейнера */
+	max-width: 1360px;
+	margin: 0 auto; /* Центрируем контейнер */
+}
+
+.sectionTitle {
+	margin: 0 0 16px 0;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.progressIcon {
+	color: var(--color-primary, #3b82f6);
+}
+
+.loader,
+.error {
+	text-align: center;
+	padding: 40px 0;
+	font-size: 18px;
+}
+
+.error {
+	color: var(--color-error, #dc2626);
+}
