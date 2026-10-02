@@ -7,14 +7,6 @@ import styles from './edit-user-data.module.css'
 import { ProfileForm } from './profile-form'
 import { ProfileView } from './profile-view'
 
-// 1. Форма, в которой бэкенд возвращает ошибки
-interface IErrorResponse {
-	new_email?: string[]
-	current_password?: string[]
-	detail?: string
-	message?: string
-}
-
 type TEditUserDataProps = {
 	isEditing: boolean
 	onEditingChange: (value: boolean) => void
@@ -61,59 +53,32 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 			await updateProfile(form)
 			onEditingChange(false)
 		} catch (e: unknown) {
-			// 2. Данные об ошибке
-			let errorData: IErrorResponse | null = null
-
+			// ИСПРАВЛЕНО: используем правильные свойства ApiError (fieldErrors и message)
 			if (e instanceof ApiError) {
-				// Если ApiError хранит ответ в поле `data` (или `body`, проверить свой файл ApiError)
-				errorData = (e as unknown as { data?: IErrorResponse }).data || null
-			} else if (e instanceof Error && 'response' in e) {
-				// Фоллбэк для сырых ошибок сетевого клиента (например, Ky)
-				errorData =
-					(e as unknown as { response?: { data?: IErrorResponse } }).response
-						?.data || null
-			}
-
-			// 3. Проверка конкретных полей от бэкенда
-			if (errorData?.new_email?.[0]) {
-				setError(errorData.new_email[0])
-				return
-			}
-
-			if (errorData?.current_password?.[0]) {
-				setError(errorData.current_password[0])
-				return
-			}
-
-			if (errorData?.detail) {
-				setError(errorData.detail)
-				return
-			}
-
-			// 4. Если специфичных полей нет, используем стандартное сообщение об ошибке
-			if (e instanceof Error) {
-				if (
-					e.message.includes('Unexpected end of JSON') ||
-					e.message.includes('400')
-				) {
-					setError(
-						'Ошибка: проверьте правильность текущего пароля и формат нового email.',
-					)
+				// e.fieldErrors имеет тип Record<string, string[]> | undefined
+				if (e.fieldErrors?.new_email?.[0]) {
+					setError(e.fieldErrors.new_email[0])
 					return
 				}
 
-				// Показываем сообщение, если оно не является сырой технической строкой
-				if (
-					!e.message.includes('Request failed') &&
-					!e.message.includes('fetch')
-				) {
+				if (e.fieldErrors?.current_password?.[0]) {
+					setError(e.fieldErrors.current_password[0])
+					return
+				}
+
+				// Если есть общая ошибка (например, detail от бэкенда)
+				if (e.message) {
 					setError(e.message)
 					return
 				}
 			}
 
-			// 5. Фоллбэк на случай совсем непредвиденных обстоятельств
-			setError('Ошибка при сохранении. Проверьте введенные данные.')
+			// Фоллбэк на случай непредвиденных сетевых ошибок
+			setError(
+				e instanceof Error
+					? e.message
+					: 'Ошибка при сохранении. Проверьте введенные данные.',
+			)
 		}
 	}
 

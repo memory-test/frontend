@@ -21,7 +21,6 @@ export const useScrollHeader = () => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 10)
 		}
-
 		window.addEventListener('scroll', handleScroll, { passive: true })
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [])
@@ -31,14 +30,37 @@ export const useScrollHeader = () => {
 
 export const Header: React.FC<THeaderProps> = () => {
 	const router = useRouter()
+
+	// <-- 1. ДОБАВЛЕНО: user, и isInitializing
 	const user = useSessionStore((state) => state.user)
-	const isLoggedIn = Boolean(user)
+	const isInitializing = useSessionStore((state) => state.isInitializing)
+
 	const isScrolled = useScrollHeader()
 
 	const handleLogout = () => {
 		logout()
 		router.push(createUrl(routerPath.auth))
 	}
+
+	// <-- 2. ДОБАВЛЕНО: Пока идет инициализация, показываем "скелетон" хедера
+	// Это предотвращает мигание (layout shift), так как высота сохраняется
+	if (isInitializing) {
+		return (
+			<header className={clsx(styles.header, isScrolled && styles.scrolled)}>
+				<div className={styles.brand}>
+					<Logo />
+					<span className={styles.brandTitle}>Тренажер памяти</span>
+				</div>
+				<div className={styles.menus}>
+					{/* Пустой блок той же высоты, что и кнопки/аватар, чтобы не было скачка */}
+					<div className={styles.skeletonPlaceholder} />
+				</div>
+			</header>
+		)
+	}
+
+	// <-- 3. Основной рендер (выполняется только когда isInitializing === false)
+	const isLoggedIn = Boolean(user)
 
 	const desktopProfileSlot = user ? (
 		<ProfileInfo name={user.name} size="md" />
@@ -59,9 +81,7 @@ export const Header: React.FC<THeaderProps> = () => {
 		</div>
 	) : undefined
 
-	// TODO: При реализации системы уведомлений заменить undefined на слот
 	const notificationsSlot = undefined
-
 	const currentMobileMenuItems = getMobileMenuItems(isLoggedIn)
 
 	return (

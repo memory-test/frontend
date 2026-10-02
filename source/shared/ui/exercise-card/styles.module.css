@@ -9,6 +9,13 @@
 	line-height: var(--line-height-mobile-body-lg);
 	color: var(--foreground-color);
 
+	/* Обрезка длинного заголовка */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	min-width: 0;
+
 	@media (min-width: 1440px) {
 		font-size: var(--font-size-desktop-body-lg);
 		line-height: var(--line-height-desktop-body-lg);

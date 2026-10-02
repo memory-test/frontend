@@ -23,7 +23,9 @@ export const useUserProfile = () => {
 						name: user.name,
 						email: user.email,
 						birth_date: user.birthDate,
+						age: user.age ?? '', // <-- ДОБАВЛЕНО: согласно OpenAPI (age: string)
 						current_difficulty: user.currentDifficulty,
+						progress_percent: Number(user.progressPercent ?? 0), // <-- ДОБАВЛЕНО: согласно OpenAPI (progress_percent: string).
 						role: user.role,
 						is_active: user.isActive,
 						date_joined: user.dateJoined,
@@ -47,35 +49,12 @@ export const useUserProfile = () => {
 
 			// 2. Проверяем смену email
 			if (form.email !== user.email) {
-				try {
-					await setEmailMutation.mutateAsync({
-						current_password: form.current_password,
-						new_email: form.email,
-					})
-				} catch (emailError: unknown) {
-					// 🚨 УМНЫЙ ХАК ДЛЯ БАГА БЭКЕНДА:
-					// Если бэк вернул ошибку, но мы подозреваем, что он всё равно сохранил данные,
-					// мы проверим это, запросив актуального пользователя.
-					console.warn(
-						'⚠️ Запрос смены email вернул ошибку. Проверяем, сохранился ли email на самом деле...',
-						emailError,
-					)
-
-					const { getCurrentUser } = await import('@entities/session')
-					const updatedUser = await getCurrentUser()
-
-					// Если email в сторе теперь совпадает с тем, что мы пытались установить -> УСПЕХ!
-					if (updatedUser.email === form.email) {
-						console.log(
-							'✅ Email успешно изменен, несмотря на некорректный ответ 400 от бэкенда!',
-						)
-						setSession(updatedUser)
-						return // Выходим из функции успешно, НЕ пробрасывая ошибку в UI!
-					}
-
-					// Если email НЕ изменился, значит это реальная ошибка (например, неверный пароль)
-					throw emailError
-				}
+				// Теперь этот запрос вернет 200 OK с {"detail": "Email успешно изменён."}
+				// или честно выбросит ошибку (например, при неверном пароле)
+				await setEmailMutation.mutateAsync({
+					current_password: form.current_password,
+					new_email: form.email,
+				})
 			}
 
 			// 3. Обновляем стор актуальными данными (если мы не вышли из функции выше)
@@ -83,8 +62,10 @@ export const useUserProfile = () => {
 			const updatedUser = await getCurrentUser()
 			setSession(updatedUser)
 		} catch (error) {
+			// Если произошла ошибка (например, неверный пароль), просто пробрасываем её
+			// в handleSave, чтобы UI показал понятное сообщение пользователю.
 			console.error('❌ ОШИБКА ПРИ ОБНОВЛЕНИИ ПРОФИЛЯ:', error)
-			throw error // Пробрасываем ошибку в handleSave, чтобы показать её пользователю
+			throw error
 		}
 	}
 
