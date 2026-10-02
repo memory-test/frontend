@@ -103,14 +103,14 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 		setTiming(timing)
 		setError(null)
 
-		try {
-			const payload: TPassExercisePayload<'ordering'> = {
-				started_at: timing.startedAt,
-				finished_at: timing.finishedAt,
-				duration_seconds: timing.durationSeconds,
-				// order: items.map(item => item.id)  // TODO когда бэкенд уточнит
-			}
+		const payload: TPassExercisePayload<'ordering'> = {
+			started_at: timing.startedAt,
+			finished_at: timing.finishedAt,
+			duration_seconds: timing.durationSeconds,
+			answers_ids: items.map((item) => item.id),
+		}
 
+		try {
 			const response = await onPass(payload)
 			setResultData(response)
 			setExerciseState('result')
@@ -177,9 +177,11 @@ export const ExerciseOrdering: React.FC<TExerciseOrderingProps> = ({
 					exerciseName={title}
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
-					resultPercent={resultData.score}
-					userAmountRightAnswer="17"
-					allAmountRightAnswer="20"
+					resultPercent={resultData.score * 100}
+					userAmountRightAnswer={Math.round(
+						resultData.score * items.length,
+					).toString()}
+					allAmountRightAnswer={items.length.toString()}
 					onReset={handleReset}
 					onComplete={() => {
 						router.replace(createUrl(routerPath.catalog))
