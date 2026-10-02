@@ -1,11 +1,9 @@
 'use client'
 
-import type { TDifficulty } from '@entities/difficulty'
-import { difficultyStorage } from '@entities/difficulty'
-import { Switch } from '@shared/ui/switch'
+import { useSessionStore, useUpdateDifficulty } from '@entities/session'
+import type { TDifficulty } from '@shared/types'
 import { ToggleGroup } from '@shared/ui/toggle-group'
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import type { TDifficultySettingsProps } from './types'
 
@@ -27,54 +25,43 @@ const toggleItems = [
 export const DifficultySettings: React.FC<TDifficultySettingsProps> = ({
 	titleAs: Title = 'h3',
 }) => {
-	const [difficulty, setDifficulty] = useState<TDifficulty>('easy')
+	const difficulty = useSessionStore((state) => state.user?.currentDifficulty)
+	const isInitializing = useSessionStore((state) => state.isInitializing)
 
-	const lastSelectedRef = useRef<Exclude<TDifficulty, 'auto'>>('easy')
+	const { mutate: changeDifficulty, isError } = useUpdateDifficulty()
 
-	useEffect(() => {
-		const stored = difficultyStorage.get()
+	const renderControl = () => {
+		if (difficulty) {
+			return (
+				<ToggleGroup
+					label="Выбор уровня сложности"
+					labelClassName={styles.label}
+					items={toggleItems}
+					type="single"
+					value={difficulty}
+					onValueChange={(value: TDifficulty) => {
+						if (!value) return
 
-		if (stored) setDifficulty(stored)
-	}, [])
-
-	useEffect(() => {
-		if (difficulty !== 'auto') {
-			lastSelectedRef.current = difficulty
+						changeDifficulty(value)
+					}}
+				/>
+			)
 		}
-	}, [difficulty])
 
-	const changeDifficulty = (value: TDifficulty) => {
-		setDifficulty(value)
-		difficultyStorage.set(value)
-	}
+		if (isInitializing) {
+			return <p>Загрузка сложности...</p>
+		}
 
-	const handleCheckedChange = (checked: boolean) => {
-		changeDifficulty(checked ? 'auto' : lastSelectedRef.current)
+		return <p role="alert">Не удалось загрузить сложность. Обновите страницу</p>
 	}
 
 	return (
 		<section className={styles.settingsCard}>
 			<Title className={styles.title}>Настройка сложности</Title>
-			<ToggleGroup
-				label="Выбор уровня сложности"
-				labelClassName={styles.label}
-				items={toggleItems}
-				type="single"
-				value={difficulty}
-				onValueChange={(value: Exclude<TDifficulty, 'auto'>) => {
-					if (!value) return
 
-					changeDifficulty(value)
-				}}
-			/>
-			<div className={styles.switchWrapper}>
-				<label htmlFor="auto-mode">Включить автоадаптацию сложности</label>
-				<Switch
-					id="auto-mode"
-					checked={difficulty === 'auto'}
-					onCheckedChange={handleCheckedChange}
-				/>
-			</div>
+			{renderControl()}
+
+			{isError && <p role="alert">Не удалось сохранить настройку</p>}
 		</section>
 	)
 }

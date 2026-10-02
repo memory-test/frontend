@@ -7,10 +7,13 @@ import { useSessionStore } from '../model/store'
 
 export const SessionInitializer = () => {
 	useEffect(() => {
-		onSessionExpired(() => {
+		const unsubscribe = onSessionExpired(() => {
 			useSessionStore.getState().clearSession()
 		})
+
 		restoreSession()
+
+		return unsubscribe
 	}, [])
 
 	return null

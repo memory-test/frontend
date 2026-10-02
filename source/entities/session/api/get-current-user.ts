@@ -1,19 +1,6 @@
 import { http } from '@shared/api'
 import type { IUser } from '../model/types'
-
-interface IUserResponse {
-	id: number
-	email: string | null
-	name: string
-	birth_date: string | null
-	age: number // <-- ИСПРАВЛЕНО: в OpenAPI спеке age имеет тип integer, а не string
-	current_difficulty: 'easy' | 'medium' | 'hard'
-	progress_percent: number
-	role: 'user' | 'admin'
-	is_active: boolean
-	date_joined: string
-	avatar: string | null
-}
+import { type IUserResponse, mapUser } from './user-dto'
 
 export async function getCurrentUser(): Promise<IUser> {
 	const response = await http.get<IUserResponse>('auth/users/me/')
