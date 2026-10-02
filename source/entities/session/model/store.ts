@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import type { IUser } from './types'
 
-export interface ISessionState {
+interface ISessionState {
 	user: IUser | null
 	isInitializing: boolean // <-- Флаг первоначальной загрузки
 	setSession: (user: IUser) => void
