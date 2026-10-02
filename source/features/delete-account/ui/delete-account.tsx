@@ -1,12 +1,14 @@
 'use client'
 
-import { logout } from '@entities/session'
-import { useDeleteCurrentUser } from '@entities/user'
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { Modal } from '@shared/ui/modal'
+import { PasswordInput } from '@shared/ui/password-input'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState } from 'react'
+import { DELETE_ERROR_MESSAGE } from '../model/constants'
+import { useDeleteAccountForm } from '../model/use-delete-account-form'
 import styles from './styles.module.css'
 import type { TDeleteAccountProps } from './types'
 
@@ -14,19 +16,32 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 	titleAs: Title = 'h3',
 }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const deleteMutation = useDeleteCurrentUser()
-	const handleDelete = () =>
-		deleteMutation.mutate(undefined, { onSuccess: logout })
+	const {
+		register,
+		onSubmit,
+		passwordError,
+		hasRequestError,
+		deleteMutation,
+		resetState,
+	} = useDeleteAccountForm()
+
 	const router = useRouter()
 
 	const handleOpenChange = (open: boolean) => {
-		if (!open && deleteMutation.isPending) return
-
-		setIsOpen(open)
-
-		if (!open) {
-			deleteMutation.reset()
+		if (open) {
+			setIsOpen(true)
+			return
 		}
+
+		if (deleteMutation.isPending) return
+
+		if (deleteMutation.isSuccess) {
+			router.replace(createUrl(routerPath.home))
+			return
+		}
+
+		setIsOpen(false)
+		resetState()
 	}
 
 	const renderModalContent = () => {
@@ -43,20 +58,20 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 			return (
 				<>
 					<Modal.Title>Аккаунт удалён</Modal.Title>
-					<Button size="sm" onClick={() => router.replace('/')}>
-						На главную
-					</Button>
+					<Modal.Close asChild>
+						<Button size="sm">На главную</Button>
+					</Modal.Close>
 				</>
 			)
 		}
 
-		if (deleteMutation.isError) {
+		if (hasRequestError) {
 			return (
 				<>
 					<Modal.Title>Не удалось удалить аккаунт</Modal.Title>
-					<Modal.Description>{deleteMutation.error.message}</Modal.Description>
+					<Modal.Description>{DELETE_ERROR_MESSAGE}</Modal.Description>
 					<div className={styles.modal__btnWrapper}>
-						<Button size="sm" variant="outline" onClick={handleDelete}>
+						<Button size="sm" variant="outline" onClick={onSubmit}>
 							Повторить
 						</Button>
 						<Modal.Close asChild>
@@ -68,18 +83,26 @@ export const DeleteAccount: React.FC<TDeleteAccountProps> = ({
 		}
 
 		return (
-			<>
+			<form className={styles.form} noValidate onSubmit={onSubmit}>
 				<Modal.Title>Вы уверены, что хотите удалить аккаунт?</Modal.Title>
 				<Modal.Description>Восстановить аккаунт не получится</Modal.Description>
+				<PasswordInput
+					label="Пароль"
+					placeholder="Введите пароль"
+					autoComplete="current-password"
+					wrapperClassName={styles.passwordField}
+					errorMessage={passwordError}
+					{...register('password')}
+				/>
 				<div className={styles.modal__btnWrapper}>
-					<Button size="sm" variant="outline" onClick={handleDelete}>
+					<Button type="submit" size="sm" variant="outline">
 						Удалить
 					</Button>
 					<Modal.Close asChild>
 						<Button size="sm">Отмена</Button>
 					</Modal.Close>
 				</div>
-			</>
+			</form>
 		)
 	}
 
