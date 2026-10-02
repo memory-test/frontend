@@ -8,6 +8,7 @@ import {
 	usePassExercise,
 } from '@entities/exercise'
 import { ExerciseChoice } from '@features/exercises/exercise-choice'
+import { ExerciseGrouping } from '@features/exercises/exercise-grouping'
 import { ExerciseInput } from '@features/exercises/exercise-input'
 import { ExerciseMatching } from '@features/exercises/exercise-matching'
 import { ExerciseOrdering } from '@features/exercises/exercise-ordering'
@@ -36,6 +37,8 @@ const renderExercise = ({ onPass, ...exercise }: TRenderExerciseProps) => {
 			return <ExerciseMatching {...exercise} onPass={onPass} />
 		case 'ordering':
 			return <ExerciseOrdering {...exercise} onPass={onPass} />
+		case 'grouping':
+			return <ExerciseGrouping {...exercise} onPass={onPass} />
 
 		default:
 			return <p>Заглушка</p>

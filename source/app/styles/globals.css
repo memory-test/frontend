@@ -182,6 +182,7 @@ p {
 
 body {
 	min-block-size: 100dvh;
+	min-width: 0; /* добавлено */
 	display: flex;
 	flex-direction: column;
 	gap: 0;
@@ -193,9 +194,10 @@ body {
 
 main {
 	flex-grow: 1;
+	min-width: 0; /* добавлено */
+	width: 100%; /* добавлено (вместо min-inline-size) */
 	background-color: var(--bg-secondary);
 	padding: 32px 16px;
-	min-inline-size: 100%;
 	margin-inline: auto;
 	margin-block-start: var(--header-block-size);
 }

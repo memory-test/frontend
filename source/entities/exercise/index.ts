@@ -3,6 +3,7 @@ export type {
 	IPaginatedResponse,
 	TDifficulty,
 	TExerciseFull,
+	TExerciseGroupingAnswerInfo,
 	TExerciseListParams,
 	TExerciseMatchingAnswerInfo,
 	TExerciseMatchingOption,
