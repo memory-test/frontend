@@ -1,3 +1,4 @@
+import { createUrl, routerPath } from '@shared/lib/routes'
 import { Button } from '@shared/ui/button'
 import { Footer } from '@widgets/footer'
 import { ArrowRight } from 'lucide-react'
@@ -21,6 +22,7 @@ export const MainPage = () => (
 					iconAfter={<ArrowRight />}
 					variant={'default'}
 					size={'lg'}
+					href={createUrl(routerPath.catalog)}
 				>
 					Начать тренировку
 				</Button>
