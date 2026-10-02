@@ -126,18 +126,12 @@ export const ExerciseInput: React.FC<TExerciseInputProps> = ({
 
 	// --- СТЕЙТ RESULT ---
 	if (exerciseState === 'result' && resultData && timing) {
-		const totalAnswers =
-			answers.filter((item) => item.value.trim().length > 0).length || 1
-		const correctAnswers = Math.round(resultData.score * totalAnswers)
-
 		return (
 			<ExerciseResult
 				exerciseName={title}
 				date={timing.finishedAt}
-				resultPercent={Math.round(resultData.score * 100)}
+				resultPercent={resultData.score * 100}
 				timeSpent={formatTime(timing.durationSeconds)}
-				userAmountRightAnswer={correctAnswers.toString()}
-				allAmountRightAnswer={totalAnswers.toString()}
 				onReset={handleReset}
 				onComplete={handleComplete}
 			/>

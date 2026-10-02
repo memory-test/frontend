@@ -242,7 +242,7 @@
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
-	padding: 26px 12px 20px;
+	padding: 26px 12px 20px 25px;
 	margin-bottom: 56px;
 	text-align: center;
 
@@ -259,18 +259,22 @@
 	gap: 4px;
 	max-inline-size: 188px;
 	border-radius: 12px;
-	padding: 4px;
+	padding: 21px 12px;
+	border: solid 1px var(--foreground-secondary);
 
 	/* --- Плавность изменений --- */
 	transition:
 		border-color var(--duration-fast) ease,
 		background-color var(--duration-fast) ease;
 
+	@media (min-width: 516px) {
+		padding: 38px 12px;
+	}
+
 	@media (min-width: 1440px) {
 		inline-size: 188px;
 		padding-block-start: 16px;
 		min-block-size: 188px;
-		border: solid 1px var(--foreground-secondary);
 
 		/* Эффект при наведении мыши на блок */
 		&:hover {

@@ -133,8 +133,6 @@ export const ExerciseChoice: React.FC<TExerciseChoiceProps> = ({
 					date={timing.finishedAt}
 					timeSpent={formatTime(timing.durationSeconds)}
 					resultPercent={resultData.score * 100}
-					userAmountRightAnswer="17"
-					allAmountRightAnswer="20"
 					onReset={handleReset}
 					onComplete={() => {
 						router.replace(createUrl(routerPath.catalog))

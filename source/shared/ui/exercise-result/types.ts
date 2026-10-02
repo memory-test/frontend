@@ -4,9 +4,6 @@ export interface ExerciseResultProps {
 	date: string
 	resultPercent: number // Число от 0 до 100
 	timeSpent: string // Например "00:25"
-	// Строго по ТЗ: строки
-	userAmountRightAnswer: string
-	allAmountRightAnswer: string
 	onReset: () => void
 	onComplete: () => void
 }

@@ -8,11 +8,13 @@ export type TUserProfile = {
 	email: string | null
 	name: string
 	birth_date: string | null
+	age: string // <-- ДОБАВЛЕНО
 	current_difficulty: 'easy' | 'medium' | 'hard'
+	progress_percent: number // <-- ДОБАВЛЕНО (хотя в спеке указано string, бэкенд отдает number)
 	role: 'user' | 'admin'
 	is_active: boolean
 	date_joined: string
-	avatar_url?: string | undefined
+	avatar_url?: string | undefined // <-- ОСТАВЛЯЕМ, чтобы не ломать UI!
 }
 
 // Форма редактирования
