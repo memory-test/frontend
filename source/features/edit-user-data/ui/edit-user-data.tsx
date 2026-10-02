@@ -16,9 +16,16 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 	isEditing,
 	onEditingChange,
 }) => {
-	const { profile, isLoading, updateProfile } = useUserProfile()
-	const [error, setError] = useState<string | null>(null)
+	// Достаем error из хука, чтобы показывать ошибки загрузки аватара или профиля
+	const {
+		profile,
+		isLoading,
+		updateProfile,
+		handleAvatarUpload,
+		error: hookError,
+	} = useUserProfile()
 
+	const [error, setError] = useState<string | null>(null)
 	const [form, setForm] = useState<TEditForm>({
 		name: '',
 		email: '',
@@ -27,8 +34,6 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 		year: '',
 		current_password: '',
 	})
-
-	const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined)
 	const [initialForm, setInitialForm] = useState<TEditForm | null>(null)
 
 	useEffect(() => {
@@ -42,9 +47,16 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 			}
 			setInitialForm(data)
 			setForm(data)
-			setAvatarUrl(profile.avatar_url ?? undefined)
+			// Локальный стейт для аватара удален. Мы берем его напрямую из profile.avatar
 		}
 	}, [profile])
+
+	// Сбрасываем ошибку при начале редактирования
+	useEffect(() => {
+		if (isEditing) {
+			setError(null)
+		}
+	}, [isEditing])
 
 	const handleSave = async () => {
 		setError(null)
@@ -53,9 +65,7 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 			await updateProfile(form)
 			onEditingChange(false)
 		} catch (e: unknown) {
-			// ИСПРАВЛЕНО: используем правильные свойства ApiError (fieldErrors и message)
 			if (e instanceof ApiError) {
-				// e.fieldErrors имеет тип Record<string, string[]> | undefined
 				if (e.fieldErrors?.new_email?.[0]) {
 					setError(e.fieldErrors.new_email[0])
 					return
@@ -66,14 +76,12 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 					return
 				}
 
-				// Если есть общая ошибка (например, detail от бэкенда)
 				if (e.message) {
 					setError(e.message)
 					return
 				}
 			}
 
-			// Фоллбэк на случай непредвиденных сетевых ошибок
 			setError(
 				e instanceof Error
 					? e.message
@@ -83,22 +91,27 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 	}
 
 	const handleCancel = () => {
-		if (avatarUrl?.startsWith('blob:')) {
-			URL.revokeObjectURL(avatarUrl)
-		}
 		if (initialForm) {
 			setForm(initialForm)
 		}
-		setAvatarUrl(profile?.avatar_url ?? undefined)
 		setError(null)
 		onEditingChange(false)
 	}
 
-	const handleAvatarChange = (url: string) => {
-		if (avatarUrl?.startsWith('blob:')) {
-			URL.revokeObjectURL(avatarUrl)
+	// Обертка для загрузки аватара, чтобы поймать ошибку и показать её в UI формы
+	const onAvatarUploadWrapper = async (file: File) => {
+		setError(null)
+		try {
+			await handleAvatarUpload(file)
+		} catch (e: unknown) {
+			if (e instanceof ApiError) {
+				// Ошибки валидации файла от бэкенда придут в fieldErrors.avatar
+				const avatarError = e.fieldErrors?.avatar?.[0]
+				setError(avatarError || e.message || 'Ошибка при загрузке аватара')
+			} else {
+				setError('Ошибка сети при загрузке аватара')
+			}
 		}
-		setAvatarUrl(url)
 	}
 
 	if (isLoading) return <div>Загрузка...</div>
@@ -114,12 +127,15 @@ export const EditUserData: React.FC<TEditUserDataProps> = ({
 					<ProfileForm
 						form={form}
 						initialForm={initialForm}
-						avatarUrl={avatarUrl}
-						onAvatarChange={handleAvatarChange}
+						avatar={profile.avatar ?? undefined} // Берем актуальный аватар из стора
+						onAvatarUpload={onAvatarUploadWrapper} // Используем обертку с обработкой ошибок
 						onChange={setForm}
 						onSave={handleSave}
 						onCancel={handleCancel}
-						error={error}
+						error={
+							error ||
+							(hookError instanceof ApiError ? hookError.message : null)
+						}
 					/>
 				</section>
 			) : (

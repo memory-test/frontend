@@ -11,4 +11,5 @@ export interface IUser {
 	role: 'user' | 'admin'
 	isActive: boolean
 	dateJoined: string
+	avatar?: string | null
 }
