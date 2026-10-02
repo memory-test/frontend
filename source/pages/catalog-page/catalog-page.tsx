@@ -1,15 +1,15 @@
 'use client'
 
-import type { TDifficulty } from '@entities/difficulty'
-import { difficultyStorage } from '@entities/difficulty'
 import type { TExerciseType } from '@entities/exercise'
 import { exerciseApi } from '@entities/exercise'
+import { useSessionStore } from '@entities/session'
+import type { TDifficulty } from '@shared/types'
 import { ExerciseCard } from '@shared/ui/exercise-card'
 import { Select } from '@shared/ui/select'
 import { Surface } from '@shared/ui/surface'
 import { Tag } from '@shared/ui/tag'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 
 const DIFFICULTY_OPTIONS = [
@@ -35,22 +35,18 @@ const DIFFICULTY_MAP = {
 } as const
 
 export const CatalogPage: React.FC = () => {
-	const [difficulty, setDifficulty] = useState<TDifficulty | undefined>(
-		undefined,
+	const userDifficulty = useSessionStore(
+		(state) => state.user?.currentDifficulty,
 	)
+
+	const [difficultyOverride, setDifficultyOverride] = useState<TDifficulty>()
 	const [type, setType] = useState<TExerciseType | undefined>(undefined)
 	const [page, setPage] = useState(1)
-	const [isHydrated, setIsHydrated] = useState(false)
 
-	useEffect(() => {
-		const saved = difficultyStorage.get()
-		if (saved) setDifficulty(saved)
-		setIsHydrated(true)
-	}, [])
+	const difficulty = difficultyOverride ?? userDifficulty
 
 	const handleDifficultyChange = (value: TDifficulty) => {
-		setDifficulty(value)
-		difficultyStorage.set(value)
+		setDifficultyOverride(value)
 		setPage(1)
 	}
 
@@ -63,13 +59,11 @@ export const CatalogPage: React.FC = () => {
 		queryKey: ['exercises', difficulty, type, page],
 		queryFn: () =>
 			exerciseApi.getList({
-				difficulty:
-					difficulty === 'auto' ? undefined : (difficulty ?? undefined),
-				type: type,
-				page: page,
+				difficulty,
+				type,
+				page,
 				limit: 20,
 			}),
-		enabled: isHydrated,
 	})
 
 	return (
@@ -78,26 +72,24 @@ export const CatalogPage: React.FC = () => {
 				<div className={styles.toolbar}>
 					<h1 className={styles.title}>Каталог</h1>
 
-					{isHydrated && (
-						<div className={styles.filters}>
-							<Select
-								className={styles.select}
-								placeholder="Сложность"
-								options={DIFFICULTY_OPTIONS}
-								value={difficulty}
-								onValueChange={handleDifficultyChange}
-								aria-label="Фильтр по сложности"
-							/>
-							<Select
-								className={styles.select}
-								placeholder="Тип задания"
-								options={TYPE_OPTIONS}
-								value={type}
-								onValueChange={handleTypeChange}
-								aria-label="Фильтр по типу задания"
-							/>
-						</div>
-					)}
+					<div className={styles.filters}>
+						<Select
+							className={styles.select}
+							placeholder="Сложность"
+							options={DIFFICULTY_OPTIONS}
+							value={difficulty}
+							onValueChange={handleDifficultyChange}
+							aria-label="Фильтр по сложности"
+						/>
+						<Select
+							className={styles.select}
+							placeholder="Тип задания"
+							options={TYPE_OPTIONS}
+							value={type}
+							onValueChange={handleTypeChange}
+							aria-label="Фильтр по типу задания"
+						/>
+					</div>
 				</div>
 
 				<section className={styles.cards}>

@@ -1,4 +1,5 @@
 export { getCurrentUser } from './api/get-current-user'
+export { useUpdateDifficulty } from './api/hooks/use-update-difficulty'
 export { logout } from './model/logout'
 export { startSession } from './model/start-session'
 export { useSessionStore } from './model/store'

@@ -1,5 +1,7 @@
+import type { TDifficulty } from '@shared/types'
+
 // Уровень сложности
-export type TDifficulty = 'easy' | 'medium' | 'hard'
+export type { TDifficulty }
 
 // Тип задания
 export type TExerciseType =
